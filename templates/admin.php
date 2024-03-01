@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h1>Alecaddd Plugin</h1>
+	<h1>Wish List Plugin</h1>
 	<?php settings_errors(); ?>
 
 	<ul class="nav nav-tabs">
@@ -11,13 +11,7 @@
 	<div class="tab-content">
 		<div id="tab-1" class="tab-pane active">
 
-			<form method="post" action="options.php">
-				<?php 
-					settings_fields( 'alecaddd_plugin_settings' );
-					do_settings_sections( 'alecaddd_plugin' );
-					submit_button();
-				?>
-			</form>
+			
 			
 		</div>
 
