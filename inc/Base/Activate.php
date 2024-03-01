@@ -73,7 +73,7 @@ class Activate
 
 
 
-		add_action1( 'init', 'custom_post_type_wl_item', 0 );
+		
 
 
 		flush_rewrite_rules();
