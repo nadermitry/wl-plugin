@@ -1,0 +1,464 @@
+<?php
+
+/**
+ * @package  wlPlugin
+ */
+/*
+Plugin Name: Wish List Plugin
+Plugin URI: 
+Description: 
+Version: 1.0.0
+Author: Nader Mitry
+Author URI: 
+License: GPLv2 or later
+Text Domain: wl-plugin
+*/
+
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Copyright 2005-2015 Automattic, Inc.
+*/
+
+// If this file is called firectly, abort!!!
+defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+
+//use Inc\Pages\AddEvent;
+use Inc\Base\Event;
+use Inc\Base\Gift;
+
+
+// Require once the Composer Autoload
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
+
+
+global $wpdb;
+$charset_collate = $wpdb->get_charset_collate();
+/*
+
+$table_name = $wpdb->prefix . 'events';
+$sql = "CREATE TABLE $table_name (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    user_id mediumint(9) NOT NULL,
+	title varchar(255),
+    start_date datetime NOT NULL,
+	event_image  varchar(255),
+    end_date datetime ,
+    description text,
+	location_name varchar(255),
+	location_url varchar(255),
+    location_address varchar(255),
+	location_map varchar(255),
+	is_active BOOLEAN NOT NULL DEFAULT 1, 
+    PRIMARY KEY  (id)
+) $charset_collate;";
+
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+dbDelta( $sql ); 
+
+
+ $table_name = $wpdb->prefix . 'gifts';
+ $sql = "CREATE TABLE $table_name (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,    
+	title varchar(255),   
+    description text,
+	url VARCHAR(255) NOT NULL, 
+	img_url  VARCHAR(255) NOT NULL,
+	user_id mediumint(9) NOT NULL,
+	is_active BOOLEAN NOT NULL DEFAULT 1,  
+    PRIMARY KEY  (id)
+) $charset_collate;";
+
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+dbDelta( $sql ); 
+
+
+$table_name = $wpdb->prefix . 'event_gifts';
+$table_gifts_name = $wpdb->prefix . 'gifts';
+$table_events_name = $wpdb->prefix . 'events';
+$sql = "CREATE TABLE $table_name (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,    
+	event_id mediumint(9) NOT NULL,   
+    gift_id mediumint(9) NOT NULL,
+	is_active BOOLEAN NOT NULL DEFAULT 1,
+	views_count mediumint(9) NOT NULL DEFAULT 0,
+	purchase_count mediumint(9) NOT NULL DEFAULT 0,
+	user_id mediumint(9) NOT NULL,	
+    PRIMARY KEY  (id),
+	FOREIGN KEY (event_id) REFERENCES $table_events_name(id),
+    FOREIGN KEY (gift_id) REFERENCES  $table_gifts_name(id)
+	
+) $charset_collate;";
+
+require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+dbDelta( $sql ); 
+
+
+$view_name = $wpdb->prefix . 'gift_events_vw';
+
+// Your SQL query to create the view
+$query = "
+    CREATE VIEW $view_name AS
+    SELECT $wpdb->prefix". "events.*, $wpdb->prefix" . "event_gifts.gift_id
+	FROM $wpdb->prefix"."events
+	INNER JOIN $wpdb->prefix" . "event_gifts ON  $wpdb->prefix" . "event_gifts.event_id = $wpdb->prefix" . "events.id";
+
+// Execute the query
+$wpdb->query($query);
+
+
+$view_name = $wpdb->prefix . 'event_gifts_vw';
+
+// Your SQL query to create the view
+$query = "
+    CREATE VIEW $view_name AS
+    SELECT $wpdb->prefix". "gifts.*, $wpdb->prefix" . "event_gifts.event_id
+	FROM $wpdb->prefix"."gifts
+	INNER JOIN $wpdb->prefix" . "event_gifts ON  $wpdb->prefix" . "event_gifts.gift_id = $wpdb->prefix" . "gifts.id";
+
+// Execute the query
+$wpdb->query($query);
+*/
+
+
+function wl_ajax_giftsActionCounter() {
+    // Your AJAX logic goes here
+    // You can retrieve data from $_POST array
+
+    $data = $_POST['data'];
+    
+
+	$field_name=sanitize_text_field($data['type']);
+	
+  
+	global $wpdb;
+	// Table name
+	$table_name = $wpdb->prefix . 'event_gifts';	
+
+	
+	// Update query
+	$updated_rows =  $wpdb->query(
+		$wpdb->prepare(
+			"UPDATE $table_name SET $field_name = $field_name + 1 WHERE gift_id = %d AND event_id = %d",
+			intval($data['giftid']),
+			intval($data['eventid'])
+		)
+	);
+
+
+
+if ($updated_rows !== false) {
+    // If the update was successful, retrieve the updated views_count
+    $updated_count = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT $field_name FROM $table_name WHERE gift_id = %d AND event_id = %d",
+			intval($data['giftid']),
+            intval($data['eventid'])
+        )
+    );
+
+    if ($updated_count !== null) {
+        // Output or use the updated views_count as needed
+        $data ="{\"count\": $updated_count}";
+    
+} 
+    
+
+	wp_send_json_success($data);
+
+
+
+
+
+    wp_die(); // Always use wp_die() at the end of your AJAX callback function
+}
+}
+add_action('wp_ajax_wl_ajax_gifts_counter', 'wl_ajax_giftsActionCounter');
+add_action('wp_ajax_nopriv_wl_ajax_gifts_counter', 'wl_ajax_giftsActionCounter'); 
+
+
+function wl_ajax_add_to_event() {
+    // Your AJAX logic goes here
+    // You can retrieve data from $_POST array
+
+   $data   = $_POST['data'];
+   //$giftid =$data['giftid'];
+   //$events = $data['events'];  
+
+
+   global $wpdb;
+   $table_name = $wpdb->prefix . 'event_gifts';  
+   // Specify the condition for deleting rows
+   $where_condition = array('gift_id' => $data['giftid']);
+   // Format the where condition
+   $where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+   // Delete rows from the custom table
+   $wpdb->delete($table_name, $where_condition, $where_format);
+//Print_r($_POST['eventid']);
+   if (isset( $data['events'])) {
+	$returnHtml ='';
+       // Loop through each selected fruit
+       foreach ( $data['events'] as $eventID) {
+		
+           $data_to_insert = array(
+               'event_id' => $eventID,
+               'gift_id' =>  $data['giftid'],
+                'user_id' => get_current_user_id(),
+               // Add more columns and values as needed
+           );
+           
+           // Data format
+           $data_format = array(
+               '%d', // Use '%d' for integers, '%f' for floats, '%s' for strings
+               '%d' // Format corresponds to the data type of each value in the $data_to_insert array
+               // Add more format placeholders for additional columns
+           );
+           
+           // Insert data into the custom table
+           $wpdb->insert($table_name, $data_to_insert, $data_format);
+           
+
+		   $events_table = $wpdb->prefix . 'events';  
+   		   // Specify the condition for deleting rows
+   		   			
+			$eventinfo = $wpdb->get_row("SELECT * FROM $events_table WHERE id=" .$eventID);
+
+		   $returnHtml = $returnHtml .'<div class="bs-blog-category">
+				<a href="'. home_url() .'/event?eid=' .$eventinfo->id .'" arget="_blank" class="blogus-categories category-color-1">'
+			    . $eventinfo->title .
+			'</a>
+	</div>';
+          
+       }
+
+
+	}
+  
+	
+   echo $returnHtml;
+
+   
+	//wp_send_json_success($data);
+
+
+
+
+
+    wp_die(); // Always use wp_die() at the end of your AJAX callback function
+//}
+}
+add_action('wp_ajax_wl_add_to_event', 'wl_ajax_add_to_event');
+add_action('wp_ajax_nopriv_wl_add_to_event', 'wl_ajax_add_to_event'); 
+
+
+
+
+
+// Add a filter to modify the post title
+function hide_post_title($title, $id) {
+    // Check if it's the post you want to hide the title for
+	global $wpdb;
+//echo $_GET(eid);
+
+    if (is_single($id) || is_page($id)) {
+		if ($title==="Event"){
+ 			// Return an empty title
+			//echo  $title ;
+			//echo  $id ;
+			$eventid = isset($_GET['eid']) ? intval($_GET['eid']) : 1;
+			$result = $wpdb->get_results ( "
+    		SELECT title
+    		FROM   ".$wpdb->prefix ."events
+        		WHERE id =".  $eventid 
+				 );
+
+			foreach ( $result as $page )
+			{
+				
+        		//return $page->title;
+			}
+			return '';
+			
+		}
+       
+    }
+    
+    // If it's not the post you want to hide the title for, return the original title
+    return $title;
+}
+
+// Hook into the_title filter
+add_filter('the_title', 'hide_post_title', 10, 2);
+
+
+
+
+
+
+
+
+
+add_filter( 'single_template', 'override_single_template' );
+
+function override_single_template( $single_template ){
+	//echo $single_template;
+    global $post;
+    $file = dirname(__FILE__) .'\templates\single-'. $post->post_type .'.php';    
+    if( file_exists( $file ) ) $single_template = $file;
+	//echo $single_template;
+    return $single_template;
+}
+
+
+function use_custom_template($tpl){
+	global $taxonomy;
+	if ( $taxonomy== 'event'  ) {		
+		//echo '<pre>';
+		//print_r($taxonomy);
+		//echo '</pre>';
+	  $tpl  = dirname(__FILE__) .'\templates\single-event.php';    
+	}
+	return $tpl;
+  }
+  
+  add_filter( 'archive_template', 'use_custom_template' ) ;
+
+
+
+add_action( 'woocommerce_before_main_content', 'nader1', 20, 0 );
+add_action( 'woocommerce_sidebar', 'nader3', 10 );
+add_action( 'woocommerce_before_single_product', 'nader4', 10 );
+add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
+add_action( 'woocommerce_before_single_product_summary', 'nader3', 20 );
+
+
+
+function nader1(){
+	global $product;
+	$id = $product->get_id();
+	echo "<div>1111111111111111111111</div>";
+
+}
+
+function nader2(){
+	//global $product;
+	//$id = $product->get_id();
+	echo "<div>222222222222222222222222</div>";
+
+}
+
+function nader3(){
+	//global $product;
+	//$id = $product->get_id();
+	echo "<div>33333333333333333333333333333</div>";
+
+}
+
+function nader4(){
+	global $product;
+	$id = $product->get_id();
+	echo "<div>4444444444444444444</div>".$id;
+
+}
+
+function isValidImage($strPath){    
+    $ret=false;   
+    $findme = array("jpg");   
+        foreach ($findme as $ext){ 
+            if (!is_null($strPath) ){    
+         $pos = strpos(strtoupper($strPath), strtoupper('.'.$ext));   
+            if  ($pos){
+            $nsize= getimagesize($strPath);       
+            if ($nsize[0] >100 ){
+                $ret=true;
+            } 
+        }  
+        }
+    }
+    return $ret;  
+    }
+
+
+function add_gift_shortcode(){
+	if ( class_exists( 'Inc\Base\\Gift' ) ) {    
+		$giftManager = new Gift();
+		return $giftManager->add();
+	}
+}
+add_shortcode('wl_addGift', 'add_gift_shortcode');
+
+
+function list_gifts_shortcode(){
+    if ( class_exists( 'Inc\Base\\Gift' ) ) {    
+		$giftManager = new Gift();
+		return $giftManager->viewList();
+	}
+}
+add_shortcode('wl_listGifts', 'list_gifts_shortcode');
+
+
+function list_events_shortcode(){
+	if ( class_exists( 'Inc\Base\\Event' ) ) {    
+	$eventManager = new Event();
+	return $eventManager->viewList();
+	}	
+}
+add_shortcode('wl_listEvents', 'list_events_shortcode');
+
+
+
+function addEvent_shortcode(){
+	if ( class_exists( 'Inc\Base\\Event' ) ) {		
+		$eventManager = new Event();
+		return $eventManager->add();
+    }
+}
+add_shortcode('wl_addEvent', 'addEvent_shortcode');
+
+
+function event_shortcode(){
+
+    if ( class_exists( 'Inc\Base\\Event' ) ) {		
+		$eventManager = new Event();
+		return $eventManager->view();
+    }
+}
+add_shortcode('wl_event', 'event_shortcode');
+
+
+/**
+ * The code that runs during plugin activation
+ */
+function activate_wl_plugin() {
+	Inc\Base\Activate::activate();
+}
+register_activation_hook( __FILE__, 'activate_wl_plugin' );
+
+/**
+ * The code that runs during plugin deactivation
+ */
+function deactivate_wl_plugin() {
+	Inc\Base\Deactivate::deactivate();
+}
+register_deactivation_hook( __FILE__, 'deactivate_wl_plugin' );
+
+/**
+ * Initialize all the core classes of the plugin
+ */
+if ( class_exists( 'Inc\\Init' ) ) {
+	Inc\Init::register_services();
+}
