@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package  AlecadddPlugin
+ * @package   wlPlugin
  */
 namespace Inc\Pages;
 use Inc\Base\BaseController;

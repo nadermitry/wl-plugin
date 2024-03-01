@@ -1,6 +1,6 @@
 <?php 
 /**
- * @package  AlecadddPlugin
+ * @package   wlPlugin
  */
 namespace Inc\Api\Callbacks;
 
