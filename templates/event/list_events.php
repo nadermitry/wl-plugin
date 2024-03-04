@@ -157,11 +157,11 @@ foreach ($results as $result) :
         <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->start_date));?></time>
     </span>
 
-    <?php foreach ($gifts as $gift) : ?>
+   <!-- <?php foreach ($gifts as $gift) : ?>
                             <p class="card-text"><div class="bs-blog-category"><a href="<?php echo $gift->url ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a></div>
                             <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
                             <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button>
-        <?php endforeach ; ?>
+        <?php endforeach ; ?>-->
 
     <!--    
     <span class="edit-link">
