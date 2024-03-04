@@ -70,8 +70,11 @@ foreach ($results as $result) :
             </div>
         
         <?php foreach ($gifts as $gift) : ?>
-                            <p class="card-text"><div class="bs-blog-category"><a href="" target="_blank" class="blogus-categories category-color-1"><?php  echo $gift->title ?></span></a></div>
-                        <?php endforeach ; ?>
+                            <p class="card-text"><div class="bs-blog-category"><a href="<?php  echo$gift->url; ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $gift->title ?></span></a></div>
+                        
+                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button>
+                            <?php endforeach ; ?>
 
         </div>
 

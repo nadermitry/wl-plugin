@@ -1,5 +1,8 @@
 <script>
 
+   
+
+
 if ("geolocation" in navigator) {
     // Geolocation is available
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -17,6 +20,12 @@ if ("geolocation" in navigator) {
     // Geolocation is not available
     console.error("Geolocation is not supported by this browser.");
 }
+
+
+
+
+
+
 
 </script>    
 <style>
@@ -149,8 +158,10 @@ foreach ($results as $result) :
     </span>
 
     <?php foreach ($gifts as $gift) : ?>
-                            <p class="card-text"><div class="bs-blog-category"><a href="<?php echo $result->url ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a></div>
-                        <?php endforeach ; ?>
+                            <p class="card-text"><div class="bs-blog-category"><a href="<?php echo $gift->url ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a></div>
+                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button>
+        <?php endforeach ; ?>
 
     <!--    
     <span class="edit-link">

@@ -139,6 +139,9 @@ function wl_ajax_giftsActionCounter() {
     // Your AJAX logic goes here
     // You can retrieve data from $_POST array
 
+
+
+
     $data = $_POST['data'];
     
 
@@ -440,6 +443,11 @@ function event_shortcode(){
 add_shortcode('wl_event', 'event_shortcode');
 
 
+
+
+
+
+
 /**
  * The code that runs during plugin activation
  */
@@ -461,4 +469,5 @@ register_deactivation_hook( __FILE__, 'deactivate_wl_plugin' );
  */
 if ( class_exists( 'Inc\\Init' ) ) {
 	Inc\Init::register_services();
+	
 }
