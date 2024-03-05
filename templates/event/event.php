@@ -69,12 +69,7 @@ foreach ($results as $result) :
                 </span>                
             </div>
         
-        <?php foreach ($gifts as $gift) : ?>
-                            <p class="card-text"><div class="bs-blog-category"><a href="<?php  echo$gift->url; ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $gift->title ?></span></a></div>
-                        
-                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button>
-                            <?php endforeach ; ?>
+      
 
         </div>
 
@@ -130,6 +125,43 @@ foreach ($results as $result) :
 
    
 </div>
+<style>
+    #search {
+      margin-bottom: 20px;
+    }
+  </style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+   
+   
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+      <!-- Search input -->
+        <form class="form-inline my-2 my-lg-0">
+         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
+         <!-- You can add a search button if needed -->
+         <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- List -->
+  <ul id="list" class="list-group">
+    
+    <?php foreach ($gifts as $gift) : ?>
+        <li class="list-group-item"><a href="<?php  echo$gift->url; ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a>
+                        
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button></li>
+    <?php endforeach ; ?>
+  </ul>
+</div>
+
+
 <div class="bs-info-author-block py-4 px-3 mb-4 flex-column justify-content-center text-center">
     <a class="bs-author-pic mb-3" ><img alt="" src="<?php echo $full_url;?>" srcset="<?php echo $full_url;?> 2x" class="avatar avatar-150 photo" height="150" width="150" decoding="async"></a>
     <div class="flex-grow-1">
@@ -144,3 +176,22 @@ foreach ($results as $result) :
 
 
 <?php  endforeach ?>
+
+
+
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    // Search functionality
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#list li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
