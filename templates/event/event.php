@@ -41,9 +41,9 @@
    
 }
 
-.navbar-collapse {
+.navbar-collapse1 {
     
-     flex-grow: 0; 
+    flex-grow: 0; 
     
 }
 
@@ -183,7 +183,7 @@ foreach ($results as $result) :
   <div class="container">
    
   <a class="navbar-brand" href="#">Wish List</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="navbar-collapse1" id="navbarSupportedContent">
       <!-- Search input -->
         <form class="form-inline my-2 my-lg-0">
          <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
