@@ -153,12 +153,23 @@ foreach ($results as $result) :
   <ul id="list" class="list-group">
     
     <?php foreach ($gifts as $gift) : ?>
-        <li class="list-group-item"><a href="<?php  echo$gift->url; ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a>
+        <li class="list-group-item">
+        <img width="65px" src="<?php echo $gift->img_url?>" ?>
+        <?php  echo $this->trim_and_add_dots($gift->title,30) ?>
                         
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button></li>
     <?php endforeach ; ?>
   </ul>
+
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center" id="pagination">
+      <!-- Pagination items will be added dynamically using JavaScript -->
+    </ul>
+  </nav>
+
 </div>
 
 
@@ -186,12 +197,50 @@ foreach ($results as $result) :
 
 <script>
   $(document).ready(function(){
+    // Initialize pagination
+    var itemsPerPage = 3; // Change this to adjust items per page
+    var listItems = $("#list").children();
+    var numItems = listItems.length;
+    var numPages = Math.ceil(numItems / itemsPerPage);
+
+    // Add pagination items
+    for (var i = 1; i <= numPages; i++) {
+      $("#pagination").append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+    }
+
+    // Show first page by default
+    showPage(1);
+
+    // Pagination click event
+    $("#pagination").on("click", ".page-link", function(e) {
+      e.preventDefault();
+      var page = $(this).text();
+      showPage(page);
+    });
+
     // Search functionality
     $("#search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#list li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
+      // Update pagination after filtering
+      listItems = $("#list").children(":visible");
+      numItems = listItems.length;
+      numPages = Math.ceil(numItems / itemsPerPage);
+      $("#pagination").empty();
+      for (var i = 1; i <= numPages; i++) {
+        $("#pagination").append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+      }
+      // Show the first page after filtering
+      showPage(1);
     });
+
+    // Function to show specific page
+    function showPage(page) {
+      var startIndex = (page - 1) * itemsPerPage;
+      var endIndex = startIndex + itemsPerPage;
+      listItems.hide().slice(startIndex, endIndex).show();
+    }
   });
 </script>
