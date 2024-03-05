@@ -1,3 +1,54 @@
+
+<style>
+
+.pagination {
+    margin: 20px 0;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 8px 12px;
+    margin-right: 5px;
+}
+
+.pagination .dots {
+    
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+}
+
+.form-control {
+    
+    margin-bottom: 0px;   
+   
+}
+
+.navbar-collapse {
+    
+     flex-grow: 0; 
+    
+}
+
+</style>
+
 <?php
 
 
@@ -22,7 +73,7 @@ $gifts     = $this->gifts($eventid);
 //$user_meta = unserialize($image_path);
 
 // Access the values
-//$full_url = $image_path['full']; // The full URL
+$full_url = $image_path['full']; // The full URL
 
 foreach ($results as $result) :
     
@@ -125,22 +176,17 @@ foreach ($results as $result) :
 
    
 </div>
-<style>
-    #search {
-      margin-bottom: 20px;
-    }
-  </style>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
    
-   
+  <a class="navbar-brand" href="#">Wish List</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    
       <!-- Search input -->
         <form class="form-inline my-2 my-lg-0">
-         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
+         <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </form>
@@ -155,17 +201,21 @@ foreach ($results as $result) :
     <?php foreach ($gifts as $gift) : ?>
         <li class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
-        <?php  echo $this->trim_and_add_dots($gift->title,30) ?>
-                        
+        <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
+       <div style="float:right;">                 
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button></li>
-    <?php endforeach ; ?>
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+        </div>
+    </li>
+    
+        <?php endforeach ; ?>
   </ul>
 
 
   <!-- Pagination -->
   <nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center" id="pagination">
+  
+    <ul class="navigation pagination justify-content-center" id="pagination">
       <!-- Pagination items will be added dynamically using JavaScript -->
     </ul>
   </nav>
@@ -198,24 +248,31 @@ foreach ($results as $result) :
 <script>
   $(document).ready(function(){
     // Initialize pagination
-    var itemsPerPage = 3; // Change this to adjust items per page
+    var itemsPerPage = 15; // Change this to adjust items per page
     var listItems = $("#list").children();
     var numItems = listItems.length;
     var numPages = Math.ceil(numItems / itemsPerPage);
 
     // Add pagination items
     for (var i = 1; i <= numPages; i++) {
-      $("#pagination").append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+
+        if (i ==1){activ=" active ";}else{activ="  ";}
+      $("#pagination").append('<a class="' + activ +'page-numbers" href="#">' + i + '</a>');
     }
 
     // Show first page by default
     showPage(1);
 
     // Pagination click event
-    $("#pagination").on("click", ".page-link", function(e) {
+    $("#pagination").on("click", ".page-numbers", function(e) {
+       
       e.preventDefault();
       var page = $(this).text();
+   
       showPage(page);
+      // Highlight the clicked page number and remove highlight from others
+      $(".page-numbers").removeClass("active");
+      $(this).addClass("active");
     });
 
     // Search functionality
@@ -230,7 +287,7 @@ foreach ($results as $result) :
       numPages = Math.ceil(numItems / itemsPerPage);
       $("#pagination").empty();
       for (var i = 1; i <= numPages; i++) {
-        $("#pagination").append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+        $("#pagination").append('<a class="page-numbers" href="#">' + i + '</a>');
       }
       // Show the first page after filtering
       showPage(1);
