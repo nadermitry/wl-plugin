@@ -186,7 +186,11 @@ foreach ($results as $result) :
     <div class="navbar-collapse1" id="navbarSupportedContent">
       <!-- Search input -->
         <form class="form-inline my-2 my-lg-0">
-         <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
+         
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bigModal">
+  Launch Big Modal
+</button>
+        <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </form>
@@ -205,6 +209,7 @@ foreach ($results as $result) :
        <div style="float:right;">                 
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Delete</button>
         </div>
     </li>
     
@@ -237,6 +242,30 @@ foreach ($results as $result) :
 
 
 <?php  endforeach ?>
+
+
+
+<!-- Big Modal -->
+<div class="modal fade" id="bigModal" tabindex="-1" aria-labelledby="bigModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bigModalLabel">Big Modal Window</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Modal Content Goes Here -->
+        <p>This is a big modal window content.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
