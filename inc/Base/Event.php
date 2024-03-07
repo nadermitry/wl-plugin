@@ -101,17 +101,39 @@ class Event extends BaseController {
         return $output_string;
     }
 
-    public function gifts(int $eventId){
+    public function gifts(int $eventId ,bool $new = false){
         global $wpdb;	
-        $event_gifts_table = $wpdb->prefix . 'event_gifts_vw';  
-        // Specify the condition for deleting rows
-        $where_condition = ' where event_id =' .$eventId;
-        // Format the where condition
-        //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
-        $gifts     = $wpdb->get_results("select * from  $event_gifts_table $where_condition");
+
+        if (!$new ){
+            $event_gifts_table = $wpdb->prefix . 'event_gifts_vw';  
+            // Specify the condition for deleting rows
+            $where_condition = ' where event_id =' .$eventId;
+
+            // Format the where condition
+            //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+            $gifts     = $wpdb->get_results("select * from  $event_gifts_table $where_condition");
+        }else{
+
+            $event_gifts_table = $wpdb->prefix . 'gifts';  
+            // Specify the condition for deleting rows
+            $where_condition = ' where event_id =' .$eventId;
+
+            // Format the where condition
+            //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+            $gifts     = $wpdb->get_results("SELECT *
+            FROM  $wpdb->prefix"."gifts
+            WHERE NOT EXISTS (
+                SELECT 1
+                FROM  $wpdb->prefix"."event_gifts
+                WHERE  $wpdb->prefix" . "event_gifts.event_Id =$eventId and  ". $wpdb->prefix ."event_gifts.gift_id =  $wpdb->prefix". "gifts.id
+            );");
+
+        }
         return $gifts;
     }
 
+
+    
 
 
 }
