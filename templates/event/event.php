@@ -68,8 +68,9 @@ $user_name = $current_user->user_login;
 $user_full_name = $current_user->display_name;
 $image_path = get_user_meta($current_user->ID, 'wp_user_avatars', true);
 $gifts     = $this->gifts($eventid);
+$newgifts     = $this->gifts($eventid,true);
 // Loop through results
-//print_r($image_path);
+//print_r($newgifts);
 //$user_meta = unserialize($image_path);
 
 // Access the values
@@ -249,16 +250,48 @@ foreach ($results as $result) :
 <div class="modal fade" id="bigModal" tabindex="-1" aria-labelledby="bigModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bigModalLabel">Big Modal Window</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="bigModalLabel">Add gifts to <?php echo $result->title; ?> </h5>
+       
+        <form class="form-inline my-2 my-lg-0">
+         
+
+        <input  class="form-control mr-sm-2" type="search" id="newsearch" placeholder="Search..." aria-label="Search">
+         <!-- You can add a search button if needed -->
+         <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+
+      
+
         <!-- Modal Content Goes Here -->
-        <p>This is a big modal window content.</p>
+        <ul id="newlist" class="list-group">
+    
+    <?php foreach ($newgifts as $gift) : ?>
+        <li class="list-group-item">
+        <img width="65px" src="<?php echo $gift->img_url?>" ?>
+        <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
+        <div style="float:right;"> 
+            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Add</button>
+        </div>
+    </li>
+    
+        <?php endforeach ; ?>
+  </ul>
       </div>
+
+      <nav aria-label="Page navigation">
+  
+  <ul class="navigation pagination justify-content-center" id="newpagination">
+    <!-- Pagination items will be added dynamically using JavaScript -->
+  </ul>
+</nav>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -327,6 +360,65 @@ foreach ($results as $result) :
       var startIndex = (page - 1) * itemsPerPage;
       var endIndex = startIndex + itemsPerPage;
       listItems.hide().slice(startIndex, endIndex).show();
+    }
+  });
+</script>
+
+
+
+<script>
+  $(document).ready(function(){
+    // Initialize pagination
+    var newitemsPerPage = 3; // Change this to adjust items per page
+    var newlistItems = $("#newlist").children();
+    var newnumItems = newlistItems.length;
+    var newnumPages = Math.ceil(newnumItems / newitemsPerPage);
+
+    // Add pagination items
+    for (var i = 1; i <= newnumPages; i++) {
+
+        if (i ==1){activ=" active ";}else{activ="  ";}
+      $("#newpagination").append('<a class="' + activ +'page-numbers" href="#">' + i + '</a>');
+    }
+
+    // Show first page by default
+    newshowPage(1);
+
+    // Pagination click event
+    $("#newpagination").on("click", ".page-numbers", function(e) {
+       
+      e.preventDefault();
+      var newpage = $(this).text();
+   
+      newshowPage(newpage);
+      // Highlight the clicked page number and remove highlight from others
+      $(".page-numbers").removeClass("active");
+      $(this).addClass("active");
+    });
+
+    // Search functionality
+    $("#newsearch").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#newlist li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+      // Update pagination after filtering
+      newlistItems = $("#newlist").children(":visible");
+      newnumItems = newlistItems.length;
+      newnumPages = Math.ceil(newnumItems / newitemsPerPage);
+      $("#newpagination").empty();
+      for (var i = 1; i <= newnumPages; i++) {
+        $("#newpagination").append('<a class="page-numbers" href="#">' + i + '</a>');
+      }
+      // Show the first page after filtering
+      newshowPage(1);
+    });
+
+    // Function to show specific page
+    function newshowPage(page) {
+      var newstartIndex = (page - 1) * newitemsPerPage;
+      var newendIndex = newstartIndex + newitemsPerPage;
+      newlistItems.hide().slice(newstartIndex, newendIndex).show();
     }
   });
 </script>
