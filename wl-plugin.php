@@ -113,7 +113,7 @@ $view_name = $wpdb->prefix . 'gift_events_vw';
 // Your SQL query to create the view
 $query = "
     CREATE VIEW $view_name AS
-    SELECT $wpdb->prefix". "events.*, $wpdb->prefix" . "event_gifts.gift_id
+    SELECT $wpdb->prefix". "events.*, $wpdb->prefix" . "event_gifts.gift_id ,$wpdb->prefix" ."event_gifts.id as event_gift_id 
 	FROM $wpdb->prefix"."events
 	INNER JOIN $wpdb->prefix" . "event_gifts ON  $wpdb->prefix" . "event_gifts.event_id = $wpdb->prefix" . "events.id";
 
@@ -126,15 +126,15 @@ $view_name = $wpdb->prefix . 'event_gifts_vw';
 // Your SQL query to create the view
 $query = "
     CREATE VIEW $view_name AS
-    SELECT $wpdb->prefix". "gifts.*, $wpdb->prefix" . "event_gifts.event_id
+    SELECT $wpdb->prefix". "gifts.*, $wpdb->prefix" . "event_gifts.event_id , $wpdb->prefix" ."event_gifts.id as event_gift_id 
 	FROM $wpdb->prefix"."gifts
 	INNER JOIN $wpdb->prefix" . "event_gifts ON  $wpdb->prefix" . "event_gifts.gift_id = $wpdb->prefix" . "gifts.id";
 
 // Execute the query
 $wpdb->query($query);
+
+
 */
-
-
 function wl_ajax_giftsActionCounter() {
     // Your AJAX logic goes here
     // You can retrieve data from $_POST array
@@ -206,11 +206,14 @@ function wl_ajax_add_to_event() {
    global $wpdb;
    $table_name = $wpdb->prefix . 'event_gifts';  
    // Specify the condition for deleting rows
-   $where_condition = array('gift_id' => $data['giftid']);
-   // Format the where condition
-   $where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
-   // Delete rows from the custom table
-   $wpdb->delete($table_name, $where_condition, $where_format);
+   if ($data['delete']==1){
+ 
+	$where_condition = array('gift_id' => $data['giftid']);
+	// Format the where condition
+	$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+	// Delete rows from the custom table
+	$wpdb->delete($table_name, $where_condition, $where_format);
+}
 //Print_r($_POST['eventid']);
    if (isset( $data['events'])) {
 	$returnHtml ='';
@@ -266,6 +269,52 @@ function wl_ajax_add_to_event() {
 }
 add_action('wp_ajax_wl_add_to_event', 'wl_ajax_add_to_event');
 add_action('wp_ajax_nopriv_wl_add_to_event', 'wl_ajax_add_to_event'); 
+
+
+
+
+function wl_ajax_remove_from_event() {
+    // Your AJAX logic goes here
+    // You can retrieve data from $_POST array
+
+   $data   = $_POST['data'];
+   //$giftid =$data['giftid'];
+   //$events = $data['events'];  
+
+
+   global $wpdb;
+   $table_name = $wpdb->prefix . 'event_gifts';  
+   // Specify the condition for deleting rows
+   
+ 
+	$where_condition = array(
+		'gift_id' => $data['giftid'],
+    	'event_id' => $data['events'][0]
+	);
+	// Format the where condition
+	$where_format = array('%d','%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+	// Delete rows from the custom table
+
+	print_r($where_condition);
+	$wpdb->delete($table_name, $where_condition, $where_format);
+
+
+  
+	
+   //echo $returnHtml;
+
+   
+	//wp_send_json_success($data);
+
+
+
+
+
+    wp_die(); // Always use wp_die() at the end of your AJAX callback function
+//}
+}
+add_action('wp_ajax_wl_remove_from_event'       , 'wl_ajax_remove_from_event');
+add_action('wp_ajax_nopriv_wl_remove_from_event', 'wl_ajax_remove_from_event'); 
 
 
 

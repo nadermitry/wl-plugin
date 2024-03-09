@@ -112,7 +112,7 @@ public  function add() {
         }
     });
 
-    passed_data={"giftid":giftid,"events":checkboxValues};
+    passed_data={"giftid":giftid,"events":checkboxValues,"delete":1};
     
     
      //alert('. '\''.$this->plugin_url.'assets/images/loading_icon.gif\');

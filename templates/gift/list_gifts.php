@@ -184,11 +184,7 @@ foreach ($results as $result) :
                                 <div class="btn-group">
                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventsModal-G<?php echo $result->id?>">
                                      Add to Event
-                                    </button>
-
-                                    <button type="button" class="btn btn-primary" onclick="count_actions(1,1,'views_count','<?php echo $result->url?>')">
-                                     count
-                                    </button>
+                                    </button>   
                                 </div>
                             </div>
                         </div>

@@ -188,14 +188,15 @@ foreach ($results as $result) :
       <!-- Search input -->
         <form class="form-inline my-2 my-lg-0">
          
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bigModal">
-  Launch Big Modal
-</button>
+
         <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </form>
     </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bigModal">
+add Gifts
+</button>
   </div>
 </nav>
 
@@ -204,14 +205,16 @@ foreach ($results as $result) :
   <ul id="list" class="list-group">
     
     <?php foreach ($gifts as $gift) : ?>
-        <li class="list-group-item">
+        <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
         <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
        <div style="float:right;">                 
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
-        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Delete</button>
-        </div>
+        <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Delete</button>
+        
+       
+    </div>
     </li>
     
         <?php endforeach ; ?>
@@ -275,8 +278,8 @@ foreach ($results as $result) :
         <li class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
         <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
-        <div style="float:right;"> 
-            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Add</button>
+        <div id="giftsControl-G<?php echo $gift->id ?>" style="float:right;"> 
+            <button onclick="add_to_event(<?php echo $gift->id ?>,<?php echo  $result->id ?>)">Add</button>
         </div>
     </li>
     
@@ -294,7 +297,7 @@ foreach ($results as $result) :
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+       
       </div>
     </div>
   </div>
@@ -308,22 +311,61 @@ foreach ($results as $result) :
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-  $(document).ready(function(){
-    // Initialize pagination
-    var itemsPerPage = 15; // Change this to adjust items per page
+
+function findMinimum(arr) {
+    if (arr.length === 0) {
+        return undefined; // Return undefined if the array is empty
+    }
+
+    let min = arr[0]; // Assume the first element is the minimum
+
+    // Loop through the array to find the minimum value
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < min) {
+            min = arr[i]; // Update min if the current element is smaller
+        }
+    }
+
+    return min;
+}
+
+
+
+   var itemsPerPage = 5; // Change this to adjust items per page
     var listItems = $("#list").children();
     var numItems = listItems.length;
     var numPages = Math.ceil(numItems / itemsPerPage);
+    //alert('CurrentPage');
+    var CurrentPage = 1;
+    
 
+function showPage(page) {
+      var startIndex = (page - 1) * itemsPerPage;
+      var endIndex = startIndex + itemsPerPage;
+      listItems.hide().slice(startIndex, endIndex).show();
+    }
+
+function wl_paging(parPage=1){
+    listItems = $("#list").children();
+    numItems = listItems.length;
+    var numPages = Math.ceil(numItems / itemsPerPage);
+    
+    numbers = [];
+    numbers.push(parPage);
+    numbers.push(numPages);
+    pagetoShow= findMinimum(numbers)
+    
     // Add pagination items
     for (var i = 1; i <= numPages; i++) {
 
-        if (i ==1){activ=" active ";}else{activ="  ";}
-      $("#pagination").append('<a class="' + activ +'page-numbers" href="#">' + i + '</a>');
+        if (i ==pagetoShow){activ=" active ";}else{activ="  ";}
+      $("#pagination").append('<a id="pagingB'+ i +'" class="' + activ +'page-numbers" href="#">' + i + '</a>');
     }
 
     // Show first page by default
-    showPage(1);
+    
+    //alert(CurrentPage);
+    showPage(pagetoShow);
 
     // Pagination click event
     $("#pagination").on("click", ".page-numbers", function(e) {
@@ -335,8 +377,20 @@ foreach ($results as $result) :
       // Highlight the clicked page number and remove highlight from others
       $(".page-numbers").removeClass("active");
       $(this).addClass("active");
+      CurrentPage = page;
     });
 
+
+}
+
+$('#bigModal').on('hidden.bs.modal', function () {  
+    location.reload();
+  });
+
+  $(document).ready(function(){
+    // Initialize pagination
+
+    wl_paging();
     // Search functionality
     $("#search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
@@ -356,11 +410,7 @@ foreach ($results as $result) :
     });
 
     // Function to show specific page
-    function showPage(page) {
-      var startIndex = (page - 1) * itemsPerPage;
-      var endIndex = startIndex + itemsPerPage;
-      listItems.hide().slice(startIndex, endIndex).show();
-    }
+  
   });
 </script>
 
@@ -373,12 +423,13 @@ foreach ($results as $result) :
     var newlistItems = $("#newlist").children();
     var newnumItems = newlistItems.length;
     var newnumPages = Math.ceil(newnumItems / newitemsPerPage);
-
+    
+  
     // Add pagination items
     for (var i = 1; i <= newnumPages; i++) {
 
         if (i ==1){activ=" active ";}else{activ="  ";}
-      $("#newpagination").append('<a class="' + activ +'page-numbers" href="#">' + i + '</a>');
+      $("#newpagination").append('<a   class="' + activ +'page-numbers" href="#">' + i + '</a>');
     }
 
     // Show first page by default
@@ -408,7 +459,7 @@ foreach ($results as $result) :
       newnumPages = Math.ceil(newnumItems / newitemsPerPage);
       $("#newpagination").empty();
       for (var i = 1; i <= newnumPages; i++) {
-        $("#newpagination").append('<a class="page-numbers" href="#">' + i + '</a>');
+        $("#newpagination").append('<a  class="page-numbers" href="#">' + i + '</a>');
       }
       // Show the first page after filtering
       newshowPage(1);
@@ -421,4 +472,114 @@ foreach ($results as $result) :
       newlistItems.hide().slice(newstartIndex, newendIndex).show();
     }
   });
+
+
+
+  function add_to_event(giftid,eventid){
+       // var strDivName= 'EventsofGift' + giftid;
+        var enventid_array = [];
+     
+        var myDiv = document.getElementById("giftsControl-G"+giftid);
+       // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
+       
+        enventid_array.push(eventid);
+           
+
+    passed_data={"giftid":giftid,"events":enventid_array,"delete":0};
+
+
+        jQuery.ajax({
+        type: "post",
+        url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        data: {
+          action: "wl_add_to_event",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {
+         
+            console.log(response.responseText); 
+           
+           
+            var newHTML = response.responseText;    
+          //  alert(newHTML);
+//alert(enventid_array[0]);
+             // Append HTML content to the div
+             myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
+            
+        },
+    });
+
+    
+  }
+
+
+
+  function remove_from_event(giftid,eventid,wishlistid=0){
+       // var strDivName= 'EventsofGift' + giftid;
+        var enventid_array = [];
+  
+       var myDiv = document.getElementById("giftsControl-G"+giftid);
+       // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
+       
+        enventid_array.push(eventid);
+           
+
+    passed_data={"giftid":giftid,"events":enventid_array};
+
+
+        jQuery.ajax({
+        type: "post",
+        url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        data: {
+          action: "wl_remove_from_event",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {
+         
+            console.log(response.responseText); 
+           
+           
+            var newHTML = response.responseText;    
+          //  alert(newHTML);
+//alert(enventid_array[0]);
+             // Append HTML content to the div
+             if  (wishlistid==0){
+             myDiv.innerHTML ='<button onclick="add_to_event('+ giftid +','+ eventid+')">Add</button>';
+             }else
+             {
+              // Find the <ul> element by its ID
+              //alert(wishlistid);
+                var myList = document.getElementById('list');
+
+            // Find the <li> element by its ID
+            var listItemToRemove = document.getElementById('li'+wishlistid); // ID of the <li> to remove
+
+            // Remove the <li> element from the <ul>
+            if (listItemToRemove) {
+                myList.removeChild(listItemToRemove);
+                for (var i = 1; i <= numPages; i++) {
+
+if (i ==1){activ=" active ";}else{activ="  ";}
+//var myPagination = document.getElementById('pagination');
+//myPagination.removeChild('pagingB' + i );
+
+var myLink = document.getElementById('pagingB' + i);
+
+// Remove the <a> element if it exists
+if (myLink) {
+  myLink.parentNode.removeChild(myLink);
+}
+
+
+}
+          
+wl_paging(CurrentPage);
+            }
+             }
+        },
+    });
+
+    
+  }
+
 </script>
