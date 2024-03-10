@@ -132,9 +132,9 @@ $query = "
 
 // Execute the query
 $wpdb->query($query);
-
-
 */
+
+
 function wl_ajax_giftsActionCounter() {
     // Your AJAX logic goes here
     // You can retrieve data from $_POST array

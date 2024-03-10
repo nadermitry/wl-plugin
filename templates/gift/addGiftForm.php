@@ -84,7 +84,7 @@ if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php' ) ) 
             
             global $wpdb;
             $table_name = $wpdb->prefix . 'gifts';
-
+          /*
             $data = array(
                 'user_id' => get_current_user_id(),
                 'title' => sanitize_text_field($_POST["title"]),
@@ -92,6 +92,16 @@ if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php' ) ) 
                 'url' => sanitize_text_field($_POST["url"]),
                 'img_url' => sanitize_text_field($_POST["imageUrl"])
             );
+     */
+            $data = array(
+                'user_id' => get_current_user_id(),
+                'title' => sanitize_text_field($_POST["title"]),
+                'description' => sanitize_text_field($_POST["description"]),
+                'url' => $_POST["url"],
+                'img_url' => $_POST["imageUrl"]
+            );
+
+
          //print_r($data);
             $wpdb->insert( $table_name, $data );
           //  echo 'Post inserted successfully. Post ID: ' . $wpdb->insert_id;
