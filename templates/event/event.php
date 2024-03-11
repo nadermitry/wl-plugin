@@ -101,23 +101,61 @@ foreach ($results as $result) :
         <?php endif ?>
 
         <h1 class="title"> 
-            <?php echo $result->title; ?>
+            <?php echo stripcslashes($result->title); ?>
         </h1>
 
         <article class="small single">
-            <?php echo $result->description ; ?> 
+            <?php echo stripcslashes($result->description) ; ?> 
         </article>
+
+
+         <?php 
+
+$dateString = $result->start_date; // Example DateTime string
+
+// Create a DateTime object from the string
+$dateTime = new DateTime($dateString);
+
+// Extract date and time
+$date = $dateTime->format('d-M-Y'); // Date in 'YYYY-MM-DD' format
+$time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
+
+
+        ?>
+
+
 
         <div class="bs-info-author-block">
             <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
-                   <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->start_date));?></time>
+                 <?php echo $date?> at  <?php echo $time?>
+                </span>                
+            </div>
+          
+            <?php if ( $result->end_date !='0000-00-00 00:00:00') :?>
+              <div class="bs-blog-meta mt-3 mb-0">                
+                  <span class="bs-blog-date">
+                    <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->end_date));?></time>
+                  </span>                
+              </div>
+            <?php endif?>
+
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                    <a target="_blank" href="<?php echo $result->location_url?>"><?php echo $result->location_name?></a>
                 </span>                
             </div>
 
             <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
-                    <a href="<?php echo $result->location_url?>"><?php echo $result->location_name?></a>
+                    <a target="_blank" href="<?php echo $result->location_map?>"><?php echo $result->location_address?></a>
+                </span>                
+            </div>
+
+
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                    <a target="_blank" href="<?php echo $result->location_map?>"> Map</a>
                 </span>                
             </div>
         
@@ -211,7 +249,7 @@ add Gifts
        <div style="float:right;">                 
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
-        <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Delete</button>
+        <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
         
        
     </div>
@@ -277,7 +315,7 @@ add Gifts
     <?php foreach ($newgifts as $gift) : ?>
         <li class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
-        <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
+        <?php  echo $this->trim_and_add_dots(stripcslashes($gift->title),60) ?>
         <div id="giftsControl-G<?php echo $gift->id ?>" style="float:right;"> 
             <button onclick="add_to_event(<?php echo $gift->id ?>,<?php echo  $result->id ?>)">Add</button>
         </div>
