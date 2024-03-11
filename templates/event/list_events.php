@@ -151,7 +151,7 @@ foreach ($results as $result) :
         <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/travel/" alt="View all posts in Travel"> Travel          </a>  
     </div>
 -->
-<h4 class="title"><a href="<?php echo  $event_url?>"><?php echo $result->title ?></a></h4>
+<h4 class="title"><a href="<?php echo  $event_url?>"><?php echo stripcslashes($result->title) ?></a></h4>
 <div class="bs-blog-meta"> 
     <span class="bs-blog-date">
         <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->start_date));?></time>
@@ -173,8 +173,8 @@ foreach ($results as $result) :
   -->   
 </div>
 
-            <p><?php echo $result->description ;?></p>
-        <a href="<?php echo  $event_url?>" class="more-link">Read More</a>
+            <p><?php echo stripcslashes($result->description) ;?></p>
+        <a href="<?php echo  $event_url?>" class="more-link">Edit</a>
                     </article>
 </div>
 <!-- // bs-posts-sec block_6 -->

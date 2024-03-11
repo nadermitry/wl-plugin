@@ -14,7 +14,7 @@
                         <input type="datetime-local" name="start_datetime" required><br><br>
                         
                         <label>End Date and Time:</label>
-                        <input type="datetime-local" name="end_datetime" required><br><br>
+                        <input type="datetime-local" name="end_datetime"><br><br>
                         
                         <label>Description:</label>                                               
                         <textarea id="event_description" name="event_description" rows="4" cols="50"></textarea><br><br>
