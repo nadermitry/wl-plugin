@@ -47,6 +47,14 @@
     
 }
 
+/* Style for the button */
+.choose-image-button {
+            position: absolute;
+            top: 20%;
+            left: 70%;
+            transform: translate(-20%, -70%);
+        }
+
 </style>
 
 <?php
@@ -59,9 +67,9 @@ $eventid = isset($_GET['eid']) ? intval($_GET['eid']) : 1;
 $table_name = $wpdb->prefix . 'events';
 $additional_condition = " WHERE id = $eventid";
 // Prepare your SQL query with placeholders
-$query = "SELECT * FROM $table_name $additional_condition";
+$query = "SELECT * FROM $table_name $additional_condition LIMIT 1";
 // Fetch results
-$results = $wpdb->get_results($query);
+$result = $wpdb->get_row($query);
 $currentURL = home_url( add_query_arg( NULL, NULL ));
 $current_user = wp_get_current_user();
 $user_name = $current_user->user_login;
@@ -76,7 +84,7 @@ $newgifts     = $this->gifts($eventid,true);
 // Access the values
 $full_url = $image_path['full']; // The full URL
 
-foreach ($results as $result) :
+//foreach ($results as $result) :
     
     $isCurrentUser = ($result->user_id == $current_user->ID);
 
@@ -88,9 +96,10 @@ foreach ($results as $result) :
     <div class="bs-header">
         
         <?php if ($isCurrentUser) :?>
-
+             
             <div class="bs-blog-category">
-                <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/fashion/" alt="View all posts in Fashion"> 
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                <a  class="blogus-categories category-color-1" href="http://localhost/wordpress/category/fashion/" alt="View all posts in Fashion"> 
                     Edit
                 </a>
                 <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/food/" alt="View all posts in Food"> 
@@ -101,11 +110,11 @@ foreach ($results as $result) :
         <?php endif ?>
 
         <h1 class="title"> 
-            <?php echo stripcslashes($result->title); ?>
+            <?php echo stripcslashes(sanitize_text_field($result->title)); ?>
         </h1>
 
         <article class="small single">
-            <?php echo stripcslashes($result->description) ; ?> 
+            <?php echo stripcslashes(sanitize_text_field($result->description)) ; ?> 
         </article>
 
 
@@ -142,13 +151,13 @@ $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
             <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
-                    <a target="_blank" href="<?php echo $result->location_url?>"><?php echo $result->location_name?></a>
+                    <a target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
                 </span>                
             </div>
 
             <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
-                    <a target="_blank" href="<?php echo $result->location_map?>"><?php echo $result->location_address?></a>
+                    <a target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
                 </span>                
             </div>
 
@@ -165,16 +174,20 @@ $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
     </div>
     
+
+    <div class="image-container position-relative">
+        <img  alt="Original Image" class="img-fluid" id="originalImage" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async">
+        <!-- Button to open modal -->
+      
     
-    <img fetchpriority="high" width="1250" height="850" 
-    src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async" 
-    srcset="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1250w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 300w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1024w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 768w, 
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 600w"
-    sizes="(max-width: 1250px) 100vw, 1250px">
-        
+     
+
+
+
+    
+   
+    <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+  </div> 
     <article class="small single">     
         <div class="post-share">
             <div class="post-share-icons cf"> 
@@ -283,7 +296,7 @@ add Gifts
 
 
 
-<?php  endforeach ?>
+<?php  //endforeach ?>
 
 
 
@@ -325,12 +338,12 @@ add Gifts
   </ul>
       </div>
 
-      <nav aria-label="Page navigation">
-  
-  <ul class="navigation pagination justify-content-center" id="newpagination">
-    <!-- Pagination items will be added dynamically using JavaScript -->
-  </ul>
-</nav>
+            <nav aria-label="Page navigation">
+        
+        <ul class="navigation pagination justify-content-center" id="newpagination">
+          <!-- Pagination items will be added dynamically using JavaScript -->
+        </ul>
+      </nav>
 
 
       <div class="modal-footer">
@@ -340,6 +353,118 @@ add Gifts
     </div>
   </div>
 </div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="editModalLabel">Edit <?php echo $result->title; ?> </h5>       
+       
+        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">     
+
+        <!-- Modal Content Goes Here -->
+        <div id="primary" class="content-area">
+          <main id="main" class="site-main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12">                    
+                      <form id="event-form" method="post" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label>Title:</label>
+                          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>"name="event_title" required>
+                        </div>                       
+                      
+                        <div class="col-sm-4">
+                          <label>Start Date and Time:</label>
+                          <input type="datetime-local"  value="<?php echo $result->start_date; ?>" name="start_datetime" required>
+                        </div>
+                        <div class="col-sm-4">
+                          <label>End Date and Time:</label>
+                          <input type="datetime-local" value="<?php echo $result->end_date; ?>" name="end_datetime">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                        <label>Description:</label>                                               
+                        <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
+                        </div>
+                      </div>  
+                      <div class="row"> 
+                      <div class="col-sm-6">               
+                        <label>Location:</label>
+                        <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" name="event_address_name" required>
+                        </div>
+                        <div class="col-sm-6">
+                        <label>Location URL:</label>
+                        <input type="text"  value="<?php echo $result->location_url?>" name="event_address_url" >
+                        </div>
+                      </div> 
+                      <div class="row"> 
+                      <div class="col-sm-6">  
+                        <label>Address:</label>
+                        <input type="text"name="event_address"  value="<?php echo sanitize_text_field($result->location_address)?>" required>
+                        </div>
+                        <div class="col-sm-6">
+                        <label>Location:</label>
+                        <input type="text" name="event_location"  value="<?php echo $result->location_map?>">  
+                        </div>
+                        </div>
+                       <br>
+                        <div class="modal-footer">
+                         
+                          <input class="btn btn-secondary" data-dismiss="modal" type="submit" name="submit" value="Submit">
+       
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main><!-- #main -->
+</div><!-- #primary -->
+        
+      </div>
+
+          
+
+
+      
+    </div>
+  </div>
+</div>
+<!-- Edit Modal End -->
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- File input for choosing a new image -->
+                    <input type="file" id="newImageInput" class="form-control-file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -621,3 +746,24 @@ wl_paging(CurrentPage);
   }
 
 </script>
+
+
+<!-- Link Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Apply image button click event
+        document.getElementById('applyImageButton').addEventListener('click', function() {
+            // Fetch the new image from the file input
+            var newImageFile = document.getElementById('newImageInput').files[0];
+            if (newImageFile) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('originalImage').src = e.target.result;
+                };
+                reader.readAsDataURL(newImageFile);
+            }
+            // Close the modal
+            $('#imageModal').modal('hide');
+        });
+    </script>
