@@ -176,8 +176,8 @@ $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     
 
     <div class="image-container position-relative">
-        <img  alt="Original Image" class="img-fluid" id="originalImage" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async">
-        <!-- Button to open modal -->
+          <img  fetchpriority="high" width="1250" height="850"  alt="Original Image" class="img-fluid" id="originalImage" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async">
+   
       
     
      
@@ -185,7 +185,16 @@ $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
     
-   
+    <!-- <img fetchpriority="high" width="1250" height="850"  id="originalImage" alt="Original Image"
+    src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async" 
+    srcset="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1250w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 300w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1024w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 768w, 
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 600w"
+    sizes="(max-width: 1250px) 100vw, 1250px">  -->
+
+    
     <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
   </div> 
     <article class="small single">     
