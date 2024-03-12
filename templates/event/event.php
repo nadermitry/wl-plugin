@@ -387,16 +387,16 @@ add Gifts
                       <div class="row">
                         <div class="col-sm-4">
                           <label>Title:</label>
-                          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>"name="event_title" required>
+                          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
                         </div>                       
                       
                         <div class="col-sm-4">
                           <label>Start Date and Time:</label>
-                          <input type="datetime-local"  value="<?php echo $result->start_date; ?>" name="start_datetime" required>
+                          <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
                         </div>
                         <div class="col-sm-4">
                           <label>End Date and Time:</label>
-                          <input type="datetime-local" value="<?php echo $result->end_date; ?>" name="end_datetime">
+                          <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
                         </div>
                       </div>
                       <div class="row">
@@ -408,28 +408,28 @@ add Gifts
                       <div class="row"> 
                       <div class="col-sm-6">               
                         <label>Location:</label>
-                        <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" name="event_address_name" required>
+                        <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
                         </div>
                         <div class="col-sm-6">
                         <label>Location URL:</label>
-                        <input type="text"  value="<?php echo $result->location_url?>" name="event_address_url" >
+                        <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
                         </div>
                       </div> 
                       <div class="row"> 
                       <div class="col-sm-6">  
                         <label>Address:</label>
-                        <input type="text"name="event_address"  value="<?php echo sanitize_text_field($result->location_address)?>" required>
+                        <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
                         </div>
                         <div class="col-sm-6">
                         <label>Location:</label>
-                        <input type="text" name="event_location"  value="<?php echo $result->location_map?>">  
+                        <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
                         </div>
                         </div>
                        <br>
                         <div class="modal-footer">
                          
-                          <input class="btn btn-secondary" data-dismiss="modal" type="submit" name="submit" value="Submit">
-       
+                       
+                          <button onclick="update_event(<?php echo  $result->id ?>)">Save</button>  
                         </div>
 
 
@@ -559,6 +559,11 @@ $('#bigModal').on('hidden.bs.modal', function () {
     location.reload();
   });
 
+
+  $('#editModal').on('hidden.bs.modal', function () {  
+    //location.reload();
+  });
+
   $(document).ready(function(){
     // Initialize pagination
 
@@ -682,6 +687,46 @@ $('#bigModal').on('hidden.bs.modal', function () {
     });
 
     
+  }
+
+
+  function update_event(eventid){
+  
+    passed_data={"event":eventid,      
+      "title":document.getElementById('event_title').value,
+      "start_date":document.getElementById('start_datetime').value,
+      "end_date":document.getElementById('end_datetime').value,
+      "description":document.getElementById('event_description').value,
+      "location_name":document.getElementById('event_address_name').value,
+      "location_url":document.getElementById('event_address_url').value,
+      "location_address":document.getElementById('event_address').value,
+      "location_map":document.getElementById('event_location').value,
+      "is_active":1
+    };
+    
+
+
+    jQuery.ajax({
+      type: "post",
+url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+data: {
+  action: "wl_update_event",  // the action to fire in the server
+  data: passed_data,         // any JS object
+},
+complete: function (response) {
+ 
+    console.log(response.responseText);
+    alert(response.responseText);
+  //  alert(newHTML);
+  //alert(enventid_array[0]);
+  // Append HTML content to the div
+  // myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
+    
+},
+});
+
+
+
   }
 
 

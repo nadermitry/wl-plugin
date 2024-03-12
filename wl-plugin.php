@@ -317,6 +317,38 @@ add_action('wp_ajax_wl_remove_from_event'       , 'wl_ajax_remove_from_event');
 add_action('wp_ajax_nopriv_wl_remove_from_event', 'wl_ajax_remove_from_event'); 
 
 
+function wl_ajax_update_event() {
+	
+	
+	$data   = $_POST['data'];
+    echo '<pre>';
+	Print_r($data);
+	echo '</pre>';
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'events'; 
+    $where_condition = array(		
+    	'id' => $data['event']
+	);
+	// Format the where condition
+	$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+
+	$updateData = array(
+		'title' => $data['title'],
+		'start_date' => $data['start_date'],
+		'end_date' => $data['end_date'],
+		'description' => $data['description'],
+		'location_name' => $data['location_name'],
+		'location_url' => $data['location_url'],
+		'location_address' => $data['location_address'],
+		'location_map' => $data['location_map'],
+		'is_active' => $data['is_active']
+	);
+
+
+	$wpdb->update( $table_name, $updateData, $where_condition );
+}
+add_action('wp_ajax_wl_update_event'       , 'wl_ajax_update_event');
+add_action('wp_ajax_nopriv_wl_update_event', 'wl_ajax_update_event'); 
 
 
 
