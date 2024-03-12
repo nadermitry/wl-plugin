@@ -716,7 +716,7 @@ data: {
 complete: function (response) {
  
     console.log(response.responseText);
-    alert(response.responseText);
+    //alert(response.responseText);
   //  alert(newHTML);
   //alert(enventid_array[0]);
   // Append HTML content to the div

@@ -340,8 +340,8 @@ function wl_ajax_update_event() {
 		'location_name' => $data['location_name'],
 		'location_url' => $data['location_url'],
 		'location_address' => $data['location_address'],
-		'location_map' => $data['location_map'],
-		'is_active' => $data['is_active']
+		'location_map' => $data['location_map']
+		
 	);
 
 
