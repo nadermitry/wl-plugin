@@ -18,6 +18,7 @@
 *.httr-oauth*
 
 vendor/
+assets/images/events
 # Private Node Modules
 node_modules/
 creds.js

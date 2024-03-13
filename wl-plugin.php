@@ -321,9 +321,7 @@ function wl_ajax_update_event() {
 	
 	
 	$data   = $_POST['data'];
-    echo '<pre>';
-	Print_r($data);
-	echo '</pre>';
+   
     global $wpdb;
     $table_name = $wpdb->prefix . 'events'; 
     $where_condition = array(		
@@ -349,6 +347,49 @@ function wl_ajax_update_event() {
 }
 add_action('wp_ajax_wl_update_event'       , 'wl_ajax_update_event');
 add_action('wp_ajax_nopriv_wl_update_event', 'wl_ajax_update_event'); 
+
+
+
+// Register AJAX action for handling file upload
+add_action('wp_ajax_handle_file_upload', 'handle_file_upload');
+add_action('wp_ajax_nopriv_handle_file_upload', 'handle_file_upload'); // Allow non-logged-in users
+
+function handle_file_upload() {
+    // Check if file was uploaded
+    if(isset($_FILES['newImageInput'])) {
+        $file = $_FILES['newImageInput'];
+        
+        // Check for errors
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            wp_send_json_error('Error uploading file');
+        }
+        
+        // Move uploaded file to desired directory
+		$parts = explode('.', basename($file['name']));
+		$nn = end($parts);
+		$file_ext = strtolower($nn);
+		$filename = uniqid('event_') . '.' . $file_ext;
+        $upload_dir = plugin_dir_path( __FILE__ ) . '/assets//images/events/';
+        $file_path = $upload_dir . '/' . $filename;        
+        if(move_uploaded_file($file['tmp_name'], $file_path)) {
+			if (isset( $_POST['event_id'])){
+				global $wpdb; 
+				$table_name = $wpdb->prefix . 'events'; 
+				$where_condition = array('id' =>$_POST['event_id']);
+				$updateData = array('event_image' => $filename);
+				$wpdb->update($table_name, $updateData, $where_condition);             
+			 }
+            wp_send_json_success('File uploaded successfully');			
+			
+       } else {
+            wp_send_json_error('Error moving file to destination');
+       }
+
+    } else {
+        wp_send_json_error('No file uploaded');
+    }
+}
+
 
 
 

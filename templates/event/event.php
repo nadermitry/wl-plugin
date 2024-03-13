@@ -461,14 +461,28 @@ add Gifts
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                
+                <form id="file-upload-form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <!-- File input for choosing a new image -->
-                    <input type="file" id="newImageInput" class="form-control-file">
+                   
+                    <input type="file" id="newImageInput" name="newImageInput" class="form-control-file">
+                    <input type="hidden" name="action" value="handle_file_upload">
+                    <input type="hidden" name="event_id" value="<?php echo  $result->id ?>">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"  class="btn btn-secondary" name="submit" value="Upload File and save">                   
                     <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>
-                </div>
+                </div> 
+                </form>
+
+
+                
+    
+    
+    <!-- Add hidden input field for AJAX action -->
+    
+
+
             </div>
         </div>
     </div>
@@ -483,6 +497,40 @@ add Gifts
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+
+
+
+
+jQuery(document).ready(function($) {
+    $('#file-upload-form').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+
+        $.ajax({
+            url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`, // WordPress AJAX URL
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // Handle success response
+                console.log(response.data);
+                location.reload();
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                // Handle error response
+                console.error('Error uploading file: ' + textStatus);
+            }
+        });
+    });
+});
+
+
+
+
+
 
 function findMinimum(arr) {
     if (arr.length === 0) {
