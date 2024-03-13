@@ -124,6 +124,16 @@ $date = $dateTime->format('d-M-Y'); // Date in 'YYYY-MM-DD' format
 $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
+$endDateString = $result->end_date; // Example DateTime string
+
+// Create a DateTime object from the string
+$endDateTime = new DateTime($endDateString);
+
+// Extract date and time
+$end_date = $endDateTime->format('d-M-Y'); // Date in 'YYYY-MM-DD' format
+$end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
+
+
         ?>
 
 
@@ -131,14 +141,14 @@ $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <div class="bs-info-author-block">
             <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
-                 <?php echo $date?> at  <?php echo $time?>
+                 <?php echo $date;?> at  <?php echo $time;?>
                 </span>                
             </div>
           
             <?php if ( $result->end_date !='0000-00-00 00:00:00') :?>
               <div class="bs-blog-meta mt-3 mb-0">                
                   <span class="bs-blog-date">
-                    <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->end_date));?></time>
+                  <?php echo $end_date;?> at  <?php echo $end_time;?>
                   </span>                
               </div>
             <?php endif?>
@@ -422,8 +432,8 @@ add Gifts
                        <br>
                         <div class="modal-footer">
                          
-                       
-                          <button onclick="update_event(<?php echo  $result->id ?>)">Save</button>  
+                        
+                          <button data-dismiss="modal" onclick="update_event(<?php echo  $result->id ?>)">Save</button>  
                         </div>
 
 
@@ -603,7 +613,7 @@ $('#bigModal').on('hidden.bs.modal', function () {
 
 
   $('#editModal').on('hidden.bs.modal', function () {  
-    //location.reload();
+    location.reload();
   });
 
   $(document).ready(function(){
