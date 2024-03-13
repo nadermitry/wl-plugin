@@ -98,13 +98,7 @@ $full_url = $image_path['full']; // The full URL
         <?php if ($isCurrentUser) :?>
              
             <div class="bs-blog-category">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
-                <a  class="blogus-categories category-color-1" href="http://localhost/wordpress/category/fashion/" alt="View all posts in Fashion"> 
-                    Edit
-                </a>
-                <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/food/" alt="View all posts in Food"> 
-                    Hide
-                </a>        
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>                    
             </div>
 
         <?php endif ?>
@@ -470,7 +464,7 @@ add Gifts
                     <input type="hidden" name="event_id" value="<?php echo  $result->id ?>">
                 </div>
                 <div class="modal-footer">
-                    <input type="submit"  class="btn btn-secondary" name="submit" value="Upload File and save">                   
+                    <input type="submit"  class="btn btn-primary" name="submit" value="Upload File and save">                   
                     <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>
                 </div> 
                 </form>
