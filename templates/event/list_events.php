@@ -1,8 +1,4 @@
 <script>
-
-   
-
-
 if ("geolocation" in navigator) {
     // Geolocation is available
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -20,13 +16,6 @@ if ("geolocation" in navigator) {
     // Geolocation is not available
     console.error("Geolocation is not supported by this browser.");
 }
-
-
-
-
-
-
-
 </script>    
 <style>
 
@@ -70,65 +59,9 @@ if ("geolocation" in navigator) {
 
 <?php
         
-        //$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $current_user_id = get_current_user_id();
         
-        // Custom Query
-      /*
-        $args = array(
-            'post_type'      => 'wl_items', // Replace with your custom post type slug
-            'posts_per_page' => 5, // Display all posts
-            'author'    => $current_user_id, 
-            'paged'     => $paged            
-        );
-
-        $custom_query = new WP_Query($args);
-
-        if ($custom_query->have_posts()) :
-            echo '<ul>'; // Start the unordered list
-            while ($custom_query->have_posts()) : $custom_query->the_post();
-                $url = get_post_meta(get_the_ID(), 'url', true);
-                $img_url = get_post_meta(get_the_ID(), 'img_url', true);
-                // Display post content or whatever you want to show              
-                echo '<li>'; 
-                echo '<img width ="10%" src="'.esc_url( $img_url). '">';
-                echo '<a href="' . esc_url( $url) . '">' . get_the_title() . '</a>';
-                // the_content();
-                echo '</li>'; // End list item
-                // echo '<p>Meta Value: ' . esc_html($meta_value) . '</p>';
-            endwhile;
-            echo '</ul>'; // End the unordered list
-
-
-            */
-
-            global $wpdb;
-
-           
-
-            // Number of items per page
-            $items_per_page = 3; // You can adjust this number as needed
-            
-            // Current page
-            $current_page = max(1, get_query_var('paged'));
-            
-            // Calculate the offset
-            $offset = ($current_page - 1) * $items_per_page;
-
-
-
-$table_name = $wpdb->prefix . 'events';
-
-
-$additional_condition = " WHERE user_id = $current_user_id";
-// Prepare your SQL query with placeholders
-$query = $wpdb->prepare("SELECT * FROM $table_name $additional_condition LIMIT %d, %d", $offset, $items_per_page);
-
-
-// Fetch results
-$results = $wpdb->get_results($query);
-$total_items = $wpdb->get_var("SELECT COUNT(*) FROM $table_name $additional_condition");
-// Loop through results
+        
+        // Loop through results
 
 
 
@@ -188,21 +121,7 @@ endforeach ?>
 
 
 
-<?php
 
-$pagination = paginate_links(array(
-    'base' => esc_url(add_query_arg('paged', '%#%')),
-    'format' => '?paged=%#%',
-    'current' => $current_page,
-    'total' => ceil($total_items / $items_per_page),
-    'prev_text' => __('Previous'),
-    'next_text' => __('Next'),
-
-));
-
-
-
-        ?>
 
 <div class="col-lg-12 content-right">
     <div class="bs-content-list"> 
@@ -211,13 +130,3 @@ $pagination = paginate_links(array(
         </div>
     </div>                  
 </div>
-
-
-
-
-
-
-
-
-
-

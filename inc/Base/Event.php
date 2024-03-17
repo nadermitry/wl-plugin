@@ -1,26 +1,33 @@
 <?php
 /**
  * @package   wlPlugin
- */
+*/
 
 namespace Inc\Base;
 use Inc\Base\BaseController;
 
-class Event extends BaseController {
- // Constructor
-   
+class Event extends BaseController {  
 
- 
- public function __construct() {
+    public $table_name;
+    public $db;
+    public $dbPrefix;
+    public $eventid;
+    public $current_user;
+
+    public function __construct() {
         parent::__construct();
+        global $wpdb;  
+        $this->db = $wpdb;   
+        $this->dbPrefix = $wpdb->prefix ;
+        $this->table_name =  $this->dbPrefix . 'events';        
+        $this->eventid = isset($_GET['eid']) ? intval($_GET['eid']) : 1;
+        $this->current_user =  wp_get_current_user();        
     }
 
     public  function add() {        
-        ob_start();
-        global $wpdb;	
+        ob_start();       
         if(isset($_POST['submit'])) {            
-            if (!isset($_GET["success"])) { 
-                // Handle form submission
+            if (!isset($_GET["success"])) {                
                 $event_title = sanitize_text_field($_POST['event_title']);
                 $event_description= sanitize_text_field($_POST['event_description']);               
                 $event_address_name = sanitize_text_field($_POST['event_address_name']);
@@ -28,23 +35,17 @@ class Event extends BaseController {
                 $event_location = sanitize_text_field($_POST['event_location']);
                 $event_address = sanitize_text_field($_POST['event_address']);
                 $start_datetime = sanitize_text_field($_POST['start_datetime']);
-                $end_datetime = sanitize_text_field($_POST['end_datetime']);
-                
-               // $event_image = sanitize_text_field(basename($_FILES['event_image']['name']));
-                // Handle file upload
-                //$upload_dir = wp_upload_dir();
-                //$upload_file = $upload_dir['path'] . '/' . basename($_FILES['event_image']['name']);
+                $end_datetime = sanitize_text_field($_POST['end_datetime']);                
+              
                 $parts = explode('.', $_FILES['event_image']['name']);
                 $nn = end($parts);
                 $file_ext = strtolower($nn);
                 $filename = uniqid('event_') . '.' . $file_ext;
                 $upload_file = $this->plugin_path . 'assets/images/events/' . $filename;
                 move_uploaded_file($_FILES['event_image']['tmp_name'], $upload_file);
-                // }
-
-                $table_name = $wpdb->prefix . 'events';
+                               
                 $data = array(
-                    'user_id' => get_current_user_id(),
+                    'user_id' => $this->current_user->ID,
                     'title' => $event_title,
                     'start_date' => $start_datetime,
                     'end_date' => $end_datetime,
@@ -56,10 +57,10 @@ class Event extends BaseController {
                     'event_image' => $filename
                 );
         
-                $wpdb->insert( $table_name, $data );                
-                $new_url = add_query_arg( 'success',$wpdb->insert_id , get_permalink());                
+                $this->db->insert( $this->table_name, $data );                
+                $new_url = add_query_arg( 'success',$this->db->insert_id , get_permalink());                
                 echo("<script>location.href = '".$new_url."'</script>");
-                //wp_redirect( $new_url, 303 );
+               
             }        
         }
         
@@ -78,11 +79,31 @@ class Event extends BaseController {
 	    return $output_string;
     }
 
-    public function viewList(){
+    public function viewList(){       
+        $items_per_page = 2;      
+        $current_page = max(1, get_query_var('paged'));
+        $offset = ($current_page - 1) * $items_per_page; 
+
+        $additional_condition = " WHERE user_id = ". $this->current_user->ID ;        
+        $query = $this->db->prepare("SELECT * FROM $this->table_name $additional_condition LIMIT %d, %d", $offset, $items_per_page);        
+        $results = $this->db->get_results($query);
+        $total_items =$this->db->get_var("SELECT COUNT(*) FROM $this->table_name $additional_condition");
+
+        $pagination = paginate_links(array(
+            'base' => esc_url(add_query_arg('paged', '%#%')),
+            'format' => '?paged=%#%',
+            'current' => $current_page,
+            'total' => ceil($total_items / $items_per_page),
+            'prev_text' => __('Previous'),
+            'next_text' => __('Next'),
+        
+        ));
+
         ob_start();	        
         if (file_exists( dirname( __FILE__,3 ) . '\templates\event\list_events.php')) {
             require_once dirname( __FILE__,3 ) . '\templates\event\list_events.php';
         }  
+
         $output_string = ob_get_contents();
         ob_end_clean();
         return $output_string;
@@ -90,42 +111,55 @@ class Event extends BaseController {
 
 
     public function view(){
-        $eventid = isset($_GET['eid']) ? intval($_GET['eid']) : 1;
-        $gifts     = $this->gifts($eventid);
+
+        $additional_condition = " WHERE id =  $this->eventid ";
+        $query = "SELECT * FROM $this->table_name $additional_condition LIMIT 1";
+        $result = $this->db->get_row($query);
+       
+        $currentURL = home_url( add_query_arg( NULL, NULL ));       
+        $isCurrentUser = ($result->user_id == $this->current_user->ID);
+       
+        $image_path = get_user_meta($this->current_user->ID, 'wp_user_avatars', true);
+
+        
+        if (isset( $image_path['full'])) {
+            $full_url = $image_path['full']; // The full URL 
+        }else{
+            $full_url = '';
+        }
+        
+        $gifts     = $this->gifts( $this->eventid);
+        $newgifts  = $this->gifts($this->eventid,true);       
+       
         ob_start();	
         if (file_exists( dirname( __FILE__,3 ) . '\templates\event\event.php')) {
             require_once dirname( __FILE__,3 ) . '\templates\event\event.php';
         }  
+
         $output_string = ob_get_contents();
         ob_end_clean();
         return $output_string;
     }
 
     public function gifts(int $eventId ,bool $new = false){
-        global $wpdb;	
-
+       
         if (!$new ){
-            $event_gifts_table = $wpdb->prefix . 'event_gifts_vw';  
-            // Specify the condition for deleting rows
+            $event_gifts_table = $this->dbPrefix . 'event_gifts_vw';          
             $where_condition = ' where event_id =' .$eventId;
-
-            // Format the where condition
-            //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
-            $gifts     = $wpdb->get_results("select * from  $event_gifts_table $where_condition");
+            
+            $gifts     = $this->db->get_results("select * from  $event_gifts_table $where_condition");
         }else{
 
-            $event_gifts_table = $wpdb->prefix . 'gifts';  
-            // Specify the condition for deleting rows
+            $event_gifts_table = $this->dbPrefix . 'gifts';  
+            
             $where_condition = ' where event_id =' .$eventId;
-
-            // Format the where condition
-            //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
-            $gifts     = $wpdb->get_results("SELECT *
-            FROM  $wpdb->prefix"."gifts
+            
+            $gifts     = $this->db->get_results("SELECT *
+            FROM  $this->dbPrefix"."gifts
             WHERE NOT EXISTS (
                 SELECT 1
-                FROM  $wpdb->prefix"."event_gifts
-                WHERE  $wpdb->prefix" . "event_gifts.event_Id =$eventId and  ". $wpdb->prefix ."event_gifts.gift_id =  $wpdb->prefix". "gifts.id
+                FROM  $this->dbPrefix"."event_gifts
+                WHERE  $this->dbPrefix" . "event_gifts.event_Id =$eventId and  ". $this->dbPrefix ."event_gifts.gift_id =  $this->dbPrefix". "gifts.id
             );");
 
         }

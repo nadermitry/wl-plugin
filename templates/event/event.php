@@ -57,38 +57,7 @@
 
 </style>
 
-<?php
 
-
-global $wpdb;
-
-$eventid = isset($_GET['eid']) ? intval($_GET['eid']) : 1;
-
-$table_name = $wpdb->prefix . 'events';
-$additional_condition = " WHERE id = $eventid";
-// Prepare your SQL query with placeholders
-$query = "SELECT * FROM $table_name $additional_condition LIMIT 1";
-// Fetch results
-$result = $wpdb->get_row($query);
-$currentURL = home_url( add_query_arg( NULL, NULL ));
-$current_user = wp_get_current_user();
-$user_name = $current_user->user_login;
-$user_full_name = $current_user->display_name;
-$image_path = get_user_meta($current_user->ID, 'wp_user_avatars', true);
-$gifts     = $this->gifts($eventid);
-$newgifts     = $this->gifts($eventid,true);
-// Loop through results
-//print_r($newgifts);
-//$user_meta = unserialize($image_path);
-
-// Access the values
-$full_url = $image_path['full']; // The full URL
-
-//foreach ($results as $result) :
-    
-    $isCurrentUser = ($result->user_id == $current_user->ID);
-
-?>
 
 
 
@@ -287,9 +256,12 @@ add Gifts
 
 
 <div class="bs-info-author-block py-4 px-3 mb-4 flex-column justify-content-center text-center">
-    <a class="bs-author-pic mb-3" ><img alt="" src="<?php echo $full_url;?>" srcset="<?php echo $full_url;?> 2x" class="avatar avatar-150 photo" height="150" width="150" decoding="async"></a>
-    <div class="flex-grow-1">
-        <h4 class="title"><a ><?php echo $user_full_name ?></a></h4>
+    
+<?php if ($full_url != "") :?>
+  <a class="bs-author-pic mb-3" ><img alt="" src="<?php echo $full_url;?>" srcset="<?php echo $full_url;?> 2x" class="avatar avatar-150 photo" height="150" width="150" decoding="async"></a>
+<?php endif; ?> 
+<div class="flex-grow-1">
+        <h4 class="title"><a ><?php echo $this->current_user->display_name; ?></a></h4>
         <p></p>
     </div>
 </div>
@@ -628,6 +600,29 @@ $('#bigModal').on('hidden.bs.modal', function () {
       showPage(1);
     });
 
+    $("#search").on("search", function() {
+    if (!this.value) {
+        // Show all list items
+        $("#list li").show();
+        
+        // Update pagination after clearing the search
+        listItems = $("#list").children(":visible");
+      numItems = listItems.length;
+      numPages = Math.ceil(numItems / itemsPerPage);
+      $("#pagination").empty();
+      for (var i = 1; i <= numPages; i++) {
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+          
+        $("#pagination").append('<a class="'+ isative +' page-numbers" href="#">' + i + '</a>');
+      }
+      showPage(1);
+    }
+});
+
     // Function to show specific page
   
   });
@@ -683,6 +678,33 @@ $('#bigModal').on('hidden.bs.modal', function () {
       // Show the first page after filtering
       newshowPage(1);
     });
+
+
+    
+    $("#newsearch").on("search", function() {
+    if (!this.value) {
+        // Show all list items
+        $("#newlist li").show();
+        
+        // Update pagination after clearing the search
+        //updatePagination();
+        newlistItems = $("#newlist").children(":visible");
+      newnumItems = newlistItems.length;
+      newnumPages = Math.ceil(newnumItems / newitemsPerPage);
+      $("#newpagination").empty();
+
+      for (var i = 1; i <= newnumPages; i++) {
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+        $("#newpagination").append('<a  class="' +  isative + 'page-numbers" href="#">' + i + '</a>');
+      }
+      // Show the first page after filtering
+      newshowPage(1);
+    }
+});
 
     // Function to show specific page
     function newshowPage(page) {
