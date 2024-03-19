@@ -604,7 +604,13 @@ $('#bigModal').on('hidden.bs.modal', function () {
       numPages = Math.ceil(numItems / itemsPerPage);
       $("#pagination").empty();
       for (var i = 1; i <= numPages; i++) {
-        $("#pagination").append('<a class="page-numbers" href="#">' + i + '</a>');
+
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+        $("#pagination").append('<a class="'+ isative +'page-numbers" href="#">' + i + '</a>');
       }
       // Show the first page after filtering
       showPage(1);
@@ -683,7 +689,14 @@ $('#bigModal').on('hidden.bs.modal', function () {
       newnumPages = Math.ceil(newnumItems / newitemsPerPage);
       $("#newpagination").empty();
       for (var i = 1; i <= newnumPages; i++) {
-        $("#newpagination").append('<a  class="page-numbers" href="#">' + i + '</a>');
+
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+
+        $("#newpagination").append('<a class="'+ isative +'page-numbers" href="#">' + i + '</a>');
       }
       // Show the first page after filtering
       newshowPage(1);
