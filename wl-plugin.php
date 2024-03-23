@@ -79,6 +79,7 @@ dbDelta( $sql );
 	url VARCHAR(255) NOT NULL, 
 	img_url  VARCHAR(255) NOT NULL,
 	user_id mediumint(9) NOT NULL,
+	product_id mediumint(9) ,
 	is_active BOOLEAN NOT NULL DEFAULT 1,  
     PRIMARY KEY  (id)
 ) $charset_collate;";
@@ -391,6 +392,53 @@ function handle_file_upload() {
 }
 
 
+function wl_add_to_gifts() {
+
+	$product   = $_POST['data'];
+	
+    
+
+
+    $current_user_id = get_current_user_id();
+        
+   // if ($current_user_id) {
+           
+		//print_r($data['productData']);
+	    //$data1 = json_decode($data['productData'], true);
+
+		 //echo $data['title'];
+		 //echo $data['description'].'</br>';
+		 //echo $data['product_id'].'</br>';
+		 //echo $data['image_url'];
+		 //echo $product['product_url'];
+		  
+		//echo 'Product Title: '. $data['productData']['title'] . '<br>';  
+//
+            global $wpdb;
+           $table_name = $wpdb->prefix . 'gifts';        
+    
+            $data = array(
+                'user_id' => get_current_user_id(),
+                'title' => sanitize_text_field($product['title']),
+                'description' => sanitize_text_field($product['description']),
+                'url' =>   $product['product_url'],
+                'img_url' => $product['image_url'],
+				'product_id' => $product['product_id']
+            );
+            $wpdb->insert( $table_name, $data );
+	//	}
+
+		echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+		//print_r( $data) ;
+		//echo '</pre>';
+		wp_die(); 
+   
+}
+
+
+add_action('wp_ajax_wl_add_to_gifts', 'wl_add_to_gifts');
+add_action('wp_ajax_nopriv_wl_add_to_gifts', 'wl_add_to_gifts'); // Allow non-logged-in users
+
 
 
 // Add a filter to modify the post title
@@ -462,41 +510,86 @@ function use_custom_template($tpl){
   
   add_filter( 'archive_template', 'use_custom_template' ) ;
 
+add_action( 'init',  'add_button' );
+
+ function add_button() {
+			add_button_for_single();
+			//$this->add_button_for_loop();
+
+			// Add the link "Add to wishlist" for Gutenberg blocks.
+			//add_filter( 'woocommerce_blocks_product_grid_item_html', 'add_button_for_blocks_product_grid_item' );
+		}
+
+
+
+
+
+ function add_button_for_single() {
+			// Add the link "Add to wishlist".
+		//	$position = get_option( 'yith_wcwl_button_position', 'add-to-cart' );
+//echo $position;
+			/**
+			 * APPLY_FILTERS: yith_wcwl_positions
+			 *
+			 * Filter the array of positions where to display the 'Add to wishlist' button in the product page.
+			 *
+			 * @param array $positions Array of positions
+			 *
+			 * @return array
+			 */
+			
+
+			///if ( yith_plugin_fw_wc_is_using_block_template_in_single_product() ) {
+			//	$this->add_button_for_blockified_template( 'single-product', $position );
+		//	} else {
+				add_action( 'woocommerce_single_product_summary', 'print_button' , 31 );
+			//}
+		}
+
+function print_button(){
+
+//echo'[wl_add_to_wish_list]';
+echo do_shortcode( '[wl_add_to_wish_list]' ); //nad
+}
+
+
+		
+
 
 
 add_action( 'woocommerce_before_main_content', 'nader1', 20, 0 );
 add_action( 'woocommerce_sidebar', 'nader3', 10 );
 add_action( 'woocommerce_before_single_product', 'nader4', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
-add_action( 'woocommerce_before_single_product_summary', 'nader3', 20 );
+add_action( 'woocommerce_before_add_to_cart_button', 'nader3', 20 );
 
 
 
 function nader1(){
 	global $product;
 	$id = $product->get_id();
-	echo "<div>1111111111111111111111</div>";
+	//echo "<div>1111111111111111111111</div>";
 
 }
 
 function nader2(){
 	//global $product;
 	//$id = $product->get_id();
-	echo "<div>222222222222222222222222</div>";
+	//echo "<div>222222222222222222222222</div>";
 
 }
 
 function nader3(){
 	//global $product;
 	//$id = $product->get_id();
-	echo "<div>33333333333333333333333333333</div>";
+    echo "<div>33333333333333333333333333333</div>";
 
 }
 
 function nader4(){
 	global $product;
 	$id = $product->get_id();
-	echo "<div>4444444444444444444</div>".$id;
+	//5435echo "<div>4444444444444444444</div>".$id;
 
 }
 
@@ -518,6 +611,23 @@ function isValidImage($strPath){
     }
 
 
+function add_gift_shortcode1(){
+	
+			ob_start();
+		
+
+		// include file located.
+		
+		
+		include plugin_dir_path(__FILE__).'templates/add_to_wish_list.php';
+		
+			return ob_get_clean();
+		
+}
+add_shortcode('wl_add_to_wish_list', 'add_gift_shortcode1');
+
+
+
 function add_gift_shortcode(){
 	if ( class_exists( 'Inc\Base\\Gift' ) ) {    
 		$giftManager = new Gift();
@@ -525,6 +635,10 @@ function add_gift_shortcode(){
 	}
 }
 add_shortcode('wl_addGift', 'add_gift_shortcode');
+
+
+
+
 
 
 function list_gifts_shortcode(){
