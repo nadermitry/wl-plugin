@@ -145,14 +145,14 @@ class Event extends BaseController {
        
         if (!$new ){
             $event_gifts_table = $this->dbPrefix . 'event_gifts_vw';          
-            $where_condition = ' where event_id =' .$eventId;
+            $where_condition = ' where event_id =' .$eventId ;
             
             $gifts     = $this->db->get_results("select * from  $event_gifts_table $where_condition");
         }else{
 
             $event_gifts_table = $this->dbPrefix . 'gifts';  
             
-            $where_condition = ' where event_id =' .$eventId;
+            $where_condition = ' and user_id = '. $this->current_user_id;
             
             $gifts     = $this->db->get_results("SELECT *
             FROM  $this->dbPrefix"."gifts
@@ -160,7 +160,7 @@ class Event extends BaseController {
                 SELECT 1
                 FROM  $this->dbPrefix"."event_gifts
                 WHERE  $this->dbPrefix" . "event_gifts.event_Id =$eventId and  ". $this->dbPrefix ."event_gifts.gift_id =  $this->dbPrefix". "gifts.id
-            );");
+            ) ".  $where_condition);
 
         }
         return $gifts;
