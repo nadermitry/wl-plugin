@@ -66,8 +66,8 @@ class Event extends BaseController {
         
         if (!isset($_POST["event_title"])) {   
             if (!isset($_GET["success"])) {                
-                if (file_exists( dirname( __FILE__,3 ) . '\templates\event\newEventForm.php')) {
-                    require_once dirname( __FILE__,3 ) . '\templates\event\newEventForm.php';
+                if (file_exists( dirname( __FILE__,3 ) . '/templates/event/newEventForm.php')) {
+                    require_once dirname( __FILE__,3 ) . '/templates/event/newEventForm.php';
                 } 
             }
             else{
@@ -100,8 +100,8 @@ class Event extends BaseController {
         ));
 
         ob_start();	        
-        if (file_exists( dirname( __FILE__,3 ) . '\templates\event\list_events.php')) {
-            require_once dirname( __FILE__,3 ) . '\templates\event\list_events.php';
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/list_events.php')) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/list_events.php';
         }  
 
         $output_string = ob_get_contents();
@@ -132,8 +132,8 @@ class Event extends BaseController {
         $newgifts  = $this->gifts($this->eventid,true);       
        
         ob_start();	
-        if (file_exists( dirname( __FILE__,3 ) . '\templates\event\event.php')) {
-            require_once dirname( __FILE__,3 ) . '\templates\event\event.php';
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/event.php')) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/event.php';
         }  
 
         $output_string = ob_get_contents();
