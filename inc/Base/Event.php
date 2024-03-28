@@ -104,7 +104,7 @@ class Event extends BaseController {
             array(), // Dependencies (optional)
             '1.0' // Style version (optional)
         );
-        $eventListTemplate ='list_events.php';
+        $eventListTemplate ='list_events1.php';
 
         ob_start();	        
         if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate)) {
