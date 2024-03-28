@@ -30,10 +30,16 @@ global $product;
 //echo  print_r($product);
 //echo '</pre>';
 $product_id = $product->get_id();
+<<<<<<< HEAD
 $product_title=  $product->get_title();
 $product_description = '$product->get_description()';
 $product_description = '';
 $image_url = wp_get_attachment_image_url( get_post_thumbnail_id( $product_id ), 'full' );
+=======
+$product_title=  sanitize_text_field($product->get_title());
+$product_description = sanitize_text_field($product->get_description());
+$image_url = wp_get_attachment_image_url(get_post_thumbnail_id( $product_id ), 'full' );
+>>>>>>> 28ed4feec54b8e2b92d1c2061221f294d1e71b38
 //$product_url=home_url( $_SERVER['REQUEST_URI'] );
 $product_url =get_permalink();
 //$product_url=esc_url($current_url);

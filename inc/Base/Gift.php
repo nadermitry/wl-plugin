@@ -16,8 +16,8 @@ class Gift extends BaseController {
 
 public  function add() {
     ob_start();	
-    if (file_exists( dirname( __FILE__,3 ) . '\templates\gift\addGiftForm.php')) {
-        require_once dirname( __FILE__,3 ) . '\templates\gift\addGiftForm.php';
+    if (file_exists( dirname( __FILE__,3 ) . '/templates/gift/addGiftForm.php')) {
+        require_once dirname( __FILE__,3 ) . '/templates/gift/addGiftForm.php';
     } 
     $output_string = ob_get_contents();
     ob_end_clean();
@@ -27,8 +27,8 @@ public  function add() {
     public function viewList(){
 
         ob_start();	
-        if (file_exists( dirname( __FILE__,3 ) . '\templates\gift\list_gifts.php')) {
-            require_once dirname( __FILE__,3 ) . '\templates\gift\list_gifts.php';
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/gift/list_gifts.php')) {
+            require_once dirname( __FILE__,3 ) . '/templates/gift/list_gifts.php';
         }         	
         $output_string = ob_get_contents();
         ob_end_clean();
