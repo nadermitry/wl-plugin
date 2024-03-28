@@ -31,7 +31,8 @@ global $product;
 //echo '</pre>';
 $product_id = $product->get_id();
 $product_title=  $product->get_title();
-$product_description = $product->get_description();
+$product_description = '$product->get_description()';
+$product_description = '';
 $image_url = wp_get_attachment_image_url( get_post_thumbnail_id( $product_id ), 'full' );
 //$product_url=home_url( $_SERVER['REQUEST_URI'] );
 $product_url =get_permalink();
@@ -80,7 +81,9 @@ $product_url =get_permalink();
 function add_to_gifts(){
        // var strDivName= 'EventsofGift' + giftid;
         
+       
        //var productData = '{"title":"<?php echo $product_title ?>","price":10,"sku":"ABC123","description":"This is a sample product."}';    
+
 
     passed_data={
         "title":"<?php echo $product_title; ?>",
@@ -93,7 +96,8 @@ function add_to_gifts(){
 
         jQuery.ajax({
         type: "post",
-        url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
+      //  url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_add_to_gifts",  // the action to fire in the server
           data: passed_data,         // any JS object

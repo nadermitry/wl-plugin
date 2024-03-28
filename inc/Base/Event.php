@@ -80,7 +80,7 @@ class Event extends BaseController {
     }
 
     public function viewList(){       
-        $items_per_page = 2;      
+        $items_per_page = 8;      
         $current_page = max(1, get_query_var('paged'));
         $offset = ($current_page - 1) * $items_per_page; 
 

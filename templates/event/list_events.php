@@ -53,71 +53,89 @@ if ("geolocation" in navigator) {
     text-decoration: none;
 }
 
+
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Change this line */
+    gap: 20px;
+}
+
+.product {
+    position: relative;
+    overflow: hidden;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h2,
+.overlay p,
+.overlay button {
+    color: #fff;
+}
+
+.overlay button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.overlay button:hover {
+    background-color: #0056b3;
+}
+
 </style>
 
 <?php defined( 'ABSPATH' ) or die( 'eRROR' ); ?>
 
+<div class="products">
 <?php
-        
-        
-        
-        // Loop through results
-
-
-
-
-
-
 foreach ($results as $result) :
     $event_url= home_url('/event').'/?eid='.$result->id;
     $gifts     = $this->gifts($result->id);
 ?>
 
-    <div id="post-565" class="bs-blog-post list-blog post-565 post type-post status-publish format-standard has-post-thumbnail hentry category-lifestyle category-travel tag-business tag-cinema tag-health tag-sport tag-travel tag-world">
-    <div class="bs-blog-thumb lg back-img" style="background-image: url('<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>');">
-        <a href="<?php echo $event_url ?>" class="link-div"></a>
-     </div> 
-    <article class="small text-xs">
-    <!--   
-    <div class="bs-blog-category">
-        <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/lifestyle/" alt="View all posts in lifestyle"> lifestyle </a>
-        <a class="blogus-categories category-color-1" href="http://localhost/wordpress/category/travel/" alt="View all posts in Travel"> Travel          </a>  
-    </div>
--->
-<h4 class="title"><a href="<?php echo  $event_url?>"><?php echo stripcslashes($result->title) ?></a></h4>
-<div class="bs-blog-meta"> 
-    <span class="bs-blog-date">
-        <time datetime=""><?php echo date_i18n('F j, Y g:i a', strtotime($result->start_date));?></time>
-    </span>
 
-   <!-- <?php foreach ($gifts as $gift) : ?>
-                            <p class="card-text"><div class="bs-blog-category"><a href="<?php echo $gift->url ?>" target="_blank" class="blogus-categories category-color-1"><?php  echo $this->trim_and_add_dots($gift->title,30) ?></span></a></div>
-                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-                            <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Purchase</button>
-        <?php endforeach ; ?>-->
-
-    <!--    
-    <span class="edit-link">
-        <i class="fas fa-edit"></i>
-            <a class="post-edit-link" href="http://localhost/wordpress/wp-admin/post.php?post=565&amp;action=edit">Edit 
-            <span class="screen-reader-text">Goalposts post launch. Regroup move the needle.</span>
+<div class="product">
+    <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'assets\images\events\\'. $result->event_image;  ?>" alt="Product">
+        
+    <div class="overlay">
+        <a href="<?php echo $event_url ?>">
+            <!--<h2>Product 1</h2>-->
+            <p><?php echo stripcslashes($result->title) ?></p>
+            <button>Edit</button>
         </a>
-    </span> 
-  -->   
+        </div>
 </div>
 
-            <p><?php echo stripcslashes($result->description) ;?></p>
-        <a href="<?php echo  $event_url?>" class="more-link">Edit</a>
-                    </article>
+
+<?php endforeach ?>
 </div>
-<!-- // bs-posts-sec block_6 -->
-
-
-   
-<?php 
- // Access your data
-  //  echo '<a href="'. home_url('/event').'/?eid='.$result->id.'">' . $result->title .' </a>';
-endforeach ?>
 
 
 
