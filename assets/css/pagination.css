@@ -1,0 +1,33 @@
+.pagination {
+    margin: 20px 0;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .current {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 8px 12px;
+    margin-right: 5px;
+}
+
+.pagination .dots {
+    
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+}

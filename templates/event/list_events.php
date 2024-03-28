@@ -1,3 +1,5 @@
+<?php defined( 'ABSPATH' ) or die( 'eRROR' ); ?>
+
 <script>
 if ("geolocation" in navigator) {
     // Geolocation is available
@@ -19,42 +21,7 @@ if ("geolocation" in navigator) {
 </script>    
 <style>
 
-.pagination {
-    margin: 20px 0;
-}
-
-.pagination a {
-    padding: 8px 12px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    text-decoration: none;
-}
-
-.pagination a:hover {
-    background-color: #ddd;
-}
-
-.pagination .current {
-    background-color: #0073e6;
-    color: #fff;
-    padding: 8px 12px;
-    margin-right: 5px;
-}
-
-.pagination .dots {
     
-    padding: 8px 12px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    text-decoration: none;
-}
-
-
-
 .products {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Change this line */
@@ -111,40 +78,31 @@ if ("geolocation" in navigator) {
 
 </style>
 
-<?php defined( 'ABSPATH' ) or die( 'eRROR' ); ?>
+
+
+
 
 <div class="products">
-<?php
-foreach ($results as $result) :
-    $event_url= home_url('/event').'/?eid='.$result->id;
-    $gifts     = $this->gifts($result->id);
-?>
+    <?php foreach ($results as $result) : $gifts = $this->gifts($result->id);?>
 
-
-<div class="product">
-    <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'assets\images\events\\'. $result->event_image;  ?>" alt="Product">
-        
-    <div class="overlay">
-        <a href="<?php echo $event_url ?>">
-            <!--<h2>Product 1</h2>-->
-            <p><?php echo stripcslashes($result->title) ?></p>
-            <button>Edit</button>
-        </a>
+        <div class="product">
+            <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'assets\images\events\\'. $result->event_image;  ?>" alt="Product">        
+            <div class="overlay">
+                <a href="<?php echo home_url('/event').'/?eid='.$result->id ?>">
+                    <!--<h2>Product 1</h2>-->
+                    <p><?php echo stripcslashes($result->title) ?></p>
+                    <button>Edit</button>
+                </a>
+            </div>
         </div>
+
+    <?php endforeach ?>    
 </div>
-
-
-<?php endforeach ?>
-</div>
-
-
-
-
 
 <div class="col-lg-12 content-right">
     <div class="bs-content-list"> 
         <div class="col-md-12 text-center d-md-flex justify-content-between">
-       <div class="navigation pagination"> <?php echo $pagination ?> </div>
+            <div class="navigation pagination"> <?php echo $pagination ?> </div>
         </div>
     </div>                  
 </div>

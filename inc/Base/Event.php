@@ -80,7 +80,7 @@ class Event extends BaseController {
     }
 
     public function viewList(){       
-        $items_per_page = 8;      
+        $items_per_page = 3;      
         $current_page = max(1, get_query_var('paged'));
         $offset = ($current_page - 1) * $items_per_page; 
 
@@ -98,12 +98,18 @@ class Event extends BaseController {
             'next_text' => __('Next'),
         
         ));
+        wp_enqueue_style(
+            'evnt-list-pagination-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/pagination.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
+        $eventListTemplate ='list_events.php';
 
         ob_start();	        
-        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/list_events.php')) {
-            require_once dirname( __FILE__,3 ) . '/templates/event/list_events.php';
-        }  
-
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate)) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate;
+        }
         $output_string = ob_get_contents();
         ob_end_clean();
         return $output_string;
