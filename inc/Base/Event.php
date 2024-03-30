@@ -24,6 +24,8 @@ class Event extends BaseController {
         $this->current_user =  wp_get_current_user();        
     }
 
+    
+
     public  function add() {        
         ob_start();       
         if(isset($_POST['submit'])) {            
@@ -104,11 +106,18 @@ class Event extends BaseController {
             array(), // Dependencies (optional)
             '1.0' // Style version (optional)
         );
-        $eventListTemplate ='list_events1.php';
+        $eventListTemplate ='list_events3';
+       
+        wp_enqueue_style(
+            $eventListTemplate.'-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/'. $eventListTemplate .'.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
 
         ob_start();	        
-        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate)) {
-            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate;
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate.'.php')) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventListTemplate.'.php';
         }
         $output_string = ob_get_contents();
         ob_end_clean();
@@ -136,10 +145,11 @@ class Event extends BaseController {
         
         $gifts     = $this->gifts( $this->eventid);
         $newgifts  = $this->gifts($this->eventid,true);       
-       
+        $eventTemplate ='event.php';
+
         ob_start();	
-        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/event.php')) {
-            require_once dirname( __FILE__,3 ) . '/templates/event/event.php';
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate )) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate;
         }  
 
         $output_string = ob_get_contents();
@@ -172,7 +182,7 @@ class Event extends BaseController {
         return $gifts;
     }
 
-
+    
     
 
 

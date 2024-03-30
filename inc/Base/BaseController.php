@@ -36,6 +36,21 @@ class BaseController
     }
 
 
+    public function formatDate($date){
+
+        $dateString = $date; // Example DateTime string
+
+        // Create a DateTime object from the string
+        $dateTime = new \DateTime($dateString);
+        
+        // Extract date and time
+        $date = $dateTime->format('d-M-Y'); // Date in 'YYYY-MM-DD' format
+        $time = $dateTime->format('h:i A'); // Time in 'HH:MM:SS' format
+        return  $date . ' at '.  $time;
+ 
+    }
+
+
 
     
 }

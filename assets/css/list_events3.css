@@ -1,0 +1,105 @@
+.wl-event-text-truncate {    
+	max-width: 800px;
+}
+
+.wl-event-row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.wl-event-justify-content-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+
+.wl-event-d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.wl-event-border {
+    border: 1px solid #dee2e6 !important;
+}
+
+.wl-event-p-2 {
+    padding: .5rem !important;
+}
+
+.wl-event-mt-2, .wl-event-my-2 {
+    margin-top: .5rem !important;
+}
+.wl-event-rounded {
+    border-radius: .25rem !important;
+}
+
+
+.wl-event-mt-1, .wl-event-my-1 {
+    margin-top: .25rem !important;
+}
+.wl-event-align-content-center {
+    -ms-flex-line-pack: center !important;
+    align-content: center !important;
+}
+
+.wl-event-align-items-center {
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+.wl-event-border-left {
+    border-left: 1px solid #dee2e6 !important;
+}
+
+
+.wl-event-flex-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+
+.wl-event-btn-group-sm>.wl-event-btn, .wl-event-btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+.wl-event-btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+	background-color: transparent;
+}
+
+.wl-event-btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: transparent;
+}
+.wl-event-btn {
+    display: inline-block;
+    font-weight: 400;
+    /* color: #212529; */
+    text-align: center;
+    vertical-align: middle;
+    /* cursor: pointer; */
+    /* -webkit-user-select: none; */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;   
+    border: 1px solid ;
+    padding: .375rem .75rem;
+    /* font-size: 1rem; */
+    /* line-height: 1.5; */
+    /* border-radius: .25rem; */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+.col-md-3 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}

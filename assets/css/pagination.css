@@ -1,8 +1,10 @@
-.pagination {
+.wl-pagination {
     margin: 20px 0;
+    text-align: center;
+    margin-top: 40px;
 }
 
-.pagination a {
+.wl-pagination a {
     padding: 8px 12px;
     margin-right: 5px;
     border: 1px solid #ccc;
@@ -11,18 +13,18 @@
     text-decoration: none;
 }
 
-.pagination a:hover {
+.wl-pagination a:hover {
     background-color: #ddd;
 }
 
-.pagination .current {
+.wl-pagination .current {
     background-color: #0073e6;
     color: #fff;
     padding: 8px 12px;
     margin-right: 5px;
 }
 
-.pagination .dots {
+.wl-pagination .dots {
     
     padding: 8px 12px;
     margin-right: 5px;
@@ -31,3 +33,7 @@
     color: #333;
     text-decoration: none;
 }
+
+
+
+
