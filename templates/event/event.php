@@ -1,3 +1,10 @@
+<style>
+
+
+ </style> 
+
+
+
 <div class="bs-blog-post single"> 
     <div class="bs-header">
         
@@ -150,29 +157,32 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
-   
-  <a class="navbar-brand" href="#">Wish List</a>
-    <div class="navbar-collapse1" id="navbarSupportedContent">
-      <!-- Search input -->
-        <form class="form-inline my-2 my-lg-0">
-         
-
-        <input style="float:right;"class="form-control mr-sm-2" type="search" id="search" placeholder="Search..." aria-label="Search">
-         <!-- You can add a search button if needed -->
-         <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-        </form>
-    </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bigModal">
-add Gifts
-</button>
-  </div>
-</nav>
-
 <div class="container">
   <!-- List -->
+
+  <ul  class="list-group">
+   
+
+   <li id="li0" class="list-group-item">
+   
+       Wish List
+       
+        <button type="button"  style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#bigModal"> add Gifts</button>               
+        
+             <input style="float:right;" class="form-control mr-sm-2 col-md-3" type="search" id="search" placeholder="Search..." aria-label="Search">
+              <!-- You can add a search button if needed -->
+             <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+           
+         
+         
+        
+    
+     </li>
+
+  </ul>
+
   <ul id="list" class="list-group">
+
     
     <?php foreach ($gifts as $gift) : ?>
         <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">

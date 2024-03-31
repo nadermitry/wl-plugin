@@ -64,3 +64,321 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+  .list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #212529;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.post-share-icons {
+    border-color: var(--border-color);
+}
+
+.post-share-icons {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 30px 0;
+    justify-content: center;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-top: 10px;
+}
+.post-share-icons a {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.538rem;
+    text-align: center;
+    line-height: 36px;
+    position: relative;
+    z-index: 1;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.bs-info-author-block {
+    background: var(--box-color);
+}
+.bs-info-author-block {
+    display: flex;
+    box-shadow: var(--bxsh);
+}
+.text-center {
+    text-align: center !important;
+}
+.py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+.px-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+}
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+.justify-content-center {
+    justify-content: center !important;
+}
+.flex-column {
+    flex-direction: column !important;
+}
+
+.bs-social li .fa-reddit, .reddit {
+    background: #ff4500;
+    color: #fff;
+}
+
+.bs .swiper-button-prev, 
+.bs .swiper-button-next {
+	background: #0F1012;
+	color: #fff;
+}
+.bs .swiper-button-prev:hover, 
+.bs .swiper-button-next:hover  {
+	background: #0025ff;
+	color: #fff;
+}
+.bs-social li .fa-facebook-f, .bs-social li .fa-facebook, .facebook {
+  background: #135CB6;
+  color: #fff;
+}
+.bs-social li .fa-twitter, .twitter {
+  background: #00ACED;
+  color: #fff;
+}
+.bs-social li .fa-x-twitter, .x-twitter {
+  background: #222;
+  color: #fff;
+}
+.bs-social li .fa-linkedin, .linkedin {
+  background: #0078ca;
+  color: #fff;
+}
+.bs-social li .fa-telegram, .telegram {
+  background: #0088cc;
+  color: #fff;
+}
+.bs-social li .fa-instagram, .instagram {
+	background: radial-gradient(circle farthest-corner at 32% 106%,#ffe17d 0,#ffcd69 10%,#fa9137 28%,#eb4141 42%,transparent 82%),linear-gradient(135deg,#234bd7 12%,#c33cbe 58%);
+}
+.bs-social li .fa-youtube, .youtube  {
+  background: #cd201f;
+  color: #fff;
+}
+.bs-social li .fa-pinterest, .pinterest {
+  background: #bd081c;
+  color: #fff;
+}
+.bs-social li .fa-dribbble, .dribbble {
+  background: #ea4c89;
+  color: #fff;
+}
+.bs-social li .fa-whatsapp, .whatsapp {
+    background: #1FB381;
+    color: #fff;
+}
+.bs-social li .fa-reddit, .reddit{
+	background: #ff4500;
+	color: #fff;
+}
+.bs-social li .fa-discord, .discord{
+	background: #404eed;
+	color: #fff;
+}
+
+.bs-social li .fa-print, .print-r{
+	background: #000;
+	color: #fff;
+}
+.envelope {
+	background: #0025ff;
+    color: #fff;
+}
+.post-share-icons {
+	border-color:var(--border-color);
+}
+.post-share-icons a {
+	color: #fff;
+}
+.bs-social li i {
+  background: #0025ff;
+  color: #fff;
+}
+.bs-social li i::after {
+  background: #0F1012;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.post-share-icons {
+  border-color: var(--border-color);
+}
+
+.post-share-icons {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 30px 0;
+  justify-content: center;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin-top: 10px;
+}
+.post-share-icons a {
+  width: 36px;
+  height: 36px;
+  margin-right: 0.538rem;
+  text-align: center;
+  line-height: 36px;
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.bs-info-author-block {
+  background: var(--box-color);
+}
+.bs-info-author-block {
+  display: flex;
+  box-shadow: var(--bxsh);
+}
+.text-center {
+  text-align: center !important;
+}
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.px-3 {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+.justify-content-center {
+  justify-content: center !important;
+}
+.flex-column {
+  flex-direction: column !important;
+}
+
+.bs-social li .fa-reddit, .reddit {
+  background: #ff4500;
+  color: #fff;
+}
+
+.bs .swiper-button-prev, 
+.bs .swiper-button-next {
+background: #0F1012;
+color: #fff;
+}
+.bs .swiper-button-prev:hover, 
+.bs .swiper-button-next:hover  {
+background: #0025ff;
+color: #fff;
+}
+.bs-social li .fa-facebook-f, .bs-social li .fa-facebook, .facebook {
+background: #135CB6;
+color: #fff;
+}
+.bs-social li .fa-twitter, .twitter {
+background: #00ACED;
+color: #fff;
+}
+.bs-social li .fa-x-twitter, .x-twitter {
+background: #222;
+color: #fff;
+}
+.bs-social li .fa-linkedin, .linkedin {
+background: #0078ca;
+color: #fff;
+}
+.bs-social li .fa-telegram, .telegram {
+background: #0088cc;
+color: #fff;
+}
+.bs-social li .fa-instagram, .instagram {
+background: radial-gradient(circle farthest-corner at 32% 106%,#ffe17d 0,#ffcd69 10%,#fa9137 28%,#eb4141 42%,transparent 82%),linear-gradient(135deg,#234bd7 12%,#c33cbe 58%);
+}
+.bs-social li .fa-youtube, .youtube  {
+background: #cd201f;
+color: #fff;
+}
+.bs-social li .fa-pinterest, .pinterest {
+background: #bd081c;
+color: #fff;
+}
+.bs-social li .fa-dribbble, .dribbble {
+background: #ea4c89;
+color: #fff;
+}
+.bs-social li .fa-whatsapp, .whatsapp {
+  background: #1FB381;
+  color: #fff;
+}
+.bs-social li .fa-reddit, .reddit{
+background: #ff4500;
+color: #fff;
+}
+.bs-social li .fa-discord, .discord{
+background: #404eed;
+color: #fff;
+}
+
+.bs-social li .fa-print, .print-r{
+background: #000;
+color: #fff;
+}
+.envelope {
+background: #0025ff;
+  color: #fff;
+}
+.post-share-icons {
+border-color:var(--border-color);
+}
+.post-share-icons a {
+color: #fff;
+}
+.bs-social li i {
+background: #0025ff;
+color: #fff;
+}
+.bs-social li i::after {
+background: #0F1012;
+}
+
+@media (min-width: 992px)
+.navbar-expand-lg {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
