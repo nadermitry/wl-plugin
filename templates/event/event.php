@@ -1,144 +1,3 @@
-
-<style>
-
-.pagination {
-    margin: 20px 0;
-}
-
-.pagination a {
-    padding: 8px 12px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    text-decoration: none;
-}
-
-.pagination a:hover {
-    background-color: #ddd;
-}
-
-.pagination .active {
-    background-color: #0073e6;
-    color: #fff;
-    padding: 8px 12px;
-    margin-right: 5px;
-}
-
-.pagination .dots {
-    
-    padding: 8px 12px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    text-decoration: none;
-}
-
-.form-control {
-    
-    margin-bottom: 0px;   
-   
-}
-
-.navbar-collapse1 {
-    
-    flex-grow: 0; 
-    
-}
-
-/* Style for the button */
-.choose-image-button {
-            position: absolute;
-            top: 20%;
-            left: 70%;
-            transform: translate(-20%, -70%);
-        }
-
-
-
-
-        .modal.show .modal-dialog {
-    transform: none;
-}
-.modal.fade .modal-dialog {
-    transition: transform 0.3s ease-out;
-    transform: translate(0, -50px);
-}
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1060;
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    outline: 0;
-}
-
-.modal-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 0.3rem;
-    outline: 0;
-}
-
-.modal-dialog {
-    position: relative;
-    width: auto;
-    margin: 0.5rem;
-    pointer-events: none;
-}
-
-.modal-header {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1rem;
-    border-bottom: 1px solid #dee2e6;
-    border-top-left-radius: calc(0.3rem - 1px);
-    border-top-right-radius: calc(0.3rem - 1px);
-}
-
-.modal-title {
-    margin-bottom: 0;
-    line-height: 1.5;
-}
-.modal-body {
-    position: relative;
-    flex: 1 1 auto;
-    padding: 1rem;
-}
-
-.modal-footer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0.75rem;
-    border-top: 1px solid #dee2e6;
-    border-bottom-right-radius: calc(0.3rem - 1px);
-    border-bottom-left-radius: calc(0.3rem - 1px);
-}
-
-
-
-</style>
-
-
-
-
-
 <div class="bs-blog-post single"> 
     <div class="bs-header">
         
@@ -335,7 +194,7 @@ add Gifts
   <!-- Pagination -->
   <nav aria-label="Page navigation">
   
-    <ul class="navigation pagination justify-content-center" id="pagination">
+    <ul class="navigation wl-pagination justify-content-center" id="pagination">
       <!-- Pagination items will be added dynamically using JavaScript -->
     </ul>
   </nav>
@@ -368,6 +227,9 @@ add Gifts
   <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
     <div class="modal-content">
       <div class="modal-header ">
+      <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h5 class="modal-title" id="bigModalLabel">Add gifts to <?php echo $result->title; ?> </h5>
        
         <form class="form-inline my-2 my-lg-0">
@@ -377,9 +239,7 @@ add Gifts
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </form>
-        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        
       </div>
       <div class="modal-body">
 
@@ -403,7 +263,7 @@ add Gifts
 
             <nav aria-label="Page navigation">
         
-        <ul class="navigation pagination justify-content-center" id="newpagination">
+        <ul class="navigation wl-pagination justify-content-center" id="newpagination">
           <!-- Pagination items will be added dynamically using JavaScript -->
         </ul>
       </nav>
@@ -420,14 +280,15 @@ add Gifts
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
+  <div class="modal-dialog "> <!-- Use modal-lg class for a large modal -->
     <div class="modal-content">
       <div class="modal-header ">
-        <h5 class="modal-title" id="editModalLabel">Edit <?php echo $result->title; ?> </h5>       
-       
-        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h5 class="modal-title" id="editModalLabel">Edit <?php echo $result->title; ?> </h5>       
+       
+      
       </div>
       <div class="modal-body">     
 
@@ -435,45 +296,45 @@ add Gifts
         
             <div class="container">
                <div class="row">
-                  <div class="col-md-12">                    
+                  <div class="">                    
                       <form id="event-form" method="post" enctype="multipart/form-data">
                       <div class="row">
-                        <div class="col-sm-4">
+                        <div class="">
                           <label>Title:</label>
                           <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
                         </div>                       
                       
-                        <div class="col-sm-4">
+                        <div class="">
                           <label>Start Date and Time:</label>
                           <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="">
                           <label>End Date and Time:</label>
                           <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-sm-12">
+                        <div class="">
                         <label>Description:</label>                                               
                         <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
                         </div>
                       </div>  
                       <div class="row"> 
-                      <div class="col-sm-6">               
+                      <div class="">               
                         <label>Location:</label>
                         <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="">
                         <label>Location URL:</label>
                         <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
                         </div>
                       </div> 
                       <div class="row"> 
-                      <div class="col-sm-6">  
+                      <div class="">  
                         <label>Address:</label>
                         <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="">
                         <label>Location:</label>
                         <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
                         </div>

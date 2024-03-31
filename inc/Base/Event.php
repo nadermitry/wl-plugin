@@ -145,11 +145,30 @@ class Event extends BaseController {
         
         $gifts     = $this->gifts( $this->eventid);
         $newgifts  = $this->gifts($this->eventid,true);       
-        $eventTemplate ='event.php';
+      
+
+
+        wp_enqueue_style(
+            'evnt-list-pagination-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/pagination.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
+        $eventTemplate ='event';
+       
+        wp_enqueue_style(
+            $eventTemplate.'-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/'. $eventTemplate .'.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
+
+
+
 
         ob_start();	
-        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate )) {
-            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate;
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate .'.php' )) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate.'.php';
         }  
 
         $output_string = ob_get_contents();
