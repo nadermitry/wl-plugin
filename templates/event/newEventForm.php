@@ -1,10 +1,10 @@
 
  <!-- CSS -->
  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/1xassets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/1xassets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="<?php echo $this->plugin_url ?>/1xassets/css/form-elements.css">
-        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/xassets/css/style.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/style.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,48 +15,47 @@
 
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="xassets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->plugin_url ?>/wl-plugin/xassets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $this->plugin_url ?>xassets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->plugin_url ?>xassets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->plugin_url ?>wl-plugin/xassets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="<?php echo $this->plugin_url ?>xassets/ico/apple-touch-icon-57-precomposed.png">
 
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-                    	<form role="form" action="" method="post" class="f1">
-
-                    		<h3>Register To Our App</h3>
-                    		<p>Fill in the form to get instant access</p>
+<div id="eventWizard" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box addeventbody">
+                    
+                        <form role="form" id="event-form" method="post" enctype="multipart/form-data"  class="f1">
+                    		<!--<h3>Register To Our App</h3>
+                    		<p>Fill in the form to get instant access</p>-->
                     		<div class="f1-steps">
                     			<div class="f1-progress">
                     			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
                     			</div>
                     			<div class="f1-step active">
-                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                    				<p>about</p>
+                    				<div class="f1-step-icon"><i class="fa fa-info"></i></div>
+                    				<p>Info</p>
                     			</div>
                     			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                    				<p>account</p>
+                    				<div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
+                    				<p>Date</p>
                     			</div>
                     		    <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
-                    				<p>social</p>
+                    				<div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
+                    				<p>Location</p>
                     			</div>
                     		</div>
                     		
                     		<fieldset>
-                    		    <h4>Tell us who you are:</h4>
-                    			<div class="form-group">
-                    			    <label class="sr-only" for="f1-first-name">First name</label>
-                                    <input type="text" name="f1-first-name" placeholder="First name..." class="f1-first-name form-control" id="f1-first-name">
+                    		    <!--<h4>Tell us who you are:</h4>-->
+                    			<div class="form-group">                    	
+                                    <label class="sr-only" for="event_title">Title</label>
+                                    <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-last-name">Last name</label>
-                                    <input type="text" name="f1-last-name" placeholder="Last name..." class="f1-last-name form-control" id="f1-last-name">
+                                    <label class="sr-only" for="event_image">Image Upload</label>
+                                    <input type="file" id="event_image" name="event_image" accept="image/*" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-about-yourself">About yourself</label>
-                                    <textarea name="f1-about-yourself" placeholder="About yourself..." 
-                                    	                 class="f1-about-yourself form-control" id="f1-about-yourself"></textarea>
+                                    <label class="sr-only" for="event_description">Description</label>                                                                                 
+                                    <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
                                 </div>
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-next">Next</button>
@@ -64,20 +63,16 @@
                             </fieldset>
 
                             <fieldset>
-                                <h4>Set up your account:</h4>
+                              <!--  <h4>Set up your account:</h4>-->
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                    <label class="" for="start_datetime">Start Date</label>                                    
+                                    <input type="datetime-local"  placeholder="Start Date..." class="f1-email form-control" name="start_datetime" id="start_datetime"  >
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                    <label class="" for="end_datetime">End Date</label>
+                                    <input type="datetime-local" placeholder="End Date..."  class="f1-email form-control" name="end_datetime" id="end_datetime">
                                 </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
-                                </div>
+                               
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-previous">Previous</button>
                                     <button type="button" class="btn btn-next">Next</button>
@@ -85,35 +80,41 @@
                             </fieldset>
 
                             <fieldset>
-                                <h4>Social media profiles:</h4>
+                               <!-- <h4>Social media profiles:</h4>-->
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-facebook">Facebook</label>
-                                    <input type="text" name="f1-facebook" placeholder="Facebook..." class="f1-facebook form-control" id="f1-facebook">
+                                    <label class="sr-only" for="event_address_name">Locaion Name</label>                                  
+                                    <input type="text" name="event_address_name"  id="event_address_name" placeholder="Locaion Name..." class="f1-facebook form-control" >
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-twitter">Twitter</label>
-                                    <input type="text" name="f1-twitter" placeholder="Twitter..." class="f1-twitter form-control" id="f1-twitter">
+                                    <label class="sr-only" for="f1-event_address_url">Location Website</label>                                  
+                                    <input type="text" name="event_address_url" id="event_address_url" placeholder="Location Website..." class="f1-twitter form-control">
+ 
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-google-plus">Google plus</label>
-                                    <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
+                                    <label class="sr-only" for="event_address">Address</label>                                  
+                                    <textarea name="event_address" id="event_address"  placeholder="Address..." class="f1-google-plus form-control"></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="event_location">Google Maps Location</label>                                   
+                                    <input type="text" name="event_location" id="event_location" placeholder="Google Maps Location..." class="f1-google-plus form-control">
+                                </div>
+                                
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                    <button name="submit" type="submit" class="btn btn-submit">Submit</button>
                                 </div>
                             </fieldset>
                     	
                     	</form>
                     </div>
-
+<!--
 
 <div id="primary" class="content-area">
     <main id="main" class="site-main">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">                    
-                    <form id="event-form" method="post" enctype="multipart/form-data">
+                    <form5 id="event-form555" method="post55" enctype="multipart/form-data">
                         <label>Title:</label>
                         <input type="text" name="event_title" required><br><br>
                         
@@ -128,7 +129,7 @@
                         
                         <label>Description:</label>                                               
                         <textarea id="event_description" name="event_description" rows="4" cols="50"></textarea><br><br>
-                                           
+
                         <label>Location Name:</label>
                         <input type="text" name="event_address_name" required ><br><br>
 
@@ -146,9 +147,9 @@
                 </div>
             </div>
         </div>
-    </main><!-- #main -->
-</div><!-- #primary -->
-
+    </main>
+</div>
+        -->
 
   <!-- Javascript -->
   <script src="<?php echo $this->plugin_url ?>/xassets/js/jquery-1.11.1.min.js"></script>
