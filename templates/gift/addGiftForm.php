@@ -98,10 +98,11 @@ if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php' ) ) 
                 'title' => sanitize_text_field($_POST["title"]),
                 'description' => sanitize_text_field($_POST["description"]),
                 'url' => $_POST["url"],
-                'img_url' => $_POST["imageUrl"]
+                'img_url' => $_POST["imageUrl"],
+                'product_id' => 0
             );
 
-
+        
          //print_r($data);
             $wpdb->insert( $table_name, $data );
           //  echo 'Post inserted successfully. Post ID: ' . $wpdb->insert_id;

@@ -859,4 +859,11 @@ wl_paging(CurrentPage);
             // Close the modal
             $('#imageModal').modal('hide');
         });
+
+
+
+      
+
+
+
     </script>
