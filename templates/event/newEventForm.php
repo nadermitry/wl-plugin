@@ -1,10 +1,10 @@
 
  <!-- CSS -->
  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/css/form-elements.css">
-        <link rel="stylesheet" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/css/style.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/xassets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/xassets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo $this->plugin_url ?>/xassets/css/form-elements.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>/xassets/css/style.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,10 +15,10 @@
 
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="xassets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->plugin_url ?>/wl-plugin/xassets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="<?php echo $this->plugin_url ?>/xassets/ico/apple-touch-icon-57-precomposed.png">
 
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form role="form" action="" method="post" class="f1">
@@ -151,12 +151,12 @@
 
 
   <!-- Javascript -->
-  <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/jquery-1.11.1.min.js"></script>
+  <script src="<?php echo $this->plugin_url ?>/xassets/js/jquery-1.11.1.min.js"></script>
                     
-        <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/jquery.backstretch.min.js"></script>
-        <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/retina-1.1.0.min.js"></script>
-        <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/scripts.js"></script>
+        <script src="<?php echo $this->plugin_url ?>/xassets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo $this->plugin_url ?>/xassets/js/jquery.backstretch.min.js"></script>
+        <script src="<?php echo $this->plugin_url ?>/xassets/js/retina-1.1.0.min.js"></script>
+        <script src="<?php echo $this->plugin_url ?>/xassets/js/scripts.js"></script>
         
         <!--[if lt IE 10]>
             <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/placeholder.js"></script>
