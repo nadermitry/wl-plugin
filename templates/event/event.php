@@ -8,17 +8,18 @@
 <div class="bs-blog-post single"> 
     <div class="bs-header">
         
-        <?php if ($isCurrentUser) :?>
-             
-            <div class="bs-blog-category">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>                    
-            </div>
-
-        <?php endif ?>
+        
 
         <h1 class="title"> 
             <?php echo stripcslashes(sanitize_text_field($result->title)); ?>
         </h1>
+        <?php if ($isCurrentUser) :?>
+             
+             <div class="bs-blog-category">
+                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>                    
+             </div>
+ 
+         <?php endif ?>
 
         <article class="small single">
             <?php echo stripcslashes(sanitize_text_field($result->description)) ; ?> 
