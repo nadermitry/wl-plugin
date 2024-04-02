@@ -61,6 +61,15 @@ jQuery(document).ready(function() {
     		}
     	});
     	// fields validation
+		if( $('#event_image').val() == "" ) {	
+			//alert('xxxxddddddrrrxx');	
+			//$('#file_title').css('color', 'red');
+			$('#dropcontainer').css('border-color', 'red');
+				
+			e.preventDefault();
+			$('drop-container').addClass('input-error');
+		}
+
     	
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
@@ -98,8 +107,28 @@ jQuery(document).ready(function() {
     // submit
     $('.f1').on('submit', function(e) {
     	
-    	// fields validation
+    	alert('ddddddd');
+		alert($('#event_image').val());// fields validation
+		alert('xxxx');
     	$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
+    		
+			
+			
+			
+			
+			if( $(this).val() == "" ) {
+    			e.preventDefault();
+    			$(this).addClass('input-error');
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
+    	// fields validation
+
+
+		// fields validation
+    	$(this).find('#url').each(function() {
     		if( $(this).val() == "" ) {
     			e.preventDefault();
     			$(this).addClass('input-error');
@@ -112,5 +141,28 @@ jQuery(document).ready(function() {
     	
     });
     
-    
 });
+
+
+
+const dropContainer = document.getElementById("dropcontainer")
+const fileInput = document.getElementById("event_image")
+
+dropContainer.addEventListener("dragover", (e) => {
+  // prevent default to allow drop
+  e.preventDefault()
+}, false)
+
+dropContainer.addEventListener("dragenter", () => {
+  dropContainer.classList.add("drag-active")
+})
+
+dropContainer.addEventListener("dragleave", () => {
+  dropContainer.classList.remove("drag-active")
+})
+
+dropContainer.addEventListener("drop", (e) => {
+  e.preventDefault()
+  dropContainer.classList.remove("drag-active")
+  fileInput.files = e.dataTransfer.files
+})

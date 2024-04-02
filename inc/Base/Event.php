@@ -27,8 +27,7 @@ class Event extends BaseController {
     
 
     public  function add() {        
-        ob_start();  
-        Print_r($_POST['submit'])  ;   
+        ob_start();           
         if(isset($_POST['submit'])) {            
             if (!isset($_GET["success"])) {                
                 $event_title = sanitize_text_field($_POST['event_title']);

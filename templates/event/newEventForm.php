@@ -49,9 +49,14 @@
                                     <label class="sr-only" for="event_title">Title</label>
                                     <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
                                 </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="event_image">Image Upload</label>
-                                    <input type="file" id="event_image" name="event_image" accept="image/*" required>
+                                <div class="form-group" >
+                                    <label class="drop-X" id="X" for="event_image">Event Image</label>                                
+                                    <label for="images" class="drop-container" id="dropcontainer">
+                                        <span id="file_title" class="drop-title">Drop file here</span>
+                                            or
+                                        <input type="file" name="event_image" id="event_image" accept="image/*" required>
+                                    </label>                                
+                                
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="event_description">Description</label>                                                                                 
