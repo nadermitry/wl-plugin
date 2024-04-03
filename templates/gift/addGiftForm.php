@@ -13,8 +13,8 @@
         
      if (!isset($_GET["success"])){
         
-        if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\urlForm.php' ) ) {
-            require_once dirname( __FILE__,3 ) . '\templates\gift\urlForm.php';
+        if ( file_exists( dirname( __FILE__,3 ) . '/templates/gift/urlForm.php' ) ) {
+            require_once dirname( __FILE__,3 ) . '/templates/gift/urlForm.php';
         }  
 
         
@@ -28,7 +28,7 @@
 <?php 
 ;
 if (isset($_POST["url"]) && filter_var($_POST["url"], FILTER_VALIDATE_URL) && (!isset($_POST["title"]))) {
-if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php' ) ) {
+if ( file_exists( dirname( __FILE__,3 ) . '/templates/gift/newItemForm.php' ) ) {
 
     try{    
         $web = new \Spekulatius\PHPScraper\PHPScraper;
@@ -67,7 +67,7 @@ if ( file_exists( dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php' ) ) 
     catch(\Throwable $e){
        // echo $e;
         }
-            require_once dirname( __FILE__,3 ) . '\templates\gift\newItemForm.php';   
+            require_once dirname( __FILE__,3 ) . '/templates/gift/newItemForm.php';   
             
             
 
