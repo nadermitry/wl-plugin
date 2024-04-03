@@ -58,7 +58,26 @@ $product_url =get_permalink();
 	 * @return string
 	 */
 	?>
-	<button
+  
+	
+  <?php 
+    // FIXME  - login by google should redirect to the same single product page"   
+    if ( is_user_logged_in() ) {
+      // User is logged in
+      $buttonTitle = 'Add to my Gifts';
+      $buttonOnClickFunction = 'add_to_gifts();';
+    } else {
+      // User is not logged in
+      $buttonTitle = 'PLease login to add it to your wishlist';
+      $buttonOnClickFunction = 'login_in_first();';
+    }
+  ?>
+
+
+
+
+
+  <button
 		href="#"
 		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>"
 		data-product-id="<?php echo esc_attr( $product_id ); ?>"
@@ -66,16 +85,22 @@ $product_url =get_permalink();
 		data-original-product-id="<?php echo esc_attr( $parent_product_id ); ?>"
 		data-title="<?php echo "esc_attr( apply_filters( 'yith_wcwl_add_to_wishlist_title', $label ) )"; ?>"
 		rel="nofollow"
-        onclick="add_to_gifts();"
+        onclick="<?php echo $buttonOnClickFunction;?>"
 	>
 		
     <i class="yith-wcwl-icon fa fa-heart-o"></i>
-		<span><?php echo ' Add to my Gifts'; ?></span>
+		<span><?php echo  $buttonTitle; ?></span>
 	</button>
 </div>
 
 
 <script>
+
+
+function login_in_first(){ 
+  window.location.replace("http://localhost/wordpress/my-account/?redirect_to=<?php echo get_permalink();?>");
+}
+
 
 function add_to_gifts(){
        // var strDivName= 'EventsofGift' + giftid;
@@ -102,17 +127,8 @@ function add_to_gifts(){
           data: passed_data,         // any JS object
         },
         complete: function (response) {
-         
-            
-
-
-            console.log(response.responseText); 
-
-
-
-
-          // alert(response.responseText)
-           
+            console.log(response.responseText);
+          // alert(response.responseText)           
             //var newHTML = response.responseText;    
             //  alert(newHTML);
             //alert(enventid_array[0]);
