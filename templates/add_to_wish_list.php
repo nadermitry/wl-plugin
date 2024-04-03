@@ -97,8 +97,8 @@ $product_url =get_permalink();
 <script>
 
 
-function login_in_first(){ 
-  window.location.replace(window.location.hostname+"/my-account/?redirect_to=<?php echo get_permalink();?>");
+function login_in_first(){  
+  window.location.replace("http://"+window.location.hostname+"/my-account/?redirect_to=<?php echo get_permalink();?>");
 }
 
 
