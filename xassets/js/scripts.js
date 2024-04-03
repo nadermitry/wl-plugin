@@ -105,11 +105,8 @@ jQuery(document).ready(function() {
     });
     
     // submit
-    $('.f1').on('submit', function(e) {
+    $('.f1').on('submit', function(e) {    	
     	
-    	alert('ddddddd');
-		alert($('#event_image').val());// fields validation
-		alert('xxxx');
     	$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
     		
 			

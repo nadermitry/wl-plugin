@@ -1,9 +1,9 @@
 <?php
 
 
-$base_url = 'http://' . $_SERVER['HTTP_HOST'] .'/wordpress';
-//echo $base_url;
-//exit;
+$base_url = 'http://' . $_SERVER['HTTP_HOST'] ;
+
+
 define('SHORTINIT', true); // Prevents loading unnecessary WordPress components
 require_once $base_url.'/wp-load.php';
 

@@ -145,7 +145,8 @@ foreach ($results as $result) :
 
     $event_gifts_table = $wpdb->prefix . 'gift_events_vw';  
     // Specify the condition for deleting rows
-    $where_condition = ' where gift_id =' .$result->id;
+    $where_condition = ' where gift_id =' .$result->id .' and  user_id = '. $this->current_user_id ;
+    
     // Format the where condition
     //$where_format = array('%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
     $events     = $wpdb->get_results("select * from  $event_gifts_table $where_condition");

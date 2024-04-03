@@ -119,9 +119,8 @@ function add_to_gifts(){
 
 
         jQuery.ajax({
-        type: "post",
-        url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
-      //  url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        type: "post",       
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_add_to_gifts",  // the action to fire in the server
           data: passed_data,         // any JS object

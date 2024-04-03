@@ -2,17 +2,15 @@
 //# sourceMappingURL=myscript.js.map
 function count_actions( pgiftid, peventid,  ptype,purl){
 
-    passed_data={"giftid":pgiftid,"eventid":peventid,"type":ptype};  
+    passed_data={"giftid":pgiftid,"eventid":peventid,"type":ptype}; 
     jQuery.ajax({
-        type: "post",
-        
-        url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        type: "post",       
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_ajax_gifts_counter",  // the action to fire in the server
           data: passed_data,         // any JS object
         },
-        complete: function (response) {
-            alert(response.responseText);
+        complete: function (response) {           
             console.log(JSON.parse(response.responseText).data);                
             window.open(purl, "_blank");
 
