@@ -98,7 +98,7 @@ $product_url =get_permalink();
 
 
 function login_in_first(){ 
-  window.location.replace("http://localhost/wordpress/my-account/?redirect_to=<?php echo get_permalink();?>");
+  window.location.replace(window.location.hostname+"/my-account/?redirect_to=<?php echo get_permalink();?>");
 }
 
 
