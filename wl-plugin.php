@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package  wlPlugin
  */
@@ -31,6 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 Copyright 2005-2015 Automattic, Inc.
 */
+
+// TODO - Instalation steps 
+//   1  - Install wordpress 
+//   2  - Store woocommerce theme 
+//	 3  - Woocommecre plugin
+//   4  - WCFM Marketplace plugin 
+//   5  - Simple Page Access Restriction
+//            redirect page my account
+
+
 
 // If this file is called firectly, abort!!!
 defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );

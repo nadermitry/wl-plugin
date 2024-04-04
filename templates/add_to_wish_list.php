@@ -97,10 +97,15 @@ $product_url =get_permalink();
 <script>
 
 
+<<<<<<< HEAD
 function login_in_first(){ 
   // FIXME  - define global variables to login page and redirect to " 
   window.location.replace( window.location.origin +"/wordpress/my-account/?redirect_to=<?php echo get_permalink();?>");
  
+=======
+function login_in_first(){  
+  window.location.replace("http://"+window.location.hostname+"/my-account/?redirect_to=<?php echo get_permalink();?>");
+>>>>>>> 36681c608e548a00e782a457b96d01a99ee1f80d
 }
 
 
@@ -121,9 +126,8 @@ function add_to_gifts(){
 
 
         jQuery.ajax({
-        type: "post",
-        url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
-      //  url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        type: "post",       
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_add_to_gifts",  // the action to fire in the server
           data: passed_data,         // any JS object

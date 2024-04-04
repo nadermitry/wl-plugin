@@ -121,7 +121,7 @@ public  function add() {
 
     jQuery.ajax({
         type: "post",
-        url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_add_to_event",  // the action to fire in the server
           data: passed_data,         // any JS object

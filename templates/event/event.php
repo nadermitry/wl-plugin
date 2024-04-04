@@ -431,8 +431,8 @@ jQuery(document).ready(function($) {
         var formData = new FormData($(this)[0]);
 
         $.ajax({
-            url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
-            //url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`, // WordPress AJAX URL
+        
+            url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
             type: 'POST',
             data: formData,
             async: true,
@@ -703,8 +703,8 @@ $('#bigModal').on('hidden.bs.modal', function () {
 
         jQuery.ajax({
         type: "post",
-        url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
-       // url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+        //url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
+       url: `${window.location.origin}/wp-admin/admin-ajax.php`,
         data: {
           action: "wl_add_to_event",  // the action to fire in the server
           data: passed_data,         // any JS object
@@ -745,8 +745,8 @@ $('#bigModal').on('hidden.bs.modal', function () {
 
     jQuery.ajax({
       type: "post",
-      url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
-//url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
+      
+url: `${window.location.origin}/wp-admin/admin-ajax.php`,
 data: {
   action: "wl_update_event",  // the action to fire in the server
   data: passed_data,         // any JS object
@@ -784,8 +784,8 @@ complete: function (response) {
 
         jQuery.ajax({
         type: "post",
-       // url: `${window.location.origin}/wordpress/wp-admin/admin-ajax.php`,
-        url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+       
         data: {
           action: "wl_remove_from_event",  // the action to fire in the server
           data: passed_data,         // any JS object
