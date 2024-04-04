@@ -25,6 +25,7 @@ creds.js
  
 # Private Files
 *.json
+!composer.json
 *.csv
 *.csv.gz
 *.tsv
