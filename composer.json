@@ -1,0 +1,23 @@
+{
+    "name": "nmitry/wl-plugin",
+    "description": "Awesome starter plugin example",
+    "type": "project",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Nader Mitry",
+            "email": "johndoe@example.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "spekulatius/phpscraper": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./inc",
+            "Inc\\addEvent\\": "./inc/addEvent"
+                
+        }
+    }
+}
