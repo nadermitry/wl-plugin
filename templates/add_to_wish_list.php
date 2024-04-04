@@ -98,7 +98,9 @@ $product_url =get_permalink();
 
 
 function login_in_first(){ 
-  window.location.replace("http://localhost/wordpress/my-account/?redirect_to=<?php echo get_permalink();?>");
+  // FIXME  - define global variables to login page and redirect to " 
+  window.location.replace( window.location.origin +"/wordpress/my-account/?redirect_to=<?php echo get_permalink();?>");
+ 
 }
 
 
