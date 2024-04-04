@@ -160,6 +160,66 @@ dropContainer.addEventListener("dragleave", () => {
 
 dropContainer.addEventListener("drop", (e) => {
   e.preventDefault()
+  handleDrop(e)
+
   dropContainer.classList.remove("drag-active")
   fileInput.files = e.dataTransfer.files
+  
 })
+
+
+
+function handleDrop(event) {
+    event.preventDefault(); // Prevent default behavior (opening as link for some elements)
+
+    if (event.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        for (var i = 0; i < event.dataTransfer.items.length; i++) {
+			
+            // If dropped items aren't files, reject them
+            if (event.dataTransfer.items[i].kind === 'file') {
+                var file = event.dataTransfer.items[i].getAsFile();
+               
+                // Check if the dropped file is an image
+                if (!file.type.match('image.*')) {
+                    console.log('Dropped file is not an image.');
+                    return;
+                }
+
+                // Display the dropped image
+                displayImage(file);
+            }
+        }
+    } else {
+        // Use DataTransfer interface to access the file(s)
+        for (var i = 0; i < event.dataTransfer.files.length; i++) {
+            // If dropped items aren't files, reject them
+            if (event.dataTransfer.files[i].kind === 'file') {
+                var file = event.dataTransfer.files[i];
+
+                // Check if the dropped file is an image
+                if (!file.type.match('image.*')) {
+                    console.log('Dropped file is not an image.');
+                    return;
+                }
+
+                // Display the dropped image
+                displayImage(file);
+            }
+        }
+    }
+}
+
+
+// Function to display the dropped image in the img tag
+function displayImage(file) {
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const imgElement = document.getElementById('imageDisplay');
+        imgElement.src = event.target.result;
+    };
+
+    // Read the dropped file as a data URL
+    reader.readAsDataURL(file);
+}

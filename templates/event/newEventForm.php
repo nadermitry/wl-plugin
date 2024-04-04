@@ -50,8 +50,11 @@
                                     <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
                                 </div>
                                 <div class="form-group" >
-                                    <label class="drop-X" id="X" for="event_image">Event Image</label>                                
+                                    <label class="drop-X" id="X" for="event_image">Event Image</label> 
+                                    <img id="imageDisplay" src="<?php echo $this->plugin_url ?>assets/images/events/emptyimage.png"  width="100px">                               
                                     <label for="images" class="drop-container" id="dropcontainer">
+                                    
+                                        
                                         <span id="file_title" class="drop-title">Drop file here</span>
                                             or
                                         <input type="file" name="event_image" id="event_image" accept="image/*" required>
@@ -157,6 +160,36 @@
         -->
 
   <!-- Javascript -->
+<script>
+    // Function to handle file input change event
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return;
+    }
+    
+    // Check if the file is an image
+    if (!file.type.match('image.*')) {
+        console.log('Selected file is not an image.');
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const imgElement = document.getElementById('imageDisplay');
+        imgElement.src = event.target.result;
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+}
+
+// Add event listener to the file input
+document.getElementById('event_image').addEventListener('change', handleFileSelect, false);
+</script>    
+
+
   <script src="<?php echo $this->plugin_url ?>/xassets/js/jquery-1.11.1.min.js"></script>
                     
         <script src="<?php echo $this->plugin_url ?>/xassets/bootstrap/js/bootstrap.min.js"></script>
@@ -167,3 +200,4 @@
         <!--[if lt IE 10]>
             <script src="<?php echo $this->plugin_url ?>/xassets/js/placeholder.js"></script>
         <![endif]-->
+
