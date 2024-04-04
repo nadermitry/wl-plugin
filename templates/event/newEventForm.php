@@ -165,5 +165,5 @@
         <script src="<?php echo $this->plugin_url ?>/xassets/js/scripts.js"></script>
         
         <!--[if lt IE 10]>
-            <script src="http://localhost/wordpress/wp-content/plugins/wl-plugin/xassets/js/placeholder.js"></script>
+            <script src="<?php echo $this->plugin_url ?>/xassets/js/placeholder.js"></script>
         <![endif]-->
