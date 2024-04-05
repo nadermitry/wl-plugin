@@ -176,6 +176,60 @@ class Event extends BaseController {
         return $output_string;
     }
 
+
+    public function view2(){
+
+        $additional_condition = " WHERE id =  $this->eventid ";
+        $query = "SELECT * FROM $this->table_name $additional_condition LIMIT 1";
+        $result = $this->db->get_row($query);
+       
+        $currentURL = home_url( add_query_arg( NULL, NULL ));       
+        $isCurrentUser = ($result->user_id == $this->current_user->ID);
+       
+        $image_path = get_user_meta($this->current_user->ID, 'wp_user_avatars', true);
+
+        
+        if (isset( $image_path['full'])) {
+            $full_url = $image_path['full']; // The full URL 
+        }else{
+            $full_url = '';
+        }
+        
+        $gifts     = $this->gifts( $this->eventid);
+        $newgifts  = $this->gifts($this->eventid,true);       
+      
+
+
+        wp_enqueue_style(
+            'evnt-list-pagination-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/pagination.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
+        $eventTemplate ='event2';
+       
+        wp_enqueue_style(
+            $eventTemplate.'-style', // Unique handle for the style
+            $this->plugin_url . 'assets/css/'. $eventTemplate .'.css', // Path to the stylesheet file
+            array(), // Dependencies (optional)
+            '1.0' // Style version (optional)
+        );
+
+
+
+
+        ob_start();	
+        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate .'.php' )) {
+            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate.'.php';
+        }  
+
+        $output_string = ob_get_contents();
+        ob_end_clean();
+        return $output_string;
+    }
+
+
+
     public function gifts(int $eventId ,bool $new = false){
        
         if (!$new ){

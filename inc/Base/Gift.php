@@ -96,6 +96,7 @@ public  function add() {
     }
 
     function add_to_event(giftid){
+       
         var strDivName= \'EventsofGift\' + giftid;
         var myDiv = document.getElementById(strDivName);
         myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";

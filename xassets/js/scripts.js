@@ -19,19 +19,44 @@ function bar_progress(progress_line_object, direction) {
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
+
+function showProgress() {
+	
+	var modal = document.getElementById("progressModal");
+	modal.style.display = "block";
+  
+	var progressBar = document.getElementById("progressBar");
+	var width = 0;
+	var interval = setInterval(function() {
+	  if (width >= 100) {
+		clearInterval(interval);
+		modal.style.display = "none";
+	  } else {
+		width++;
+		progressBar.style.width = width + "%";
+	  }
+	}, 50); // Change interval for different speeds
+  }
+
+  function showLoading() {
+	var modal = document.getElementById("loadingModal");
+	modal.style.display = "block";
+  }
+
+
 jQuery(document).ready(function() {
 	
     /*
         Fullscreen background
     */
-    $.backstretch("assets/img/backgrounds/1.jpg");
+    //$.backstretch("./xassets/img/backgrounds/1.jpg");
     
-    $('#top-navbar-1').on('shown.bs.collapse', function(){
-    	$.backstretch("resize");
-    });
-    $('#top-navbar-1').on('hidden.bs.collapse', function(){
-    	$.backstretch("resize");
-    });
+    //$('#top-navbar-1').on('shown.bs.collapse', function(){
+    //	$.backstretch("resize");
+    //});
+    //$('#top-navbar-1').on('hidden.bs.collapse', function(){
+    //	$.backstretch("resize");
+    //});
     
     /*
         Form
@@ -105,7 +130,17 @@ jQuery(document).ready(function() {
     });
     
     // submit
-    $('.f1').on('submit', function(e) {    	
+    
+	
+	
+	
+	
+	/*
+	
+	$('.f1').on('submit', function(e) {  
+
+		
+		
     	
     	$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
     		
@@ -138,7 +173,79 @@ jQuery(document).ready(function() {
     	
     });
     
+
+  */
+	$('.f1').on('submit', function(e) { 
+		
+		e.preventDefault();
+		isError=true;
+		$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
+			if( $(this).val() == "" ) {
+				e.preventDefault();
+				$(this).addClass('input-error');
+				isError=true;				
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+				isError=false;	
+    		}
+    	});
+    	// fields validation
+
+
+		// fields validation
+    	$(this).find('#url').each(function() {
+    		if( $(this).val() == "" ) {
+    			e.preventDefault();
+    			$(this).addClass('input-error');
+				isError=true;
+
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+				isError=false;
+    		}
+    	});
+        if (isError==false){
+        var formData = new FormData($(this)[0]);
+		showLoading();
+        $.ajax({
+        
+            url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // Handle success response
+                //console.log(response.data);
+				
+				window.location.href = "/event2/?eid="+response.data;
+			   
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                // Handle error response
+                console.error('Error uploading file: ' + textStatus);
+            }
+        });
+  
+	}
+
+
+
+
+    	
+    });
+
+
+
+
+
 });
+
+
 
 
 
@@ -222,4 +329,68 @@ function displayImage(file) {
 
     // Read the dropped file as a data URL
     reader.readAsDataURL(file);
+}
+
+
+
+
+function save_event(){
+
+
+	$('.f1').find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() { 
+		if( $(this).val() == "" ) {
+			$(this).addClass('input-error');
+						
+			exit;
+		}
+		else {
+			$(this).removeClass('input-error');
+		}
+	});
+	// fields validation
+
+
+	// fields validation
+	$(this).find('#url').each(function() {
+		if( $(this).val() == "" ) {
+			$(this).addClass('input-error');
+			exit;
+		}
+		else {
+			$(this).removeClass('input-error');
+		}
+	});
+	// fields validation
+
+  
+	var formData = new FormData($('#event-form')[0]);
+
+	/*var formData = {
+		event_title: document.getElementById("event_title").value,
+		event_image: document.getElementById("event_image").value,
+		event_description: document.getElementById("event_description").value,
+		start_datetime: document.getElementById("start_datetime").value,
+		end_datetime: document.getElementById("end_datetime").value,
+		event_address_name: document.getElementById("event_address_name").value,
+		event_address_url: document.getElementById("event_address_url").value,
+		event_address: document.getElementById("event_address").value,
+		event_location: document.getElementById("event_location").value		
+	};*/
+
+
+
+    passed_data=formData; 
+    jQuery.ajax({
+        type: "post",       
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+        data: {
+          action: "wl_ajax_save_event",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {           
+            console.log(JSON.parse(response.responseText).data);                
+           alert(JSON.parse(response.responseText).data)
+
+        },
+    });
 }

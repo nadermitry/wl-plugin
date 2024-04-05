@@ -20,14 +20,53 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->plugin_url ?>wl-plugin/xassets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="<?php echo $this->plugin_url ?>xassets/ico/apple-touch-icon-57-precomposed.png">
 
-<div id="eventWizard" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box addeventbody">
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+/* Loading Spinner */
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+</style>
+
+
+<!--<div id="eventWizard" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box addeventbody">-->
+<div id="eventWizard" class="form-box addeventbody">
                     
                         <form role="form" id="event-form" method="post" enctype="multipart/form-data"  class="f1">
                     		<!--<h3>Register To Our App</h3>
                     		<p>Fill in the form to get instant access</p>-->
                     		<div class="f1-steps">
                     			<div class="f1-progress">
-                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
+                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
                     			</div>
                     			<div class="f1-step active">
                     				<div class="f1-step-icon"><i class="fa fa-info"></i></div>
@@ -40,7 +79,7 @@
                     		    <div class="f1-step">
                     				<div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
                     				<p>Location</p>
-                    			</div>
+                    			</div>                              
                     		</div>
                     		
                     		<fieldset>
@@ -51,7 +90,7 @@
                                 </div>
                                 <div class="form-group" >
                                     <label class="drop-X" id="X" for="event_image">Event Image</label> 
-                                    <img id="imageDisplay" src="<?php echo $this->plugin_url ?>assets/images/events/emptyimage.png"  width="100px">                               
+                                    <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px">                               
                                     <label for="images" class="drop-container" id="dropcontainer">
                                     
                                         
@@ -94,7 +133,7 @@
                                     <input type="text" name="event_address_name"  id="event_address_name" placeholder="Locaion Name..." class="f1-facebook form-control" >
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-event_address_url">Location Website</label>                                  
+                                    <label class="sr-only" for="event_address_url">Location Website</label>                                  
                                     <input type="text" name="event_address_url" id="event_address_url" placeholder="Location Website..." class="f1-twitter form-control">
  
                                 </div>
@@ -108,13 +147,25 @@
                                 </div>
                                 
                                 <div class="f1-buttons">
+                                    <input type="hidden" name="action" value="wl_ajax_save_event">
                                     <button type="button" class="btn btn-previous">Previous</button>
                                     <button name="submit" type="submit" class="btn btn-submit">Submit</button>
+                                    <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
                                 </div>
                             </fieldset>
                     	
                     	</form>
                     </div>
+
+
+  <!-- The Modal -->
+  <div id="loadingModal" class="modal">
+    <!-- Loading spinner -->
+    <div class="loader"></div>
+  </div>
+
+
+
 <!--
 
 <div id="primary" class="content-area">

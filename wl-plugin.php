@@ -379,7 +379,7 @@ function handle_file_upload() {
 		$nn = end($parts);
 		$file_ext = strtolower($nn);
 		$filename = uniqid('event_') . '.' . $file_ext;
-        $upload_dir = plugin_dir_path( __FILE__ ) . '/assets//images/events/';
+        $upload_dir = plugin_dir_path( __FILE__ ) . '/assets/images/events/';
         $file_path = $upload_dir . '/' . $filename;        
         if(move_uploaded_file($file['tmp_name'], $file_path)) {
 			if (isset( $_POST['event_id'])){
@@ -400,6 +400,72 @@ function handle_file_upload() {
     }
 }
 
+function wl_ajax_save_event() {
+
+	
+	$event_title = sanitize_text_field($_POST['event_title']);
+	$event_description= sanitize_text_field($_POST['event_description']);               
+	$event_address_name = sanitize_text_field($_POST['event_address_name']);
+	$event_address_url= sanitize_text_field($_POST['event_address_url']);
+	$event_location = sanitize_text_field($_POST['event_location']);
+	$event_address = sanitize_text_field($_POST['event_address']);
+	$start_datetime = sanitize_text_field($_POST['start_datetime']);
+	$end_datetime = sanitize_text_field($_POST['end_datetime']); 
+
+    
+
+
+	if(isset($_FILES['event_image'])) {
+        $file = $_FILES['event_image'];
+        
+        // Check for errors
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            wp_send_json_error('Error uploading file');
+        }
+        
+        // Move uploaded file to desired directory
+		$parts = explode('.', basename($file['name']));
+		$nn = end($parts);
+		$file_ext = strtolower($nn);
+		$filename = uniqid('event_') . '.' . $file_ext;
+        $upload_dir = plugin_dir_path( __FILE__ ) . '/assets/images/events/';
+        $file_path = $upload_dir . '/' . $filename;
+		if(move_uploaded_file($file['tmp_name'], $file_path)) {
+			$data = array(
+				'user_id' => get_current_user_id(),
+				'title' => $event_title,
+				'start_date' => $start_datetime,
+				'end_date' => $end_datetime,
+				'description' =>$event_description,
+				'location_name' => $event_address_name,
+				'location_address' => $event_address,
+				'location_url' => $event_address_url,
+				'location_map' => $event_location,                    
+				'event_image' => $filename
+			);
+            global $wpdb;			
+			$wpdb->insert( $wpdb->prefix . 'events', $data );                
+			$newEventID = $wpdb->insert_id ; 
+
+			
+            wp_send_json_success($newEventID);			
+			
+       } else {
+            wp_send_json_error('Error moving file to destination');
+       }
+
+    } else {
+        wp_send_json_error('No file uploaded');
+    }	
+wp_die(); // Always use wp_die() at the end of your AJAX callback function
+    
+
+	
+}
+
+// Register AJAX action for handling file upload
+add_action('wp_ajax_wl_ajax_save_event', 'wl_ajax_save_event');
+add_action('wp_ajax_nopriv_wl_ajax_save_event', 'wl_ajax_save_event'); // Allow non-logged-in users
 
 function wl_add_to_gifts() {
 
@@ -686,6 +752,17 @@ function event_shortcode(){
     }
 }
 add_shortcode('wl_event', 'event_shortcode');
+
+
+function event2_shortcode(){
+
+    if ( class_exists( 'Inc\Base\\Event' ) ) {		
+		$eventManager = new Event();
+		return $eventManager->view2();
+    }
+}
+add_shortcode('wl_event2', 'event2_shortcode');
+
 
 
 
