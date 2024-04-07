@@ -89,12 +89,12 @@
                                     <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
                                 </div>
                                 <div class="form-group" >
-                                    <label class="drop-X" id="X" for="event_image">Event Image</label> 
-                                    <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px">                               
+                                  <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
+                                                                
                                     <label for="images" class="drop-container" id="dropcontainer">
-                                    
+                                        <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
                                         
-                                        <span id="file_title" class="drop-title">Drop file here</span>
+                                        <span id="file_title" class="drop-title">Drop Event image here</span>
                                             or
                                         <input type="file" name="event_image" id="event_image" accept="image/*" required>
                                     </label>                                
