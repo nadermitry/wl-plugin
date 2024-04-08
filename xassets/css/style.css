@@ -207,7 +207,7 @@ input[type=file1]::file-selector-button {
 	/*flex-direction: column;*/
 	justify-content: center;
 	align-items: center;
-	height: 255px;
+	height: 230px;
 	padding: 20px;
 	border-radius: 10px;
 	border: 2px dashed #555;
