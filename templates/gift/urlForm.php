@@ -123,7 +123,7 @@
 
         <fieldset>
         <div class="form-group"> 
-                <div  id="imageContainer">
+                <div class="imageContainer" id="imageContainer">
                                         
                 </div>
             </div>
