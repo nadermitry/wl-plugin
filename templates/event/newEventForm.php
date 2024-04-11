@@ -246,7 +246,7 @@ document.getElementById('event_image').addEventListener('change', handleFileSele
         <script src="<?php echo $this->plugin_url ?>/xassets/bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo $this->plugin_url ?>/xassets/js/jquery.backstretch.min.js"></script>
         <script src="<?php echo $this->plugin_url ?>/xassets/js/retina-1.1.0.min.js"></script>
-        <script src="<?php echo $this->plugin_url ?>/xassets/js/scripts.js"></script>
+        <script src="<?php echo $this->plugin_url ?>/xassets/js/newEventForm-scripts.js"></script>
         
         <!--[if lt IE 10]>
             <script src="<?php echo $this->plugin_url ?>/xassets/js/placeholder.js"></script>

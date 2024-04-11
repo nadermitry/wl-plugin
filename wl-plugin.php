@@ -85,7 +85,7 @@ dbDelta( $sql );
     id mediumint(9) NOT NULL AUTO_INCREMENT,    
 	title varchar(255),   
     description text,
-	url VARCHAR(255) NOT NULL, 
+	url VARCHAR(1000) NOT NULL, 
 	img_url  VARCHAR(255) NOT NULL,
 	user_id mediumint(9) NOT NULL,
 	product_id mediumint(9) ,
@@ -280,6 +280,76 @@ function wl_ajax_add_to_event() {
 add_action('wp_ajax_wl_add_to_event', 'wl_ajax_add_to_event');
 add_action('wp_ajax_nopriv_wl_add_to_event', 'wl_ajax_add_to_event'); 
 
+function wl_add_gift_to_event(){
+
+    $data = $_POST['data'];
+    global $wpdb;
+   $table_name = $wpdb->prefix . 'event_gifts';  
+	$data_to_insert = array(
+		'event_id' =>  $data['eventid'],
+		'gift_id' =>  $data['giftid'],
+		 'user_id' => get_current_user_id(),
+		// Add more columns and values as needed
+	);
+	
+	// Data format
+	$data_format = array(
+		'%d', // Use '%d' for integers, '%f' for floats, '%s' for strings
+		'%d' // Format corresponds to the data type of each value in the $data_to_insert array
+		// Add more format placeholders for additional columns
+	);
+	
+	// Insert data into the custom table
+	$wpdb->insert($table_name, $data_to_insert, $data_format);
+
+
+ if  ($wpdb->insert_id >0 ){
+	wp_send_json_success( $wpdb->insert_id);
+  }else{
+	wp_send_json_error('Error inserting record');
+
+	}
+	wp_die();
+
+}
+
+add_action('wp_ajax_wl_add_gift_to_event', 'wl_add_gift_to_event');
+add_action('wp_ajax_nopriv_wl_add_gift_to_event', 'wl_add_gift_to_event'); 
+
+
+function wl_remove_gift_from_event(){
+
+    $data = $_POST['data'];
+    global $wpdb;
+   $table_name = $wpdb->prefix . 'event_gifts'; 
+   
+   $where_condition = array(
+	'gift_id' => $data['giftid'],
+	'event_id' =>  $data['eventid'] ,
+	'user_id' => get_current_user_id()
+	);
+	// Format the where condition
+	$where_format = array('%d','%d','%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
+	// Delete rows from the custom table
+	$deleted_rows= $wpdb->delete($table_name, $where_condition, $where_format);
+
+
+	if ( $deleted_rows === false ) {
+		// Delete operation failed
+		
+		wp_send_json_error("Error deleting records.");
+	} else {
+		// Delete operation successful
+		
+		wp_send_json_success("Successfully deleted {$deleted_rows} row(s).");
+	}
+	wp_die();
+
+}
+
+add_action('wp_ajax_wl_remove_gift_from_event', 'wl_remove_gift_from_event');
+add_action('wp_ajax_nopriv_wl_remove_gift_from_event', 'wl_remove_gift_from_event'); 
+
 
 
 
@@ -305,7 +375,7 @@ function wl_ajax_remove_from_event() {
 	$where_format = array('%d','%d' );// Use '%d' for integers, '%f' for floats, '%s' for strings
 	// Delete rows from the custom table
 
-	print_r($where_condition);
+	//print_r($where_condition);
 	$wpdb->delete($table_name, $where_condition, $where_format);
 
 
@@ -503,7 +573,7 @@ function wl_add_to_gifts() {
             $wpdb->insert( $table_name, $data );
 	//	}
 
-		echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+		//echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 		//print_r( $data) ;
 		//echo '</pre>';
 		wp_die(); 
@@ -514,6 +584,144 @@ function wl_add_to_gifts() {
 add_action('wp_ajax_wl_add_to_gifts', 'wl_add_to_gifts');
 add_action('wp_ajax_nopriv_wl_add_to_gifts', 'wl_add_to_gifts'); // Allow non-logged-in users
 
+function wl_ajax_add_gift_url(){
+	
+	$data = $_POST['data'];
+	try{    
+        $web = new \Spekulatius\PHPScraper\PHPScraper;
+        $web->go($data["url"]);
+        $noOfTries=50;
+        $maxNoOfImages =50;
+        $tempImages =$web->images;
+        $images=array();
+        
+		$xcount=0;
+        foreach ($tempImages as $img) {  
+			if ($xcount<= $noOfTries){
+            if (!is_null($img) ){    
+                $jpgPos = strpos(strtoupper($img), strtoupper('.jpg'));
+                if  ($jpgPos){
+					//if (isValidImage($img)) {               
+                    array_push($images,$img);
+				//	}
+                }
+            } 
+		}  
+			$xcount++;     
+        }
+
+        $noOfTries     = min($noOfTries,count($images)-1);
+        $maxNoOfImages = min($maxNoOfImages,count($images)-1);
+        $paragraph =$web->paragraphs;
+        $productTitle ='';
+        $hh=count($web->h1);
+        for ($v = 0; $v < $hh; ++$v) { 
+            if (strlen(trim($web->h1[$v]))>3){
+                $productTitle =$web->h1[$v];
+                break;
+            }
+           
+        }
+
+
+		$jsonData = array(
+			'title' =>  trim($productTitle),
+			'images' => $images
+			
+		);
+
+
+        wp_send_json_success($jsonData);
+        }
+
+
+
+    catch(\Throwable $e){
+       wp_send_json_error('Error');
+        }
+    
+
+
+
+				
+			
+
+	
+	wp_die(); 
+   
+}
+
+add_action('wp_ajax_wl_ajax_add_gift_url', 'wl_ajax_add_gift_url');
+add_action('wp_ajax_nopriv_wl_ajax_add_gift_url', 'wl_ajax_add_gift_url'); // Allow non-logged-in users
+
+
+function wl_ajax_save_gift_url(){
+
+	$data = $_POST['data'];
+    $current_user_id = get_current_user_id();        
+    if ($current_user_id) {            
+		global $wpdb;
+        $table_name = $wpdb->prefix . 'gifts';         
+        $giftData = array(
+			'user_id' => get_current_user_id(),
+			'title' => sanitize_text_field($data["title"]),
+			'description' => sanitize_text_field($data["description"]),
+			'url' => $data["url"],
+			'img_url' => $data["img_url"],
+			'product_id' => 0
+        );         
+        $wpdb->insert($table_name,$giftData);
+    } 
+    else {
+		wp_send_json_error()('Please login');
+		wp_die();
+    }
+
+    
+
+$column_name = 'id';
+$value = $wpdb->insert_id;
+$query = $wpdb->prepare("SELECT * FROM $table_name WHERE $column_name = %s", $value);
+$record = $wpdb->get_row($query);
+if ($record) {   
+	$queryData = array(
+		'id'=>  $record->id,
+		'title' =>  $record->title,
+		'url' => $record->url,
+		'description' => $record->description,
+		'img_url' => $record->img_url		
+	);   
+    
+} else {
+    $queryData= array(
+		'title' =>  '',
+		'url' => ''
+		
+	);
+}
+
+
+	wp_send_json_success($queryData);
+	wp_die();
+}
+
+add_action('wp_ajax_wl_ajax_save_gift_url', 'wl_ajax_save_gift_url');
+add_action('wp_ajax_nopriv_wl_ajax_save_gift_url', 'wl_ajax_save_gift_url'); // Allow non-logged-in users
+
+function wl_ajax_addto_event_url(){
+	global $wpdb;
+    $events_table     = $wpdb->prefix . 'events';
+    $events_condition = " WHERE user_id = ".get_current_user_id() ." and is_active =1 and start_date >= NOW()";
+    $events_query     = "SELECT * FROM $events_table $events_condition";
+    $events_results   = $wpdb->get_results($events_query);
+	wp_send_json_success( $events_results);
+	wp_die();
+}
+
+
+
+add_action('wp_ajax_wl_ajax_addto_event_url', 'wl_ajax_addto_event_url');
+add_action('wp_ajax_nopriv_wl_ajax_addto_event_url', 'wl_ajax_addto_event_url');
 
 
 // Add a filter to modify the post title
@@ -669,7 +877,7 @@ function nader4(){
 }
 
 function isValidImage($strPath){    
-    $ret=false;   
+    $ret=true;   
     $findme = array("jpg");   
         foreach ($findme as $ext){ 
             if (!is_null($strPath) ){    

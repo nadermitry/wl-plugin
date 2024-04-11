@@ -26,7 +26,7 @@
 ?>
 
 <?php 
-;
+
 if (isset($_POST["url"]) && filter_var($_POST["url"], FILTER_VALIDATE_URL) && (!isset($_POST["title"]))) {
 if ( file_exists( dirname( __FILE__,3 ) . '/templates/gift/newItemForm.php' ) ) {
 

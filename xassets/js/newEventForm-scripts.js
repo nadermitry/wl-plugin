@@ -207,7 +207,7 @@ jQuery(document).ready(function() {
     		}
     	});
         if (isError==false){
-        var formData = new FormData($(this)[0]);
+		passed_data={"url":pgiftid}; 
 		showLoading();
         $.ajax({
         
