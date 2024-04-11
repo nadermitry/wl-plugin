@@ -207,8 +207,9 @@ jQuery(document).ready(function() {
     		}
     	});
         if (isError==false){
-		passed_data={"url":pgiftid}; 
+		
 		showLoading();
+		var formData = new FormData($(this)[0]);
         $.ajax({
         
             url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
