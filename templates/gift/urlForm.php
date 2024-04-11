@@ -42,6 +42,37 @@
 
 </style>
 
+<style>
+  .imageContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+    padding: 10px;
+  }
+
+  .grid-item {
+    background-color: #ddd;
+    padding: 20px;
+    text-align: center;
+  }
+
+  @media (min-width: 576px) {
+    /* Small devices (sm) */
+    .imageContainer{
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    /* Medium devices (md) */
+    .imageContainer {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+
+
 <!-- The Modal -->
 <div id="loadingModal" class="modal">
     <!-- Loading spinner -->
@@ -73,6 +104,7 @@
             </div>                              
         </div>
 
+        
         <fieldset>
             <!--<h4>Tell us who you are:</h4>-->
             <div class="form-group">                    	
@@ -88,49 +120,29 @@
             </div>
         </fieldset>
 
+
+        <fieldset>
+        <div class="form-group"> 
+                <div  id="imageContainer">
+                                        
+                </div>
+            </div>
+            <div class="f1-buttons">                
+                <button type="button" class="btn btn-previous">Previous</button>
+                <button name="savegift" type="button" class="btn btn-next">Next</button>
+                <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
+            </div>    
+        </fieldset>
+
+       
+
+
         <fieldset>
             <!--  <h4>Set up your account:</h4>-->
             
             <div class="container">
         <div class="row">
-        <!-- First Column -->
-        <div class="col-md-1">
-            <!-- First Row of First Column -->
-            <div class="row">
-                <div class="col-md-12"> 
-                    <div class="row mt-3">
-                    <div class="row" id="imageContainer">
-                                            <img WIDTH="60%" src="<?php echo $images[$i] ?>" onclick="imagclicked('<?php echo $images[$i] ?>',<?php echo $nImgno;  ?>);"  class="img-thumbnail" data-target="#carouselExampleIndicators" data-slide-to="0">
-                                        </div>
-                        <?php 
-                            $nImgno=-1;
-                            $strImage=plugin_dir_url( __FILE__ )."assets/sysimages/na.png";
-                            for ($i = 0; $i < $noOfTries; ++$i): 
-                              
-                            
-                            ?>  
-                            
-                                <?php if ( !is_null($images[$i])):?>                                  
-                                <?php if ( isValidImage($images[$i])) : 
-                                 //echo ($images[$i]).'<br>';
-                                    $nImgno =$nImgno+1?> 
-                                    <?php if (  $nImgno < $maxNoOfImages):?> 
-                                        <div class="row" id="imageContainer">
-                                            <img WIDTH="60%" src="<?php echo $images[$i] ?>" onclick="imagclicked('<?php echo $images[$i] ?>',<?php echo $nImgno;  ?>);"  class="img-thumbnail" data-target="#carouselExampleIndicators" data-slide-to="0">
-                                        </div>
-                                    <?php endif ?> 
-                                <?php endif ?> 
-                                <?php endif ?>    
-                            <?php endfor?>
-                        <div class="row">  
-                           
-                            <button type="button" id="prevBtn" class="btn btn-secondary" onclick="changeImageSub()"><</button>
-                            <button type="button" id="nextBtn" class="btn btn-secondary" onclick="changeImageAdd()">></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- Second Column -->
         
         <div class="col-md-11">
@@ -163,10 +175,7 @@
                                 <label for="description">Description:</label>
                                 <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
                             </div>
-                            <div class="form-group">                              
-                                
-                           
-                            </div>
+                            
                         
                     
                     </div>

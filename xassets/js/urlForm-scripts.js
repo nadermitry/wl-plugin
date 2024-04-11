@@ -132,28 +132,7 @@ jQuery(document).ready(function() {
 				lastimgNo=imageSources.length-1;
 				initImages();
 
-				// Loop through the array of image sources
-				for (var i = 0; i < imageSources.length; i++) {
-					// Create an image element
-					var img = document.createElement("img");
-			
-					// Set the src attribute to the current image source
-					img.src = imageSources[i];
-					img.setAttribute("data-index", i);					
-					img.setAttribute("class", "img-thumbnail");
-					img.setAttribute("WIDTH", "60%");
-					
-					// Append the image element to the container div
-					container.appendChild(img);
-					img.addEventListener("click", function(event) {
-						// Retrieve the index of the clicked image from the data attribute
-						var index = parseInt(event.target.getAttribute("data-index"));						
-						// Handle the click event here, you can use the index to identify which image was clicked
-						
-						imagclicked(event.target.src,index);
-					});
-					
-				}
+				
 
 				
 
@@ -549,10 +528,10 @@ function initImages(){
 
 	 
    
-	prevBtn.disabled = true;
-	nextBtn.disabled = true ;
+	//prevBtn.disabled = true;
+	//nextBtn.disabled = true ;
 	
-	if (lastimgNo>0){nextBtn.disabled = false ;};
+	//if (lastimgNo>0){nextBtn.disabled = false ;};
 
 	 
 	 imgNo =1;  
@@ -570,10 +549,12 @@ var imageContainer = document.getElementById("imageContainer");
 
 // Loop through the image URLs array
 imageUrls.forEach(function(url) {
+	var newDiv = document.createElement("div");
+	newDiv.classList.add("grid-item")
 // Create a new image element
 var imgElement = document.createElement("img");
 // Add classes and attributes to the image element
-imgElement.classList.add("col-md-2", "vertical-image"); // Bootstrap grid classes and custom class for styling
+//imgElement.classList.add("col-md-3"); // Bootstrap grid classes and custom class for styling
 imgElement.src = url; // Set the image source
 imgElement.alt = "Image"; // Set the alt attribute
 imgElement.onclick = function() {
@@ -587,10 +568,10 @@ imgElement.onclick = function() {
 		imageUrl1.value = url;
 
  };
-
-
+ newDiv.appendChild(imgElement);
+ imageContainer.appendChild(newDiv);
 // Append the image element to the image container
-	imageContainer.appendChild(imgElement);
+
 });
 
 
@@ -609,10 +590,10 @@ function imagclicked(strimageno,pimgno) {
 	// You can define what happens when an image is clicked here
 	//alert(lastimgNo);
   
-nextBtn.disabled = false ;
-prevBtn.disabled = false ;
-if (pimgno == 0 ){prevBtn.disabled = true;};
-   if (pimgno == lastimgNo ){nextBtn.disabled = true;};
+//nextBtn.disabled = false ;
+//prevBtn.disabled = false ;
+//if (pimgno == 0 ){prevBtn.disabled = true;};
+   //if (pimgno == lastimgNo ){nextBtn.disabled = true;};
 	imgNo=pimgno;
 	var  imageUrl1 = document.getElementById('imageUrl');
 		var  image1    = document.getElementById('myImage');
@@ -630,7 +611,7 @@ if (pimgno == 0 ){prevBtn.disabled = true;};
 
 function changeImageAdd() {
 	
-	 if (imgNo == (lastimgNo-1) ){nextBtn.disabled = true;};
+	 //if (imgNo == (lastimgNo-1) ){nextBtn.disabled = true;};
 	
 	 
 	 imgNo =imgNo +1;
@@ -643,17 +624,19 @@ function changeImageAdd() {
 		 image.src = imageSources[imgNo];		 
 
 		 imageUrl.value= imageSources[imgNo];
-		 prevBtn.disabled = false;
+		 //prevBtn.disabled = false;
 	
 	 }
 
 
 	 function changeImageSub() {
 		
-		 if (imgNo == 1 ){prevBtn.disabled = true;};
+		
+		
+		//if (imgNo == 1 ){prevBtn.disabled = true;};
 	
 		 if (imgNo ==0 ){return false;};
-		nextBtn.disabled = false;
+		//nextBtn.disabled = false;
 	 imgNo =imgNo -1;
 	 imageUrl = document.getElementById('imageUrl');
 	 var image = document.getElementById('myImage');
