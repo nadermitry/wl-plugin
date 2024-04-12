@@ -93,10 +93,10 @@ div:hover .desc {
 }
 div.img img {max-width:100%;}
 div.img{
-  margin: 0px 5px 0px 0px;
+  margin: 5px 5px 5px 5px;
   padding:5px;
   box-sizing:border-box;
-  background:#f1f1f1;
+  /*background:#f1f1f1;*/
   line-height:0px;
   height: auto;
   width: 20%;
@@ -107,6 +107,7 @@ div.img{
   -o-transition:all 0.5s ease; 
   transition:all 0.5s ease;
   border-radius:4px;
+  border-style:solid;
 }	
 div:hover{line-height:30px;font-size:16px;}
 div.img img
@@ -179,6 +180,10 @@ div.img img
 
 
         <fieldset>
+            <div class="form-group">
+                <label  class="sr-only" for="title">Title</label>
+                <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
+            </div>
             <div id="imageContainer" class="form-group">
                
             </div>
