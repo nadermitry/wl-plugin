@@ -259,6 +259,7 @@ div.img img
                 <a id="gifturl" href="" target="_blank"> <h3 id="gifttitle"><h3></a>
                 <a id="gifturl" href="" target="_blank"><img width="10%" id="giftimage"src=""> </a>
                 <p id="giftdescription"></p>  
+                <a id="gifturl2" href="" target="_blank"> View on Store <h3></a>
                 <input type="hidden" id="giftid">                  
             </div>
             

@@ -164,6 +164,9 @@ jQuery(document).ready(function() {
 
 	
 $('.f1 .btn-save-gift').on('click', function() {
+
+
+
    // alert('rrrrrrrrrrrrrrrrr');
 	var parent_fieldset = $(this).parents('fieldset');
 	var next_step = true;
@@ -235,6 +238,7 @@ $('.f1 .btn-save-gift').on('click', function() {
 						$("#giftid").val($jsonGiftData.id);
 						$("#gifttitle").text($jsonGiftData.title);
 						$("#gifturl").attr("href", $jsonGiftData.url);
+						$("#gifturl2").attr("href", $jsonGiftData.url);
 						$("#giftdescription").text($jsonGiftData.description);
 						$("#giftimage").attr("src", $jsonGiftData.img_url);
    						$("#giftimage").attr("alt", $jsonGiftData.title);
@@ -636,6 +640,16 @@ imgElement.onclick = function() {
 		//alert(links[imgNo]);
 		image1.src      = url;		
 		imageUrl1.value = url;
+		hilieghigImage();
+
+		$(this).parent().css("border-color", "RED");
+			
+			
+	
+		//$(this).classList.add("col-md-30")= "20px solid"; // Set border style
+		//alert($(this));
+    // Generate a random color (you can replace this with your desired color logic)
+	//$(this).css.borderColor = "black";
 
  };
  newDiv.appendChild(imgElement);
@@ -674,7 +688,7 @@ function imagclicked(strimageno,pimgno) {
 		//$("#title").val(JSON.parse(response.responseText).data.title);	
 	   
 	   
-
+		
 	  
 
 };
@@ -716,3 +730,27 @@ function changeImageAdd() {
 		 
 	
 	 }
+
+	 function hilieghigImage(){
+
+
+		// Get all elements with the class "img"
+var elements = document.getElementsByClassName("img");
+
+// Loop through each element and change its border color
+for (var i = 0; i < elements.length; i++) {
+    elements[i].style.border = "2px solid"; // Set border style
+    // Generate a random color (you can replace this with your desired color logic)
+    elements[i].style.borderColor = "black";
+}
+	 }
+
+	 // Function to generate a random color
+function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
