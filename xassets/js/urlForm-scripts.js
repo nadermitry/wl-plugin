@@ -550,7 +550,7 @@ var imageContainer = document.getElementById("imageContainer");
 // Loop through the image URLs array
 imageUrls.forEach(function(url) {
 	var newDiv = document.createElement("div");
-	newDiv.classList.add("grid-item")
+	newDiv.classList.add("img");
 // Create a new image element
 var imgElement = document.createElement("img");
 // Add classes and attributes to the image element

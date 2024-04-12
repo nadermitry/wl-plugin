@@ -69,8 +69,65 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
-</style>
 
+
+  
+</style>
+<style>
+
+
+
+
+
+.desc
+{
+  text-align: center;
+  font-weight: normal;
+  width: 100%;
+  margin: 0px;
+  visibility:hidden;
+}
+
+div:hover .desc {
+  visibility:visible;
+}
+div.img img {max-width:100%;}
+div.img{
+  margin: 0px 5px 0px 0px;
+  padding:5px;
+  box-sizing:border-box;
+  background:#f1f1f1;
+  line-height:0px;
+  height: auto;
+  width: 20%;
+  float: left;
+  text-align: center;
+  -webkit-transition:all 0.5s ease;
+  -moz-transition:all 0.5s ease; 
+  -o-transition:all 0.5s ease; 
+  transition:all 0.5s ease;
+  border-radius:4px;
+}	
+div:hover{line-height:30px;font-size:16px;}
+div.img img
+{
+  display: inline-block;
+  margin: 3px;
+}
+
+@keyframes bgfade
+{
+0%   {opacity:0;}
+100% {opacity:1;}
+}
+
+@-webkit-keyframes bgfade /* Safari and Chrome */
+{
+0%   {opacity:0;}
+100% {opacity:1;}
+}
+
+</style>
 
 
 <!-- The Modal -->
@@ -122,12 +179,10 @@
 
 
         <fieldset>
-        <div class="form-group"> 
-                <div class="imageContainer" id="imageContainer">
-                                        
-                </div>
+            <div id="imageContainer" class="form-group">
+               
             </div>
-            <div class="f1-buttons">                
+            <div class="f1-buttons" style="float:right;">                
                 <button type="button" class="btn btn-previous">Previous</button>
                 <button name="savegift" type="button" class="btn btn-next">Next</button>
                 <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
