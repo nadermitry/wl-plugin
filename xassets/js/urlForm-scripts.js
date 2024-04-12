@@ -164,7 +164,7 @@ jQuery(document).ready(function() {
 
 	
 $('.f1 .btn-save-gift').on('click', function() {
-    
+   // alert('rrrrrrrrrrrrrrrrr');
 	var parent_fieldset = $(this).parents('fieldset');
 	var next_step = true;
     // navigation steps / progress steps
@@ -173,7 +173,7 @@ $('.f1 .btn-save-gift').on('click', function() {
 		
     // fields validation
 
-	parent_fieldset.find('#title').each(function() {
+	parent_fieldset.find('#title2').each(function() {
 		
 		if( $(this).val() == "" ) {
 			$(this).addClass('input-error');
@@ -184,8 +184,10 @@ $('.f1 .btn-save-gift').on('click', function() {
             
 		   
 			next_step = false;
+			//alert('ddddddddddddddddddddddddddd');
 		}
 		else {
+			//alert('rttttttttttttttttttt');
 			$(this).removeClass('input-error');	
 			//alert($('#myImage').attr("src"));
 			if($('#myImage').attr("src")=='na.png'){
@@ -369,6 +371,44 @@ $('.f1 .btn-addto-event').on('click', function() {
 });
 
 
+
+
+$('.f1 .btn-next1').on('click', function() {
+	var parent_fieldset = $(this).parents('fieldset');
+	var next_step = true;
+	// navigation steps / progress steps
+	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+	
+	// fields validation
+	parent_fieldset.find('#title').each(function() {
+		if( $(this).val() == "" ) {
+			$(this).addClass('input-error');
+			next_step = false;
+		}
+		else {
+			$(this).removeClass('input-error');
+			$('#title2').val($(this).val());
+		}
+	});
+
+
+
+if( next_step ) {
+	parent_fieldset.fadeOut(400, function() {
+		// change icons
+		current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+		// progress bar
+		bar_progress(progress_line, 'right');
+		// show next step
+		$(this).next().fadeIn();
+		// scroll window to beginning of the form
+		scroll_to_class( $('.f1'), 20 );
+	});
+}
+
+});
+
 	// next step
     $('.f1 .btn-next').on('click', function() {
 		var parent_fieldset = $(this).parents('fieldset');
@@ -516,8 +556,8 @@ function initImages(){
    
 	if (imageSources[0]===undefined)
 	{                
-		image.src="na.png";
-		imageUrl.value = ""
+		image.src= window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png';
+		imageUrl.value =  window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png';
 	} 
 	else
 	{             
@@ -543,11 +583,41 @@ function initImages(){
 
 	   // Define an array of image URLs
 var imageUrls = imageSources;
+imageUrls.push(window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png');
 
 // Get the image container
 var imageContainer = document.getElementById("imageContainer");
 
+
+//var newDiv = document.createElement("div");
+//	newDiv.classList.add("img");
+// Create a new image element
+//var imgElement = document.createElement("img");
+// Add classes and attributes to the image element
+//imgElement.classList.add("col-md-3"); // Bootstrap grid classes and custom class for styling
+//imgElement.src =window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png'; // Set the image source
+//imgElement.alt = "Image"; // Set the alt attribute
+//imgElement.onclick = function() {
+	// You can define what happens when an image is clicked here
+	//alert("You clicked on image: " + url);
+
+		//var  imageUrl1 = document.getElementById('imageUrl');
+		//var  image1    = document.getElementById('myImage');
+		//alert(links[imgNo]);
+		//image1.src      = window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png';
+		//imageUrl1.value = window.location.origin +'/wp-content/plugins/wl-plugin/images/gift-icon.png';
+
+ //};
+ //newDiv.appendChild(imgElement);
+ //imageContainer.appendChild(newDiv);
+
+
+
 // Loop through the image URLs array
+
+//alert()
+
+
 imageUrls.forEach(function(url) {
 	var newDiv = document.createElement("div");
 	newDiv.classList.add("img");
@@ -564,7 +634,7 @@ imgElement.onclick = function() {
 		var  imageUrl1 = document.getElementById('imageUrl');
 		var  image1    = document.getElementById('myImage');
 		//alert(links[imgNo]);
-		image1.src      = url;
+		image1.src      = url;		
 		imageUrl1.value = url;
 
  };

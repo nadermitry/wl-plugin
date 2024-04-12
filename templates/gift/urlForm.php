@@ -180,16 +180,16 @@ div.img img
 
 
         <fieldset>
-            <div class="form-group">
-                <label  class="sr-only" for="title">Title</label>
+            <div class="form-group" >
+                <label  class="sr-only" for="title" style="float:right;">Title</label>
                 <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
             </div>
-            <div id="imageContainer" class="form-group">
-               
-            </div>
+            <div id="imageContainer" class="form-group" style="float:right;">
+              
+                 </div>
             <div class="f1-buttons" style="float:right;">                
                 <button type="button" class="btn btn-previous">Previous</button>
-                <button name="savegift" type="button" class="btn btn-next">Next</button>
+                <button name="savegift" type="button" class="btn btn-next1">Next</button>
                 <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
             </div>    
         </fieldset>
@@ -214,7 +214,7 @@ div.img img
                     
                             <div class="form-group">
                                 <label  class="sr-only" for="title">Title</label>
-                                <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
+                                <input disabled type="text"  placeholder="Title..." class="addEvent  form-control" id="title2" name="title2"  >
                                 
                             </div>
                             
