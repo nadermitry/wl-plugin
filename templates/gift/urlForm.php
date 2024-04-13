@@ -258,7 +258,7 @@ div.img img
       <div class="f1-buttons">
                 
                 <button type="button" class="btn btn-previous">Previous</button>
-                <button name="savegift" type="button" class="btn btn-save-gift">Next</button>
+                <button name="savegift" type="button" class="btn btn-save-gift">Save</button>
                 <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
             </div>             
         </fieldset>

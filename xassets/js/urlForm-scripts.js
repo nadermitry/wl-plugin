@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
 			}
 			else {
 				$(this).removeClass('input-error');	
-				$("#gifturl3").attr("href", $jsonGiftData.url);
+				$("#gifturl3").attr("href",$(this).val());
 
 	passed_data={"url":$(this).val()};
 	showLoading();  
