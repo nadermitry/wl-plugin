@@ -183,8 +183,9 @@ div.img img
             <div class="form-group" >
                 <label  class="sr-only" for="title" style="float:right;">Title</label>
                 <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
+                <div id="imageContainer" class="form-group" style="float:right;">
             </div>
-            <div id="imageContainer" class="form-group" style="float:right;">
+            
               
                  </div>
             <div class="f1-buttons" style="float:right;">                
