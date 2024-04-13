@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
-        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/style.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
 /* The Modal (background) */
@@ -146,20 +146,29 @@ div.img img
         <p>Fill in the form to get instant access</p>-->
         <div class="f1-steps">
             <div class="f1-progress">
-                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
+                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="5" style="width: 16.66%;"></div>
             </div>
             <div class="f1-step active">
                 <div class="f1-step-icon"><i class="fa fa-info"></i></div>
-                <p>Info</p>
+                <p>Gift URL</p>
             </div>
             <div class="f1-step">
                 <div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
-                <p>Date</p>
+                <p>Information</p>
             </div>
             <div class="f1-step">
                 <div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
-                <p>Location</p>
-            </div>                              
+                <p>Confirm</p>
+            </div>
+            
+            <div class="f1-step">
+                <div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
+                <p>View</p>
+            </div> 
+            <div class="f1-step">
+                <div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
+                <p>Add to Event</p>
+            </div> 
         </div>
 
         
