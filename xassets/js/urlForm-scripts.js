@@ -80,6 +80,8 @@ jQuery(document).ready(function() {
 			else {
 				$(this).removeClass('input-error');	
 				$("#gifturl3").attr("href",$(this).val());
+				$("#gifturl4").attr("href",$(this).val());
+				
 
 	passed_data={"url":$(this).val()};
 	showLoading();  

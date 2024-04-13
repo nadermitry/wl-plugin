@@ -183,17 +183,15 @@ div.img img
             <div class="form-group" >
                 <label  class="sr-only" for="title" >Title</label>
                 <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
-                </div>
-           
-            <div class="form-group"  id="imageContainer" >
-          
             </div>
+           
+            <div class="form-group"  id="imageContainer" ></div> 
 
 
             
             <div class="form-group">
-                <label for="description">Description:</label>
-                 <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                <label class="sr-only" for="description">Description:</label>
+                 <textarea  placeholder="Description..." class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
             </div>
               
                
@@ -210,27 +208,19 @@ div.img img
         <fieldset>
             <!--  <h4>Set up your account:</h4>-->
             
-            <div class="container">
-        <div class="row">
-        
-        <!-- Second Column -->
-        
-        <div class="col-md-11">
-            <!-- First Row of Second Column -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="container">
+         
                         <!--<form action="http://localhost/wordpress/?page_id=342" method="post">-->
                     
                             <div class="form-group">
-                                <label  class="sr-only" for="title">Title</label>
+                                <label  for="title">Title</label>
                                 <input disabled type="text"  placeholder="Title..." class="addEvent  form-control" id="title2" name="title2"  >
                                 
                             </div>
                             
                             <div class="form-group">
                                    <!--<input type="hidden"  placeholder="url..." class="addEvent  form-control" id="imgurl" name="imgurl"  >-->
-                                   <a id="gifturl3" name="gifturl3"  target="_blank" href=""><img class="img-thumbnail" id="myImage" src="assets/sysimages/loading.gif" alt="loading ..." width="25%"></a>        
+                                   <a id="gifturl3" name="gifturl3"  target="_blank" href=""><img class="img-thumbnail" id="myImage" src="assets/sysimages/loading.gif" alt="loading ..." width="25%"></a>   
+                                   <a id="gifturl4" name="gifturl4"  target="_blank" href="">Perview on store</a>        
                             </div> 
 
                
@@ -248,13 +238,7 @@ div.img img
                             
                         
                     
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
+                    
       <div class="f1-buttons">
                 
                 <button type="button" class="btn btn-previous">Previous</button>
