@@ -122,7 +122,7 @@ jQuery(document).ready(function() {
 				 // alert( JSON.parse(response.responseText).data.images);
 				  if (JSON.parse(response.responseText).data.images == undefined)
 				  {
-					imageSources=['fffff.jpg'];
+					imageSources=[];
 				  }else{
     			 imageSources = JSON.parse(response.responseText).data.images;
 				 
