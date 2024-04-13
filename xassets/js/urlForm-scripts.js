@@ -696,7 +696,7 @@ function addDiv(divCount,url) {
 				imageUrl1.value = url;
 				hilieghigImage();
 		
-				$(this).parent().css("border-color", "RED");
+				$(this).parent().css("border-color", "green");
 					
 					
 			
