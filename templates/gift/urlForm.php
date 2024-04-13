@@ -181,14 +181,20 @@ div.img img
 
         <fieldset>
             <div class="form-group" >
-                <label  class="sr-only" for="title" style="float:right;">Title</label>
+                <label  class="sr-only" for="title" >Title</label>
                 <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
-                <div id="imageContainer" class="form-group" style="float:right;">  </div>
+                </div>
+           
+            <div class="form-group"  id="imageContainer" >
+          
             </div>
             
-              
+            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                            </div>
                
-            <div class="f1-buttons" style="float:right;">                
+            <div class="f1-buttons" >                
                 <button type="button" class="btn btn-previous">Previous</button>
                 <button name="savegift" type="button" class="btn btn-next1">Next</button>
                 <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
