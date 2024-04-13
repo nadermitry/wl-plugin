@@ -566,6 +566,7 @@ function initImages(){
 	else
 	{             
 		image.src = imageSources[0];
+
 		imageUrl.value = imageSources[0]
 		//$("#imgurl").val(imageSources[0]);
 	 } 
@@ -621,28 +622,34 @@ var imageContainer = document.getElementById("imageContainer");
 
 //alert()
 
-
+var divCount = 1;
 imageUrls.forEach(function(url) {
-	var newDiv = document.createElement("div");
-	newDiv.classList.add("img");
+	addDiv(divCount,url);
+	divCount++;
+
+	//var newDiv = document.createElement("div");
+	//newDiv.classList.add("img");
+	//newDiv.attr("id")=imgCount1;
+	//imgCount1=imgCount1+1;
 // Create a new image element
-var imgElement = document.createElement("img");
+//var imgElement = document.createElement("img");
 // Add classes and attributes to the image element
 //imgElement.classList.add("col-md-3"); // Bootstrap grid classes and custom class for styling
-imgElement.src = url; // Set the image source
-imgElement.alt = "Image"; // Set the alt attribute
-imgElement.onclick = function() {
+//imgElement.src = url; // Set the image source
+//imgElement.alt = "Image"; // Set the alt attribute
+
+//imgElement.onclick = function() {
 	// You can define what happens when an image is clicked here
 	//alert("You clicked on image: " + url);
 
-		var  imageUrl1 = document.getElementById('imageUrl');
-		var  image1    = document.getElementById('myImage');
+	//	var  imageUrl1 = document.getElementById('imageUrl');
+	//	var  image1    = document.getElementById('myImage');
 		//alert(links[imgNo]);
-		image1.src      = url;		
-		imageUrl1.value = url;
-		hilieghigImage();
+	//	image1.src      = url;		
+	//	imageUrl1.value = url;
+	//	hilieghigImage();
 
-		$(this).parent().css("border-color", "RED");
+	//	$(this).parent().css("border-color", "RED");
 			
 			
 	
@@ -651,15 +658,91 @@ imgElement.onclick = function() {
     // Generate a random color (you can replace this with your desired color logic)
 	//$(this).css.borderColor = "black";
 
- };
- newDiv.appendChild(imgElement);
- imageContainer.appendChild(newDiv);
+ //};
+ //newDiv.appendChild(imgElement);
+ 
+ //imgCount=imgCount=+1; 
+ //imageContainer.appendChild(newDiv);
 // Append the image element to the image container
 
 });
 
+$("#imgDiv1").css("border-color", "green");
+
 
 }
+
+
+function addDiv(divCount,url) {
+	// Create a new div element with unique ID
+	
+	var newDiv = $("<div></div>", {
+		id: "imgDiv" + divCount,
+		class: "img"
+	});
+
+	// Create a new img element
+	var newImg = $("<img>", {
+		src: url,
+		alt: "Image" + divCount,
+		click: function() {
+			// You can define what happens when an image is clicked here
+			//alert("You clicked on image: " + url);
+		
+				var  imageUrl1 = document.getElementById('imageUrl');
+				var  image1    = document.getElementById('myImage');
+				//alert(links[imgNo]);
+				image1.src      = url;		
+				imageUrl1.value = url;
+				hilieghigImage();
+		
+				$(this).parent().css("border-color", "RED");
+					
+					
+			
+				//$(this).classList.add("col-md-30")= "20px solid"; // Set border style
+				//alert($(this));
+			// Generate a random color (you can replace this with your desired color logic)
+			//$(this).css.borderColor = "black";
+		
+		 }
+	});
+
+	newImg.onclick = function() {
+		// You can define what happens when an image is clicked here
+		//alert("You clicked on image: " + url);
+	
+			var  imageUrl1 = document.getElementById('imageUrl');
+			var  image1    = document.getElementById('myImage');
+			//alert(links[imgNo]);
+			image1.src      = url;		
+			imageUrl1.value = url;
+			hilieghigImage();
+	
+			$(this).parent().css("border-color", "RED");
+				
+				
+		
+			//$(this).classList.add("col-md-30")= "20px solid"; // Set border style
+			//alert($(this));
+		// Generate a random color (you can replace this with your desired color logic)
+		//$(this).css.borderColor = "black";
+	
+	 };// A
+	
+	
+	
+	newDiv.append(newImg);
+
+	// Append the div to the container
+	$("#imageContainer").append(newDiv);
+
+	// Increment the div count for the next ID
+	
+}
+
+
+
 
 function add_to_event(){
 
