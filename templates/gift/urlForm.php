@@ -183,11 +183,11 @@ div.img img
             <div class="form-group" >
                 <label  class="sr-only" for="title" style="float:right;">Title</label>
                 <input type="text"  placeholder="Title..." class="addEvent  form-control" id="title" name="title"  >
-                <div id="imageContainer" class="form-group" style="float:right;">
+                <div id="imageContainer" class="form-group" style="float:right;">  </div>
             </div>
             
               
-                 </div>
+               
             <div class="f1-buttons" style="float:right;">                
                 <button type="button" class="btn btn-previous">Previous</button>
                 <button name="savegift" type="button" class="btn btn-next1">Next</button>
