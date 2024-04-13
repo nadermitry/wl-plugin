@@ -667,7 +667,7 @@ imageUrls.forEach(function(url) {
 
 });
 
-$("#imgDiv1").css("border-color", "green");
+$("#imgDiv1").css("border-color", "red");
 
 
 }
@@ -696,7 +696,7 @@ function addDiv(divCount,url) {
 				imageUrl1.value = url;
 				hilieghigImage();
 		
-				$(this).parent().css("border-color", "green");
+				$(this).parent().css("border-color", "red");
 					
 					
 			
@@ -708,27 +708,7 @@ function addDiv(divCount,url) {
 		 }
 	});
 
-	newImg.onclick = function() {
-		// You can define what happens when an image is clicked here
-		//alert("You clicked on image: " + url);
 	
-			var  imageUrl1 = document.getElementById('imageUrl');
-			var  image1    = document.getElementById('myImage');
-			//alert(links[imgNo]);
-			image1.src      = url;		
-			imageUrl1.value = url;
-			hilieghigImage();
-	
-			$(this).parent().css("border-color", "RED");
-				
-				
-		
-			//$(this).classList.add("col-md-30")= "20px solid"; // Set border style
-			//alert($(this));
-		// Generate a random color (you can replace this with your desired color logic)
-		//$(this).css.borderColor = "black";
-	
-	 };// A
 	
 	
 	
@@ -822,7 +802,7 @@ var elements = document.getElementsByClassName("img");
 
 // Loop through each element and change its border color
 for (var i = 0; i < elements.length; i++) {
-    elements[i].style.border = "2px solid"; // Set border style
+    elements[i].style.border = "4px solid"; // Set border style
     // Generate a random color (you can replace this with your desired color logic)
     elements[i].style.borderColor = "black";
 }

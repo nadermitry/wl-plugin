@@ -113,7 +113,7 @@ div:hover{line-height:30px;font-size:16px;}
 div.img img
 {
   display: inline-block;
-  margin: 3px;
+  /*margin: 3px*/;
 }
 
 @keyframes bgfade
