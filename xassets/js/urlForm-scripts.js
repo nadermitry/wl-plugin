@@ -78,10 +78,8 @@ jQuery(document).ready(function() {
 				next_step = false;
 			}
 			else {
-				$(this).removeClass('input-error');				
-			
-
-
+				$(this).removeClass('input-error');	
+				$("#gifturl3").attr("href", $jsonGiftData.url);
 
 	passed_data={"url":$(this).val()};
 	showLoading();  
@@ -197,9 +195,10 @@ $('.f1 .btn-save-gift').on('click', function() {
 			//	alert('ffff');
                 $('#myImage').addClass('input-error');
 				$('#myImage').css("border-style", "solid");
+
 				next_step = false;
 		     }else{
-
+                
 				passed_data={
 					"title":$('#title').val(),
 					"img_url":$('#myImage').attr("src"),
@@ -238,7 +237,7 @@ $('.f1 .btn-save-gift').on('click', function() {
 						$("#giftid").val($jsonGiftData.id);
 						$("#gifttitle").text($jsonGiftData.title);
 						$("#gifturl").attr("href", $jsonGiftData.url);
-						$("#gifturl2").attr("href", $jsonGiftData.url);
+						$("#gifturl2").attr("href", $jsonGiftData.url);						
 						$("#giftdescription").text($jsonGiftData.description);
 						$("#giftimage").attr("src", $jsonGiftData.img_url);
    						$("#giftimage").attr("alt", $jsonGiftData.title);
@@ -392,7 +391,9 @@ $('.f1 .btn-next1').on('click', function() {
 		}
 		else {
 			$(this).removeClass('input-error');
-			$('#title2').val($(this).val());
+			$('#title2').val($(this).val());			
+			$('#description1').val($('#description').val());
+			
 		}
 	});
 

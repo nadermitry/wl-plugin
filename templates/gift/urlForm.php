@@ -188,11 +188,14 @@ div.img img
             <div class="form-group"  id="imageContainer" >
           
             </div>
+
+
             
             <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
-                            </div>
+                <label for="description">Description:</label>
+                 <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+            </div>
+              
                
             <div class="f1-buttons" >                
                 <button type="button" class="btn btn-previous">Previous</button>
@@ -227,7 +230,7 @@ div.img img
                             
                             <div class="form-group">
                                    <!--<input type="hidden"  placeholder="url..." class="addEvent  form-control" id="imgurl" name="imgurl"  >-->
-                                   <a target="_blank" href="<?php echo $_POST["url"]; ?>"><img class="img-thumbnail" id="myImage" src="assets/sysimages/loading.gif" alt="loading ..." width="25%"></a>        
+                                   <a id="gifturl3" name="gifturl3"  target="_blank" href=""><img class="img-thumbnail" id="myImage" src="assets/sysimages/loading.gif" alt="loading ..." width="25%"></a>        
                             </div> 
 
                
@@ -240,7 +243,7 @@ div.img img
                             </div>
                             <div class="form-group">
                                 <label for="description">Description:</label>
-                                <textarea class="form-control" id="description" name="description" rows="4" cols="50"></textarea>
+                                <textarea disabled class="form-control" id="description1" name="description1" rows="4" cols="50"></textarea>
                             </div>
                             
                         
