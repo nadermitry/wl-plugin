@@ -78,6 +78,23 @@ button.btn.btn-next,
 button.btn.btn-next:focus,
 button.btn.btn-next:active:focus, button.btn.btn-next.active:focus { background: #f35b3f; }
 
+button.btn.btn-next1,
+button.btn.btn-next1:focus,
+button.btn.btn-next1:active:focus, button.btn.btn-next1.active:focus { background: #f35b3f; }
+
+button.btn.btn-npost,
+button.btn.btn-npost:focus,
+button.btn.btn-npost:active:focus, button.btn.btn-npost.active:focus { background: #f35b3f; }
+
+button.btn.btn-save-gift,
+button.btn.btn-save-gift:focus,
+button.btn.btn-save-gift:active:focus, button.btn.btn-save-gift.active:focus { background: #f35b3f; }
+
+button.btn.btn-mygifts,
+button.btn.btn-mygifts:focus,
+button.btn.btn-mygifts:active:focus, button.btn.btn-mygifts.active:focus { background: #f35b3f; }
+
+
 button.btn.btn-submit,
 button.btn.btn-submit:focus,
 button.btn.btn-submit:active:focus, button.btn.btn-submit.active:focus { background: #f35b3f; }
@@ -85,3 +102,8 @@ button.btn.btn-submit:active:focus, button.btn.btn-submit.active:focus { backgro
 button.btn.btn-previous,
 button.btn.btn-previous:focus,
 button.btn.btn-previous:active:focus, button.btn.btn-previous.active:focus { background: #bbb; }
+
+button.btn.btn-addto-event,
+button.btn.btn-addto-event:focus,
+button.btn.btn-addto-event:active:focus, button.btn.btn-addto-event.active:focus { background: #f35b3f; }
+

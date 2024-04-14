@@ -1,8 +1,8 @@
 
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
+		   <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
@@ -109,7 +109,7 @@ div.img{
   border-radius:4px;
   border-style:solid;
 }	
-div:hover{line-height:30px;font-size:16px;}
+
 div.img img
 {
   display: inline-block;

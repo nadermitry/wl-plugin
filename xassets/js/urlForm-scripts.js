@@ -805,7 +805,7 @@ var elements = document.getElementsByClassName("img");
 
 // Loop through each element and change its border color
 for (var i = 0; i < elements.length; i++) {
-    elements[i].style.border = "2px solid"; // Set border style
+    elements[i].style.border = "4px solid"; // Set border style
     // Generate a random color (you can replace this with your desired color logic)
     elements[i].style.borderColor = "black";
 }
