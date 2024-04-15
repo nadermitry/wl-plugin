@@ -237,8 +237,8 @@ div.img img
 
 
                             <div class="form-group">                                  
-                                <input type="hidden" class="form-control" id="imageUrl" name="imageUrl" required >
-                                <input type="hidden" class="form-control" id="url" name="url" required  value="<?php echo $_POST["url"]; ?>">
+                                <input type="hidden" class="form-control" id="imageUrl" name="imageUrl"  >
+                                <!--<input type="hidden" class="form-control" id="url" name="url"   value=""; ?>">-->
                             </div>
                             <div class="form-group">
                                 <label for="description">Description:</label>
