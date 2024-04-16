@@ -85,7 +85,24 @@ jQuery(document).ready(function() {
     			$(this).removeClass('input-error');
     		}
     	});
-    	
+    	// fields validation
+		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
+		//|| $('#start_datetime') == ""
+		//|| $('#event_address_name') == ""
+		//|| $('#event_address') == "");
+		if (
+			($('#event_image').val() == "" )
+			 
+			
+			) {	
+			
+			//$('#file_title').css('color', 'red');
+			$('#dropcontainer').css('border-color', 'red');
+				
+			//e.preventDefault();
+			$('drop-container').addClass('input-error');
+			next_step = false;
+			}
 
     	
     	if( next_step ) {
