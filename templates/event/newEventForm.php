@@ -84,92 +84,92 @@ div.img img
 
 <!--<div id="eventWizard" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box addeventbody">-->
 <div id="eventWizard" class="form-box addeventbody">
-                    
-                        <form role="form" id="event-form" method="post" enctype="multipart/form-data"  class="f1">
+
+    <form role="form" id="event-form" method="post" enctype="multipart/form-data"  class="f1">
                     		<!--<h3>Register To Our App</h3>
                     		<p>Fill in the form to get instant access</p>-->
-                    		<div class="f1-steps">
-                    			<div class="f1-progress">
-                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
-                    			</div>
-                    			<div class="f1-step active">
-                    				<div class="f1-step-icon"><i class="fa fa-info"></i></div>
-                    				<p>Info</p>
-                    			</div>
-                    			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
-                    				<p>Date</p>
-                    			</div>
-                    		    <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
-                    				<p>Location</p>
-                    			</div>                              
-                    		</div>
+        <div class="f1-steps">
+            <div class="f1-progress">
+                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
+            </div>
+            <div class="f1-step active">
+                <div class="f1-step-icon"><i class="fa fa-info"></i></div>
+                <p>Info</p>
+            </div>
+            <div class="f1-step">
+                <div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
+                <p>Date</p>
+            </div>
+            <div class="f1-step">
+                <div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
+                <p>Location</p>
+            </div>                              
+        </div>
                     		
-                    		<fieldset>
-                    		    <!--<h4>Tell us who you are:</h4>-->
-                    			<div class="form-group">                    	
-                                    <label class="sr-only" for="event_title">Title</label>
-                                    <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
-                                </div>
-                                <div class="form-group" >
-                                  <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
-                                       <div class="container align-content-center">   
-                                        <div class="row"> 
-                                            <div class="col-sm-12"> 
-                                  <?php 
-                                  $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
-                                  $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
-                                 
-                                  // Get all files in the directory
-                                  $files = glob($directory . "*.{jpgics}", GLOB_BRACE);
-                                  
-                                  // Loop through each file and display them
-                                  $divCount=1;
-                                  foreach ($files as $file) {
-                                    $fileName = basename($file);
-                                    //echo  $fileName ;
-                                    echo 
-                                    '<div class="img"   id="mgDiv'.$divCount .'" >
-                                    <img onclick="ddd(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
-                                    </div>';
-                                    $divCount++;
-                                    //echo '<img src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />';
-                                  }
+        <fieldset>
+            <!--<h4>Tell us who you are:</h4>-->
+            <div class="form-group">                    	
+                <label class="sr-only" for="event_title">Title</label>
+                <input type="text" name="event_title"  placeholder="Title..." class="addEvent  form-control" id="event_title">                                
+            </div>
+            <div class="form-group" >
+                <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
+                <div class="container">   
+                    <div class="row"> 
+                        <div class="col-sm-12"> 
+                <?php 
+                $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                
+                // Get all files in the directory
+                $files = glob($directory . "*.{jpgics}", GLOB_BRACE);
+                
+                // Loop through each file and display them
+                $divCount=1;
+                foreach ($files as $file) {
+                $fileName = basename($file);
+                //echo  $fileName ;
+                echo 
+                '<div class="img"   id="mgDiv'.$divCount .'" >
+                <img onclick="ddd(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
+                </div>';
+                $divCount++;
+                //echo '<img src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />';
+                }
 
 
-                                 ?>
-                                 </div>  
-                                </div>
-                                <div class="row">
-                                <div class="col-sm-12"> 
-                                        <label for="images" class="drop-container" id="dropcontainer">
-                                                <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
-                                                
-                                                <span id="file_title" class="drop-title">Drop Event image here</span>
-                                                    or
-                                                <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
-                                            </label> 
-                                            </div>   
+                ?>
+                </div>  
+            </div>
+            <div class="row">
+            <div class="col-sm-12"> 
+                    <label for="images" class="drop-container" id="dropcontainer">
+                            <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
+                            
+                            <span id="file_title" class="drop-title">Drop Event image here</span>
+                                or
+                            <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
+                        </label> 
+                        </div>   
 
-                                </div>
-                            </div>
-                                </div>
-                                <div class="form-group" >
+            </div>
+            </div>
+            </div>
+            <div class="form-group" >
 
 
-                                                                
-                                
-                                </div>
-                                <div class="form-group">
-                                <input type ="text" id="imageDisplaytext" name="imageDisplaytext" > 
-                                <label class="sr-only" for="event_description">Description</label>                                                                                 
-                                    <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
-                                </div>
-                            </fieldset>
+                                            
+            
+            </div>
+            <div class="form-group">
+            <input type ="text" id="imageDisplaytext" name="imageDisplaytext" > 
+            <label class="sr-only" for="event_description">Description</label>                                                                                 
+                <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
+            </div>
+            <div class="f1-buttons">
+                <button type="button" class="btn btn-next">Next</button>
+            </div>
+        </fieldset>
 
                             <fieldset>
                               <!--  <h4>Set up your account:</h4>-->
