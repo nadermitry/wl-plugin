@@ -91,7 +91,8 @@ jQuery(document).ready(function() {
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
 		alert($('#event_image').val() == "" );
-		alert($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");
+		alert($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");	
+		alert($('#event_image').val() == "" ) && ($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");
 		if (
 			($('#event_image').val() == "" ) && ($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
