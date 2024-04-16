@@ -104,6 +104,9 @@ jQuery(document).ready(function() {
 			//e.preventDefault();
 			$('drop-container').addClass('input-error');
 			next_step = false;
+			}else{
+				 next_step = true;
+
 			}
 
     	
