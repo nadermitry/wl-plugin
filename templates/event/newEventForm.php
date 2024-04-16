@@ -150,7 +150,7 @@ div.img img
                                 or
                             <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
                         </label> 
-                        </div>   
+                      
 
            
           
