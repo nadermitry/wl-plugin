@@ -91,7 +91,7 @@ jQuery(document).ready(function() {
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
 		if (
-			($('#event_image').val() == "" )
+			($('#event_image').val() == "" ) && ($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
 			
 			) {	
