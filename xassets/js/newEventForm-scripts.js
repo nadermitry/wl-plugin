@@ -562,3 +562,8 @@ function dydy(){
 	imageDisplay.src=''
 
 }
+
+function isFocusable(element) {
+    // Check if the element is focusable
+    return element.tabIndex >= 0;
+}
