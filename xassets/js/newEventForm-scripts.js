@@ -95,6 +95,7 @@ jQuery(document).ready(function() {
 			//e.preventDefault();
 			$('drop-container').addClass('input-error');
 		}else{
+			alert($('#event_title').val());	
 			if ($('#event_title').val() != ""){
 				alert('22222222222222222');	
 			next_step = true;
