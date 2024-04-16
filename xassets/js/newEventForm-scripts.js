@@ -193,7 +193,7 @@ jQuery(document).ready(function() {
 
   */
 	$('.f1').on('submit', function(e) { 
-		alert('ddd111111111111');
+		//alert('ddd111111111111');
 		e.preventDefault();
 		isError=true;
 		$(this).find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() {

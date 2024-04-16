@@ -323,7 +323,7 @@ function displaySelectedFilePath(input) {
     if (input.files && input.files[0]) {
         var fileName = input.files[0].name;
         document.getElementById('event_image').innerText = fileName;
-        alert(fileName);
+       // alert(fileName);
     }
 }
 </script>
