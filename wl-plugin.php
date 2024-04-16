@@ -500,34 +500,41 @@ function wl_ajax_save_event() {
 		$file_ext = strtolower($nn);
 		$filename = uniqid('event_') . '.' . $file_ext;
 
-        if ($imageDisplaytext !=""){$filename =$imageDisplaytext;}
+        if ($imageDisplaytext !=""){$filename =$imageDisplaytext;} else{
 
 
         $upload_dir = plugin_dir_path( __FILE__ ) . '/assets/images/events/';
         $file_path = $upload_dir . '/' . $filename;
-		if(move_uploaded_file($file['tmp_name'], $file_path)) {
-			$data = array(
-				'user_id' => get_current_user_id(),
-				'title' => $event_title,
-				'start_date' => $start_datetime,
-				'end_date' => $end_datetime,
-				'description' =>$event_description,
-				'location_name' => $event_address_name,
-				'location_address' => $event_address,
-				'location_url' => $event_address_url,
-				'location_map' => $event_location,                    
-				'event_image' => $filename
-			);
-            global $wpdb;			
-			$wpdb->insert( $wpdb->prefix . 'events', $data );                
-			$newEventID = $wpdb->insert_id ; 
 
-			
-            wp_send_json_success($newEventID);			
+
+
+
+		if(move_uploaded_file($file['tmp_name'], $file_path)) {
+						
 			
        } else {
             wp_send_json_error('Error moving file to destination');
        }
+	}
+       $data = array(
+		'user_id' => get_current_user_id(),
+		'title' => $event_title,
+		'start_date' => $start_datetime,
+		'end_date' => $end_datetime,
+		'description' =>$event_description,
+		'location_name' => $event_address_name,
+		'location_address' => $event_address,
+		'location_url' => $event_address_url,
+		'location_map' => $event_location,                    
+		'event_image' => $filename
+	);
+	global $wpdb;			
+	$wpdb->insert( $wpdb->prefix . 'events', $data );                
+	$newEventID = $wpdb->insert_id ; 
+
+	
+	wp_send_json_success($newEventID);
+
 
     } else {
         wp_send_json_error('No file uploaded');
