@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
     			$(this).removeClass('input-error');
     		}
     	
-		
+		alert(this.id);
 		if (this.id =='event_image'){
 			if (  $('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
@@ -112,7 +112,7 @@ jQuery(document).ready(function() {
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
 		
-		
+		alert(ext_step);
 
     	
     	if( next_step ) {
