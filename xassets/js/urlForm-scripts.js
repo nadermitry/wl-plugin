@@ -670,7 +670,7 @@ imageUrls.forEach(function(url) {
 
 });
 
-$("#imgDiv1").css("border-color", "red");
+$("#imgDiv1").css("border-color", "blue");
 
 
 }
@@ -699,7 +699,7 @@ function addDiv(divCount,url) {
 				imageUrl1.value = url;
 				hilieghigImage();
 		
-				$(this).parent().css("border-color", "red");
+				$(this).parent().css("border-color", "blue");
 					
 					
 			

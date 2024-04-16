@@ -2,7 +2,7 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/font-awesome/css/font-awesome.min.css">
-		   <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
+		    <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
@@ -107,7 +107,8 @@ div.img{
   -o-transition:all 0.5s ease; 
   transition:all 0.5s ease;
   border-radius:4px;
-  border-style:solid;
+ /* border-style:solid;*/
+  border:2px solid;
 }	
 
 div.img img
