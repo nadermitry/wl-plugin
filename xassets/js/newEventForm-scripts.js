@@ -86,18 +86,16 @@ jQuery(document).ready(function() {
     		}
     	});
     	// fields validation
-		alert('00000000000');	
-		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src') == "http://wishlist.local/wp-content/plugins/wl-plugin//images/imageplaceholder.png") {	
-			alert('11111111111111111');	
+		str.substring(str.length - 20)
+		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src').substring(str.length - 20) == "imageplaceholder.png") {	
+			//alert('xxxxddddddrrrxx');	
 			//$('#file_title').css('color', 'red');
 			$('#dropcontainer').css('border-color', 'red');
 				
 			//e.preventDefault();
 			$('drop-container').addClass('input-error');
 		}else{
-			alert($('#event_title').val());	
-			if ($('#event_title').val()!== ''){
-				alert('22222222222222222');	
+			if ($('#event_title').val() != ""){
 			next_step = true;
 			}
 
