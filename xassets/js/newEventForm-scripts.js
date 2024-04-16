@@ -84,37 +84,22 @@ jQuery(document).ready(function() {
     		else {
     			$(this).removeClass('input-error');
     		}
-    	
-		alert(this.id);
-
-		if (isFocusable(this)){
-		if (this.id =='event_image'){
-			if (  $('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-			 
-			
-			{	
-		   
-		   //$('#file_title').css('color', 'red');
-		   $('#dropcontainer').css('border-color', 'red');
-			   
-		   //e.preventDefault();
-		   $('drop-container').addClass('input-error');
-		   next_step = false;
-		   }else{
-				next_step = true;
-
-		   }
+    	});
+    	// fields validation
+		
+		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png") {	
+			//alert('xxxxddddddrrrxx');	
+			//$('#file_title').css('color', 'red');
+			$('#dropcontainer').css('border-color', 'red');
+				
+			//e.preventDefault();
+			$('drop-container').addClass('input-error');
+		}else{
+			if ($('#event_title').val() != ""){
+			next_step = true;
+			}
 
 		}
-	}
-		});
-    	// fields validation
-		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-		//|| $('#start_datetime') == ""
-		//|| $('#event_address_name') == ""
-		//|| $('#event_address') == "");
-		
-		alert(next_step);
 
     	
     	if( next_step ) {
@@ -197,7 +182,7 @@ jQuery(document).ready(function() {
 
   */
 	$('.f1').on('submit', function(e) { 
-		alert('fff');
+		
 		e.preventDefault();
 		isError=true;
 		$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
@@ -561,9 +546,4 @@ function dydy(){
 	//fileInput.files[0] = imgpath;
 	imageDisplay.src=''
 
-}
-
-function isFocusable(element) {
-    // Check if the element is focusable
-    return element.tabIndex >= 0;
 }
