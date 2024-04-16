@@ -86,9 +86,9 @@ jQuery(document).ready(function() {
     		}
     	});
     	// fields validation
-		
+		//alert('00000000000');	
 		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src') == "http://wishlist.local/wp-content/plugins/wl-plugin//images/imageplaceholder.png") {	
-			//alert('xxxxddddddrrrxx');	
+			//alert('11111111111111111');	
 			//$('#file_title').css('color', 'red');
 			$('#dropcontainer').css('border-color', 'red');
 				
@@ -96,6 +96,7 @@ jQuery(document).ready(function() {
 			$('drop-container').addClass('input-error');
 		}else{
 			if ($('#event_title').val() != ""){
+			//	alert('22222222222222222');	
 			next_step = true;
 			}
 
