@@ -93,11 +93,10 @@ jQuery(document).ready(function() {
 		alert($('#event_image').val() == "" );
 		alert($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");	
 		alert($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");
-		if (
-			($('#event_image').val() == "" ) && ($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
+		if ($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
 			
-			) {	
+			 {	
 			
 			//$('#file_title').css('color', 'red');
 			$('#dropcontainer').css('border-color', 'red');
