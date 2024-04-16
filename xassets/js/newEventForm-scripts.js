@@ -87,7 +87,7 @@ jQuery(document).ready(function() {
     	});
     	// fields validation
 		
-		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src').substring(str.length - 20) == "imageplaceholder.png") {	
+		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png") {	
 			//alert('xxxxddddddrrrxx');	
 			//$('#file_title').css('color', 'red');
 			$('#dropcontainer').css('border-color', 'red');
