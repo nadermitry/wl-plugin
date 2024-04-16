@@ -148,7 +148,7 @@ div.img img
                             
                             <span id="file_title" class="drop-title">Drop Event image here</span>
                                 or
-                            <input  type="file" name="event_image" id="event_image" accept="image/*" required>
+                            <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
                         </label> 
                       
 
