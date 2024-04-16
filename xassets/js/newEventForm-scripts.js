@@ -538,3 +538,12 @@ function ddd(imgpath ,dirUrl){
 }
 
 
+function dydy(){
+	const imageDisplay = document.getElementById("imageDisplay")
+	const imageDisplaytext = document.getElementById("imageDisplaytext")
+	imageDisplaytext.value='';
+	//;
+	//fileInput.files[0] = imgpath;
+	imageDisplay.src=''
+
+}
