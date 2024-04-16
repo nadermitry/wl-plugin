@@ -86,15 +86,18 @@ jQuery(document).ready(function() {
     		}
     	});
     	// fields validation
-		
-		if (($('#event_image').val() == "" 
-		     && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
+		alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
+		|| $('#start_datetime') == ""
+		|| $('#event_address_name') == ""
+		|| $('#event_address') == "");
+		if (
+			($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 || $('#start_datetime') == ""
 			 || $('#event_address_name') == ""
 			 || $('#event_address') == ""
 			
 			) {	
-			//alert('xxxxddddddrrrxx');	
+			alert('xxxxddddddrrrxx');	
 			//$('#file_title').css('color', 'red');
 			$('#dropcontainer').css('border-color', 'red');
 				
