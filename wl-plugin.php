@@ -481,6 +481,7 @@ function wl_ajax_save_event() {
 	$event_address = sanitize_text_field($_POST['event_address']);
 	$start_datetime = sanitize_text_field($_POST['start_datetime']);
 	$end_datetime = sanitize_text_field($_POST['end_datetime']); 
+	$imageDisplaytext= sanitize_text_field($_POST['imageDisplaytext']); 
 
     
 
@@ -498,6 +499,10 @@ function wl_ajax_save_event() {
 		$nn = end($parts);
 		$file_ext = strtolower($nn);
 		$filename = uniqid('event_') . '.' . $file_ext;
+
+        if ($imageDisplaytext !=""){$filename =$imageDisplaytext;}
+
+
         $upload_dir = plugin_dir_path( __FILE__ ) . '/assets/images/events/';
         $file_path = $upload_dir . '/' . $filename;
 		if(move_uploaded_file($file['tmp_name'], $file_path)) {

@@ -53,7 +53,31 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+div.img img {max-width:100%;}
+div.img{
+  margin: 5px 5px 5px 5px;
+  padding:5px;
+  box-sizing:border-box;
+  /*background:#f1f1f1;*/
+  line-height:0px;
+  height: auto;
+  width: 20%;
+  float: left;
+  text-align: center;
+  -webkit-transition:all 0.5s ease;
+  -moz-transition:all 0.5s ease; 
+  -o-transition:all 0.5s ease; 
+  transition:all 0.5s ease;
+  border-radius:4px;
+ /* border-style:solid;*/
+  border:2px solid;
+}	
 
+div.img img
+{
+  display: inline-block;
+  /*margin: 3px*/;
+}
 
 </style>
 
@@ -90,18 +114,47 @@
                                 </div>
                                 <div class="form-group" >
                                   <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
-                                                                
+                                              
+                                  <?php 
+                                  $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                                  $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                                 
+                                  // Get all files in the directory
+                                  $files = glob($directory . "*.{jpgics}", GLOB_BRACE);
+                                  
+                                  // Loop through each file and display them
+                                  $divCount=1;
+                                  foreach ($files as $file) {
+                                    $fileName = basename($file);
+                                    //echo  $fileName ;
+                                    echo 
+                                    '<div class="img"   id="mgDiv'.$divCount .'" >
+                                    <img onclick="ddd(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
+                                    </div>';
+                                    $divCount++;
+                                    //echo '<img src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />';
+                                  }
+
+
+                                 ?>
+
+
+                                </div>
+                                <div class="form-group" >
+
+
                                     <label for="images" class="drop-container" id="dropcontainer">
                                         <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
                                         
                                         <span id="file_title" class="drop-title">Drop Event image here</span>
                                             or
-                                        <input type="file" name="event_image" id="event_image" accept="image/*" required>
+                                        <input  onchange="" type="file" name="event_image" id="event_image" accept="image/*" required>
                                     </label>                                
                                 
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="event_description">Description</label>                                                                                 
+                                <input type ="text" id="imageDisplaytext" name="imageDisplaytext" > 
+                                <label class="sr-only" for="event_description">Description</label>                                                                                 
                                     <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
                                 </div>
                                 <div class="f1-buttons">
@@ -251,4 +304,18 @@ document.getElementById('event_image').addEventListener('change', handleFileSele
         <!--[if lt IE 10]>
             <script src="<?php echo $this->plugin_url ?>/xassets/js/placeholder.js"></script>
         <![endif]-->
+
+        <script>
+function setFilePath() {
+    document.getElementById('event_image').click();
+}
+
+function displaySelectedFilePath(input) {
+    if (input.files && input.files[0]) {
+        var fileName = input.files[0].name;
+        document.getElementById('event_image').innerText = fileName;
+        alert(fileName);
+    }
+}
+</script>
 
