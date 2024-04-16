@@ -487,6 +487,9 @@ function wl_ajax_save_event() {
 
 
 	if(isset($_FILES['event_image'])) {
+
+		if ($imageDisplaytext !=""){$filename =$imageDisplaytext;} else{
+
         $file = $_FILES['event_image'];
         
         // Check for errors
@@ -500,7 +503,7 @@ function wl_ajax_save_event() {
 		$file_ext = strtolower($nn);
 		$filename = uniqid('event_') . '.' . $file_ext;
 
-        if ($imageDisplaytext !=""){$filename =$imageDisplaytext;} else{
+       
 
 
         $upload_dir = plugin_dir_path( __FILE__ ) . '/assets/images/events/';
