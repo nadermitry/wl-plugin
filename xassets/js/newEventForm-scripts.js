@@ -112,7 +112,7 @@ jQuery(document).ready(function() {
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
 		
-		alert(ext_step);
+		alert(next_step);
 
     	
     	if( next_step ) {
