@@ -84,15 +84,16 @@ jQuery(document).ready(function() {
     		else {
     			$(this).removeClass('input-error');
     		}
-    	});
+    	
+		alert(this.id);
+		
+		});
     	// fields validation
 		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 		//|| $('#start_datetime') == ""
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
-		alert($('#event_image').val() == "" );
-		alert($('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");	
-		alert($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png");
+		
 		if (  $('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
 			
