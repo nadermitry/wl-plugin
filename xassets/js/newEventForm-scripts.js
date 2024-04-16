@@ -197,7 +197,7 @@ jQuery(document).ready(function() {
 
   */
 	$('.f1').on('submit', function(e) { 
-		
+		alert('fff');
 		e.preventDefault();
 		isError=true;
 		$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
