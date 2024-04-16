@@ -112,9 +112,7 @@ jQuery(document).ready(function() {
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
 		
-		alert(next_step);
-
-    	
+		    	
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
