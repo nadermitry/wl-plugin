@@ -86,7 +86,7 @@ jQuery(document).ready(function() {
     		}
     	});
     	// fields validation
-		str.substring(str.length - 20)
+		
 		if ($('#event_image').val() == "" && $('#imageDisplay').attr('src').substring(str.length - 20) == "imageplaceholder.png") {	
 			//alert('xxxxddddddrrrxx');	
 			//$('#file_title').css('color', 'red');
