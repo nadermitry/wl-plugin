@@ -193,10 +193,10 @@ jQuery(document).ready(function() {
 
   */
 	$('.f1').on('submit', function(e) { 
-		
+		alert('ddd111111111111');
 		e.preventDefault();
 		isError=true;
-		$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
+		$(this).find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() {
 			if( $(this).val() == "" ) {
 				e.preventDefault();
 				$(this).addClass('input-error');
@@ -473,7 +473,7 @@ function displayImage(file) {
 
 function save_event(){
 
-alert('ddd');
+
 	$('.f1').find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() { 
 		if( $(this).val() == "" ) {
 			$(this).addClass('input-error');
