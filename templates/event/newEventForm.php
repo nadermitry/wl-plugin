@@ -114,7 +114,9 @@ div.img img
                                 </div>
                                 <div class="form-group" >
                                   <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
-                                              
+                                       <div class="container align-content-center">   
+                                        <div class="row"> 
+                                            <div class="col-sm-12"> 
                                   <?php 
                                   $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
                                   $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
@@ -137,19 +139,26 @@ div.img img
 
 
                                  ?>
+                                 </div>  
+                                </div>
+                                <div class="row">
+                                <div class="col-sm-12"> 
+                                        <label for="images" class="drop-container" id="dropcontainer">
+                                                <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
+                                                
+                                                <span id="file_title" class="drop-title">Drop Event image here</span>
+                                                    or
+                                                <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
+                                            </label> 
+                                            </div>   
 
-
+                                </div>
+                            </div>
                                 </div>
                                 <div class="form-group" >
 
 
-                                    <label for="images" class="drop-container" id="dropcontainer">
-                                        <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
-                                        
-                                        <span id="file_title" class="drop-title">Drop Event image here</span>
-                                            or
-                                        <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" required>
-                                    </label>                                
+                                                                
                                 
                                 </div>
                                 <div class="form-group">

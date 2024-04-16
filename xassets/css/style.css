@@ -203,7 +203,7 @@ input[type=file1]::file-selector-button {
 
   .drop-container {
 	position: relative;
-	display: flex;
+	/*display: flex;*/
 	gap: 10px;
 	/*flex-direction: column;*/
 	justify-content: center;
@@ -215,6 +215,7 @@ input[type=file1]::file-selector-button {
 	color: #444;
 	cursor: pointer;
 	transition: background .2s ease-in-out, border .2s ease-in-out;
+	width: 100%;
   }
   
   .drop-container:hover {
