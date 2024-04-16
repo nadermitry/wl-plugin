@@ -86,6 +86,8 @@ jQuery(document).ready(function() {
     		}
     	
 		alert(this.id);
+
+		if (isFocusable(this)){
 		if (this.id =='event_image'){
 			if (  $('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
@@ -104,7 +106,7 @@ jQuery(document).ready(function() {
 		   }
 
 		}
-		
+	}
 		});
     	// fields validation
 		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
