@@ -473,8 +473,8 @@ function displayImage(file) {
 
 function save_event(){
 
-
-	$('.f1').find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() { 
+alert('ddd');
+	$('.f1').find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() { 
 		if( $(this).val() == "" ) {
 			$(this).addClass('input-error');
 						
