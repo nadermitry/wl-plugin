@@ -131,7 +131,7 @@ div.img img
                 //echo  $fileName ;
                 echo 
                 '<div class="img"   id="mgDiv'.$divCount .'" >
-                <img onclick="ddd(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
+                <img onclick="selectImage(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
                 </div>';
                 $divCount++;
                 //echo '<img src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />';

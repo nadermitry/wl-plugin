@@ -535,17 +535,12 @@ function save_event(){
 
 
 
-function ddd(imgpath ,dirUrl){
+function selectImage(imgpath ,dirUrl){
 	//const fileInput = document.getElementById("event_image")
 	const imageDisplay = document.getElementById("imageDisplay")
 	const imageDisplaytext = document.getElementById("imageDisplaytext")
-	imageDisplaytext.value=imgpath;
-	//;
-	//fileInput.files[0] = imgpath;
+	imageDisplaytext.value=imgpath;	
 	imageDisplay.src=dirUrl+imgpath
-	//alert(imgpath);
-
-
 }
 
 
