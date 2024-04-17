@@ -544,7 +544,7 @@ function selectImage(imgpath ,dirUrl){
 }
 
 
-function dydy(){
+function fileUploadOnChange(){
 	const imageDisplay = document.getElementById("imageDisplay")
 	const imageDisplaytext = document.getElementById("imageDisplaytext")
 	imageDisplaytext.value='';

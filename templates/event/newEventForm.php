@@ -22,6 +22,20 @@
 
 <style>
 /* The Modal (background) */
+
+.file-upload-container {
+        display: flex;
+        justify-content: center; /* Horizontally center align */
+        align-items: center; /* Vertically center align */       
+    }
+
+.disp-inline{
+  display:inline-block !important;  
+}
+.pb-5{
+
+    padding-bottom:5px;
+}
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -144,13 +158,16 @@ div.img img
             
       
                     <label for="images" class="drop-container" id="dropcontainer">
-                            <img id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
+                           
+                    <div class="file-upload-container">
+                    
+                    <img class="pb-5" id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
                             
                             <span id="file_title" class="drop-title">Drop Event image here</span>
                                 or
-                            <input  onchange="dydy();" type="file" name="event_image" id="event_image" accept="image/*" >
+                            <input class="disp-inline" onchange="fileUploadOnChange();" type="file" name="event_image" id="event_image" accept="image/*" >
                         </label> 
-                      
+                        </div>
 
            
           
@@ -162,7 +179,7 @@ div.img img
             
             </div>
             <div class="form-group">
-            <input type ="text" id="imageDisplaytext" name="imageDisplaytext" > 
+            <input type ="hidden" id="imageDisplaytext" name="imageDisplaytext" > 
             <label class="sr-only" for="event_description">Description</label>                                                                                 
                 <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
             </div>
