@@ -32,10 +32,18 @@
 .disp-inline{
   display:inline-block !important;  
 }
-.pb-5{
+.imageDisplay-padding{
 
-    padding-bottom:5px;
+    padding:5px;
 }
+
+.imageDisplay-border{
+
+    border: solid;
+    border-radius: 5px;
+    border-width: thin;
+}
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -161,11 +169,11 @@ div.img img
                            
                     <div class="file-upload-container">
                     
-                    <img class="pb-5" id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
+                    <img class="imageDisplay-padding imageDisplay-border" id="imageDisplay" src="<?php echo $this->plugin_url ?>/images/imageplaceholder.png"  width="100px"> 
                             
-                            <span id="file_title" class="drop-title">Drop Event image here</span>
-                                or
-                            <input class="disp-inline" onchange="fileUploadOnChange();" type="file" name="event_image" id="event_image" accept="image/*" >
+                            <span class="imageDisplay-padding drop-title" id="file_title" >Drop Event image here or</span>
+                                
+                            <input class="disp-inline imageDisplay-padding" onchange="fileUploadOnChange();" type="file" name="event_image" id="event_image" accept="image/*" >
                         </label> 
                         </div>
 
