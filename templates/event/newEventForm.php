@@ -137,7 +137,7 @@ div.img img
             <div class="form-group" >
                 <!--  <label class="drop-X" id="X" for="event_image">Event Image</label> -->
                 
-                    
+                <div class="container">   
                         
                 <?php 
                 $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
@@ -162,7 +162,7 @@ div.img img
 
                 ?>
               
-            
+            </div>
             
       
                     <label for="images" class="drop-container" id="dropcontainer">
