@@ -83,10 +83,8 @@ jQuery(document).ready(function() {
     		}
     		else {
     			$(this).removeClass('input-error');
-    		}
-    	
-		
-		if (this.id =='event_image'){
+				if (this.id =='event_image'){
+
 			if (  $('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 			 
 			
@@ -99,19 +97,25 @@ jQuery(document).ready(function() {
 		   $('drop-container').addClass('input-error');
 		   next_step = false;
 		   }else{
-				next_step = true;
 
+			if( $('#event_title').val() != "" ){
+				next_step = true;
+			} 
 		   
 
 		}
 	}
+    		}
+    	
+		
+		
 		});
     	// fields validation
 		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
 		//|| $('#start_datetime') == ""
 		//|| $('#event_address_name') == ""
 		//|| $('#event_address') == "");
-		
+
 		    	
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
