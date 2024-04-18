@@ -78,36 +78,27 @@ jQuery(document).ready(function() {
 		
         if (  $('#event_image').val() == ""  && 
 			$('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-			{
-				//$('#file_title').css('color', 'red');
-				$('#dropcontainer').css('border-color', 'red');
-				//e.preventDefault();
+			{				
+				$('#dropcontainer').css('border-color', 'red');				
 				$('drop-container').addClass('input-error');
 				next_step = false;
+				scroll_to_class( $('.f1'), 20 );
 			}
 			else{
-
 				$('#dropcontainer').css('border-color', 'black');				
 				$('#drop-container').removeClass('input-error');
 			}
 
 		if( $('#event_title').val() == "" )
 			{			 
-    			$('#event_title').addClass('input-error');
+    			$('#event_title').addClass('input-error');				
     			next_step = false;
+				scroll_to_class( $('.f1'), 20 );
     		}
 		else
 			{
 				$('#event_title').removeClass('input-error');					
 			}
-
-		
-
-
-		 
-
-
-
 
 		if( next_step ) {
 			
