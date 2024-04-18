@@ -366,7 +366,7 @@ $('.f1 .btn-addto-event').on('click', function() {
 
     // Create img element
     var imgElement = document.createElement("img");
-    imgElement.setAttribute("src", "ccccccc");
+    imgElement.setAttribute("src", item.imgpath + '/assets/images/events/' +item.event_image);
 
     // Append img element to checkbox icon span
     checkboxIconElement.appendChild(imgElement);
