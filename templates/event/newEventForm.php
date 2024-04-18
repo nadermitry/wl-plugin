@@ -192,7 +192,7 @@ div.img img
                 <textarea id="event_description" name="event_description" placeholder="Event Description..." class="addEvent form-control" id="event_description"></textarea>
             </div>
             <div class="f1-buttons">
-                <button type="button" class="btn btn-next">Next</button>
+                <button type="button" id="btn-step1" class="btn btn-next1">Next</button>
             </div>
         </fieldset>
 
