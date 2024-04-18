@@ -7,15 +7,20 @@ function scroll_to_class(element_class, removed_height) {
 }
 
 function bar_progress(progress_line_object, direction) {
+
 	var number_of_steps = progress_line_object.data('number-of-steps');
 	var now_value = progress_line_object.data('now-value');
 	var new_value = 0;
+
+   
+
 	if(direction == 'right') {
 		new_value = now_value + ( 100 / number_of_steps );
 	}
 	else if(direction == 'left') {
 		new_value = now_value - ( 100 / number_of_steps );
 	}
+	
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 

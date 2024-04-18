@@ -18,7 +18,7 @@ function bar_progress(progress_line_object, direction) {
 	}
 	else if(direction == 'left') {
 		new_value = now_value - ( 100 / number_of_steps );
-	}
+	}	
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
@@ -336,6 +336,63 @@ $('.f1 .btn-addto-event').on('click', function() {
 
 
 
+						  var numberOfCheckboxes = 5; // Change this to the desired number of checkboxes
+
+// Loop to create multiple checkboxes
+
+	jsonArray.forEach(function(item) {
+    // Create div element
+    var divElement = document.createElement("div");
+    divElement.classList.add("checkbox");
+
+    // Create label element
+    var labelElement = document.createElement("label");
+    labelElement.classList.add("checkbox-wrapper");
+
+    // Create input element
+    var inputElement = document.createElement("input");
+    inputElement.setAttribute("type", "checkbox");
+	inputElement.name = "eventid[]" 
+	inputElement.id =  item.id;
+    inputElement.classList.add("checkbox-input");
+
+    // Create span element for checkbox tile
+    var checkboxTileElement = document.createElement("span");
+    checkboxTileElement.classList.add("checkbox-tile");
+
+    // Create span element for checkbox icon
+    var checkboxIconElement = document.createElement("span");
+    checkboxIconElement.classList.add("checkbox-icon");
+
+    // Create img element
+    var imgElement = document.createElement("img");
+    imgElement.setAttribute("src", "ccccccc");
+
+    // Append img element to checkbox icon span
+    checkboxIconElement.appendChild(imgElement);
+
+    // Create span element for checkbox label
+    var checkboxLabelElement = document.createElement("span");
+    checkboxLabelElement.classList.add("checkbox-label");
+    checkboxLabelElement.textContent = item.title;
+
+    // Append checkbox icon and label spans to checkbox tile span
+    checkboxTileElement.appendChild(checkboxIconElement);
+    checkboxTileElement.appendChild(checkboxLabelElement);
+
+    // Append input element and checkbox tile span to label element
+    labelElement.appendChild(inputElement);
+    labelElement.appendChild(checkboxTileElement);
+
+    // Append label element to div element
+    divElement.appendChild(labelElement);
+
+    // Append div element to the document body (or any other desired parent element)
+    container.appendChild(divElement);
+}); 
+						 
+						 
+				/*		 
 						  jsonArray.forEach(function(item) {
 							  // Create a checkbox element
 							  
@@ -353,7 +410,8 @@ $('.f1 .btn-addto-event').on('click', function() {
 							  container.appendChild(label);
 							  container.appendChild(document.createElement("br")); // Add line break for spacing
 						       
-							}); 	
+							}); 
+							*/	
 						  hideLoading();  
 						parent_fieldset.fadeOut(400, function() {
 							// change icons

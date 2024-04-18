@@ -16,6 +16,8 @@ function bar_progress(progress_line_object, direction) {
 	else if(direction == 'left') {
 		new_value = now_value - ( 100 / number_of_steps );
 	}
+
+	
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 

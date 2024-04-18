@@ -68,7 +68,7 @@
                     		<p>Fill in the form to get instant access</p>-->
                     		<div class="f1-steps">
                     			<div class="f1-progress">
-                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
+                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
                     			</div>
                     			<div class="f1-step active">
                     				<div class="f1-step-icon"><i class="fa fa-gift"></i></div>
@@ -80,7 +80,7 @@
                     			</div>
                     		    <div class="f1-step">
                     				<div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
-                    				<p>Location</p>
+                    				<p>Summery</p>
                     			</div>                              
                     		</div>
                     		
@@ -187,24 +187,7 @@
                             </fieldset>
 
                             <fieldset>
-                               <!-- <h4>Social media profiles:</h4>-->
-                                <div class="form-group">
-                                    <label class="sr-only" for="event_address_name">Locaion Name</label>                                  
-                                    <input type="text" name="event_address_name"  id="event_address_name" placeholder="Locaion Name..." class="f1-facebook form-control" >
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="event_address_url">Location Website</label>                                  
-                                    <input type="text" name="event_address_url" id="event_address_url" placeholder="Location Website..." class="f1-twitter form-control">
- 
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="event_address">Address</label>                                  
-                                    <textarea name="event_address" id="event_address"  placeholder="Address..." class="f1-google-plus form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="event_location">Google Maps Location</label>                                   
-                                    <input type="text" name="event_location" id="event_location" placeholder="Google Maps Location..." class="f1-google-plus form-control">
-                                </div>
+                               
                                 
                                 <div class="f1-buttons">
                                     <input type="hidden" name="action" value="wl_ajax_save_event">

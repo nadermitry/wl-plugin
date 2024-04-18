@@ -6,6 +6,125 @@
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
+
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.checkbox-group > * {
+  margin: 0.5rem 0.5rem;
+}
+
+.checkbox-group-legend {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #9c9c9c;
+  text-align: center;
+  line-height: 1.125;
+  margin-bottom: 1.25rem;
+}
+
+.checkbox-input {
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.checkbox-input:checked + .checkbox-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #2260ff;
+}
+.checkbox-input:checked + .checkbox-tile:before {
+  transform: scale(1);
+  opacity: 1;
+  background-color: #2260ff;
+  border-color: #2260ff;
+}
+.checkbox-input:checked + .checkbox-tile .checkbox-icon, .checkbox-input:checked + .checkbox-tile .checkbox-label {
+  color: #2260ff;
+}
+.checkbox-input:focus + .checkbox-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+.checkbox-input:focus + .checkbox-tile:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.checkbox-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 7rem;
+  min-height: 7rem;
+  border-radius: 0.5rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+.checkbox-tile:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 0.25rem;
+  left: 0.25rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.25s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: 12px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.checkbox-tile:hover {
+  border-color: #2260ff;
+}
+.checkbox-tile:hover:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.checkbox-icon {
+  transition: 0.375s ease;
+  color: #494949;
+}
+.checkbox-icon svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.checkbox-label {
+  color: #707070;
+  transition: 0.375s ease;
+  text-align: center;
+}
+
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -147,7 +266,7 @@ div.img img
         <p>Fill in the form to get instant access</p>-->
         <div class="f1-steps">
             <div class="f1-progress">
-                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="5" style="width: 16.66%;"></div>
+                <div class="f1-progress-line" data-now-value="10" data-number-of-steps="5" style="width: 10%;"></div>
             </div>
             <div class="f1-step active">
                 <div class="f1-step-icon"><i class="fa fa-info"></i></div>
@@ -264,15 +383,16 @@ div.img img
                 <a id="gifturl" href="" target="_blank"><img width="10%" id="giftimage"src=""> </a>
                 <p id="giftdescription"></p>  
                 <a id="gifturl2" href="" target="_blank"> View on Store <h3></a>
-                <input type="hidden" id="giftid">                  
+                <input type="hidden" id="giftid"> 
+                          
             </div>
             
             
             <div class="f1-buttons">
                 
-                <button type="button"  class="btn btn-addto-event">Add to Event</button>
-                <button name="submit" type="submit" class="btn btn-submit">Add Another Gift </button>
-                <button type="button" class="btn btn-mygifts">Go to My Gifts</button>
+                <button type="button"  class="btn btn-addto-event">Next</button>
+                <button type="button"  class="btn btn-end">Finish</button>
+               
                 
             </div>
         </fieldset>
@@ -280,18 +400,28 @@ div.img img
 
         <fieldset>
             <!-- <h4>Social media profiles:</h4>-->
-            <div class="form-group">
-              <div id="checkboxContainer"></div>   
-            </div>
             
+
+
+	
+
+
+              <div id="checkboxContainer" class="checkbox-group"></div>  
+              
+             <!-- TODO - styl the events chack  -->
+       
             
+                      
+
             <div class="f1-buttons">
                 
                 
-                <button name="submit" type="submit" class="btn btn-submit">Add Another Gift</button>
-                <button type="button" class="btn btn-mygifts">Go to My Gifts</button>
+                
               
                 <!--<button  type="button" onclick="save_event();" class="btn">Submit</button>-->
+             
+                <button name="submit" type="submit" class="btn btn-submit">Add Another Gift</button>
+            <button type="button" class="btn btn-mygifts">Go to My Gifts</button>
             </div>
         </fieldset>
 
