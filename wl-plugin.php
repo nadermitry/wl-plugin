@@ -725,9 +725,12 @@ add_action('wp_ajax_nopriv_wl_ajax_save_gift_url', 'wl_ajax_save_gift_url'); // 
 
 function wl_ajax_addto_event_url(){
 	global $wpdb;
+	$imagepath= 'ddddddddd';
+	$imagepath=plugin_dir_url( __FILE__, 2 ) ;
     $events_table     = $wpdb->prefix . 'events';
     $events_condition = " WHERE user_id = ".get_current_user_id() ." and is_active =1 and start_date >= NOW()";
-    $events_query     = "SELECT * FROM $events_table $events_condition";
+    $events_query     = "SELECT * ,'$imagepath' as imgpath FROM $events_table $events_condition";
+	
     $events_results   = $wpdb->get_results($events_query);
 	wp_send_json_success( $events_results);
 	wp_die();
