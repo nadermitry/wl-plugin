@@ -6,6 +6,14 @@
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
+
+@media screen and (max-width: 600px) {
+  span {
+    font-size: 10px; /* Decreased font size for small screens */
+  }
+}
+
+
 .checkbox{
   margin-top:0 !important;
   margin-bottom: 0 !important;
