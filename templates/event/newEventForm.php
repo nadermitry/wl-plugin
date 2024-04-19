@@ -213,6 +213,12 @@ div.img img
                                 </div>
                             </fieldset>
 
+
+                            <fieldset>
+                                <h4>Select Place For your Even</h4>
+                               <!-- TODO add optional location selector-->
+                            </fieldset>
+
                             <fieldset>
                                <!-- <h4>Social media profiles:</h4>-->
                                 <div class="form-group">
