@@ -15,8 +15,8 @@
 
 
 .checkbox{
-  margin-top:0 !important;
-  margin-bottom: 0 !important;
+  margin-top:5px !important;
+  margin-bottom: 5px !important;
   
 
 }
