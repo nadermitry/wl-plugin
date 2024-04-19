@@ -6,8 +6,16 @@
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
 
         <style>
+.checkbox{
+  margin-top:0 !important;
+  margin-bottom: 0 !important;
+  
 
+}
 
+.checkbox img{
+max-height: 70px;
+}
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
@@ -42,7 +50,7 @@
   overflow: hidden;
   position: absolute;
   white-space: nowrap;
-  width: 1px;
+  width: 1px; 
 }
 .checkbox-input:checked + .checkbox-tile {
   border-color: #2260ff;
@@ -405,9 +413,10 @@ div.img img
 
 	
 
-
-              <div id="checkboxContainer" class="checkbox-group"></div>  
-              
+           
+              <div id="checkboxContainer" class="checkbox-group">  
+              </div>  
+             
              <!-- TODO - styl the events chack  -->
        
             

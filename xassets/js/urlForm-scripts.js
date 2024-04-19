@@ -366,7 +366,8 @@ $('.f1 .btn-addto-event').on('click', function() {
 
     // Create img element
     var imgElement = document.createElement("img");
-    imgElement.setAttribute("src", item.imgpath + '/assets/images/events/' +item.event_image);
+    imgElement.setAttribute("src", item.imgpath + '/assets/images/events/' +item.event_image);	
+
 
     // Append img element to checkbox icon span
     checkboxIconElement.appendChild(imgElement);
@@ -375,6 +376,7 @@ $('.f1 .btn-addto-event').on('click', function() {
     var checkboxLabelElement = document.createElement("span");
     checkboxLabelElement.classList.add("checkbox-label");
     checkboxLabelElement.textContent = item.title;
+	
 
     // Append checkbox icon and label spans to checkbox tile span
     checkboxTileElement.appendChild(checkboxIconElement);
