@@ -24,6 +24,10 @@
 .checkbox img{
 max-height: 70px;
 }
+.checkbox label{
+  padding-left: 20px;
+}
+
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
