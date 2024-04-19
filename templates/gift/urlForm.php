@@ -25,7 +25,7 @@
 max-height: 70px;
 }
 .checkbox label{
-  padding-left: 20px;
+  padding-left: 5px;
 }
 
 .checkbox-group {
