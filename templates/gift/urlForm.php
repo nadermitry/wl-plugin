@@ -42,7 +42,7 @@ max-height: 70px;
           user-select: none;
 }
 .checkbox-group > * {
-  margin: 0.5rem 0.5rem;
+  /*margin: 0.5rem 0.5rem;*/
 }
 
 .checkbox-group-legend {
