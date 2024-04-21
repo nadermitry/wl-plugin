@@ -894,7 +894,11 @@ echo do_shortcode( '[wl_add_to_wish_list]' ); //nad
 }
 
 
-		
+function print_button2(){
+
+	//echo'[wl_add_to_wish_list]';
+	echo do_shortcode( '[wl_add_to_wish_list2]' ); //nad
+	}	
 
 
 
@@ -903,20 +907,23 @@ add_action( 'woocommerce_sidebar', 'nader3', 10 );
 add_action( 'woocommerce_before_single_product', 'nader4', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
 add_action( 'woocommerce_before_add_to_cart_button', 'nader3', 20 );
+//add_action( 'woocommerce_before_shop_loop_item_title', 'nader1', 10 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'print_button2', 10 );
+
 
 
 
 function nader1(){
 	global $product;
 	$id = $product->get_id();
-	//echo "<div>1111111111111111111111</div>";
+	echo "<div>1111111111111111111111</div>";
 
 }
 
 function nader2(){
 	//global $product;
 	//$id = $product->get_id();
-	//echo "<div>222222222222222222222222</div>";
+	echo "<div>222222222222222222222222</div>";
 
 }
 
@@ -930,7 +937,7 @@ function nader3(){
 function nader4(){
 	global $product;
 	$id = $product->get_id();
-	//5435echo "<div>4444444444444444444</div>".$id;
+	echo "<div>4444444444444444444</div>".$id;
 
 }
 
@@ -967,6 +974,22 @@ function add_gift_shortcode1(){
 }
 add_shortcode('wl_add_to_wish_list', 'add_gift_shortcode1');
 
+
+
+function add_gift_shortcode2(){
+	
+	ob_start();
+
+
+// include file located.
+
+
+include plugin_dir_path(__FILE__).'templates/add_to_wish_list2.php';
+
+	return ob_get_clean();
+
+}
+add_shortcode('wl_add_to_wish_list2', 'add_gift_shortcode2');
 
 
 function add_gift_shortcode(){
