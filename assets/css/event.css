@@ -368,10 +368,11 @@ color: #fff;
 background: #0F1012;
 }
 
-@media (min-width: 992px)
+@media (min-width: 992px){
 .navbar-expand-lg {
     flex-wrap: nowrap;
     justify-content: flex-start;
+}
 }
 .navbar {
     position: relative;
