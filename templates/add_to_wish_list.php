@@ -284,8 +284,8 @@ function remove_from_gifts(record_id){
           data: passed_data,         // any JS object
         },
         complete: function (response) {        
-          hideLoading();
-          openModal(response.responseText);
+            hideLoading();        
+            openModal('Item Removed from gift list');
             console.log(response.responseText);
             var button = document.getElementById('wl_gift_button_action');
             button.setAttribute('onclick', 'add_to_gifts();');
@@ -326,8 +326,8 @@ function add_to_gifts(){
           data: passed_data,         // any JS object
         },
         complete: function (response) {
-         //alert(JSON.parse(response.responseText).data);
-          var button = document.getElementById('wl_gift_button_action');
+            //alert(JSON.parse(response.responseText).data);
+            var button = document.getElementById('wl_gift_button_action');
             button.setAttribute('onclick', 'remove_from_gifts('+JSON.parse(response.responseText).data+');');
             var buttonSapn = document.getElementById('wl_button-title');
             buttonSapn.textContent='Remove from my Gifts';
@@ -335,8 +335,8 @@ function add_to_gifts(){
 // Change the title attribute
            // button.value = 'Remove from my Gifts';
           hideLoading();
-          openModal(response.responseText);
-            console.log(response.responseText);
+          openModal('Item added to gift list');
+          console.log(response.responseText);
            
             
           // alert(response.responseText)           
