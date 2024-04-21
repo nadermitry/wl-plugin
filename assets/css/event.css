@@ -21,7 +21,7 @@
 
 
 
-        .modal.show .modal-dialog {
+.modal.show .modal-dialog {
     transform: none;
 }
 .modal.fade .modal-dialog {

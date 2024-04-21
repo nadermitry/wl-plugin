@@ -574,20 +574,31 @@ function wl_add_to_gifts() {
 		  
 		//echo 'Product Title: '. $data['productData']['title'] . '<br>';  
 //
-            global $wpdb;
-           $table_name = $wpdb->prefix . 'gifts';        
+           global $wpdb;
+           $table_name = $wpdb->prefix . 'gifts';
+		   // Replace 'your_column_name' with the name of the column you want to query
+		   $sql="SELECT * FROM $table_name WHERE user_id= " . get_current_user_id() ." and product_id= ". $product['product_id'];
+		   $result = $wpdb->get_row($sql);
+
+			if ($result) {				// Access individual columns like this
+				
+				wp_send_json_success( "Already Exists");
+			} else {
+				$data = array(
+					'user_id' => get_current_user_id(),
+					'title' => sanitize_text_field($product['title']),
+					'description' => sanitize_text_field($product['description']),
+					'url' =>   $product['product_url'],
+					'img_url' => $product['image_url'],
+					'product_id' => $product['product_id']
+				);
+				$wpdb->insert( $table_name, $data );
+				wp_send_json_success( $wpdb->insert_id);
+			}
     
-            $data = array(
-                'user_id' => get_current_user_id(),
-                'title' => sanitize_text_field($product['title']),
-                'description' => sanitize_text_field($product['description']),
-                'url' =>   $product['product_url'],
-                'img_url' => $product['image_url'],
-				'product_id' => $product['product_id']
-            );
-            $wpdb->insert( $table_name, $data );
+            
 	//	}
-	wp_send_json_success( $wpdb->insert_id);
+	
 		//echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 		//print_r( $data) ;
 		//echo '</pre>';
@@ -598,6 +609,35 @@ function wl_add_to_gifts() {
 
 add_action('wp_ajax_wl_add_to_gifts', 'wl_add_to_gifts');
 add_action('wp_ajax_nopriv_wl_add_to_gifts', 'wl_add_to_gifts'); // Allow non-logged-in users
+
+function wl_remove_from_gifts() {
+
+	$product   = $_POST['data'];
+	
+//
+           global $wpdb;
+           $table_name = $wpdb->prefix . 'gifts';
+		   // Replace 'your_column_name' with the name of the column you want to query
+		   $sql="delete FROM $table_name WHERE id= " . $product['id'];
+		   $deleted = $wpdb->query($sql);
+
+		   if ($deleted !== false) {
+			wp_send_json_success('Deleted');
+		   } else {
+			wp_send_json_success('Error');
+		   }
+
+			
+    
+            
+	
+		wp_die(); 
+   
+}
+add_action('wp_ajax_wl_remove_from_gifts', 'wl_remove_from_gifts');
+add_action('wp_ajax_nopriv_wl_remove_from_gifts', 'wl_remove_from_gifts'); // Allow non-logged-in users
+
+
 
 function wl_ajax_add_gift_url(){
 	

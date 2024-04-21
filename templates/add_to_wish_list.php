@@ -10,28 +10,57 @@
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+  z-index: 999;
 }
 
+.modal.show .modal-dialog {
+    transform: none;
+}
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+}
 
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 /* Loading Spinner */
-.loader {
+.wl-loader {
   border: 8px solid #f3f3f3; /* Light grey */
   border-top: 8px solid #3498db; /* Blue */
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 2s linear infinite;
+  background: ;
   position: absolute;
   left: 50%;
   top: 50%;
   margin-left: -25px;
   margin-top: -25px;
+  
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+
+
+
 </style>  
 
 
@@ -101,9 +130,30 @@ $product_url =get_permalink();
   <?php 
     // FIXME  - login by google should redirect to the same single product page"   
     if ( is_user_logged_in() ) {
-      // User is logged in
+
+
+      global $wpdb;
+      $table_name = $wpdb->prefix . 'gifts';
+		  // Replace 'your_column_name' with the name of the column you want to query
+		  $sql="SELECT * FROM $table_name WHERE user_id= " . get_current_user_id() ." and product_id= ".  esc_attr( $product_id );
+		  $result = $wpdb->get_row($sql);
+
+			if ($result) {				// Access individual columns like this
+				
+				  // User is logged in
+          $buttonTitle = 'Remove from my Gifts';
+          $buttonOnClickFunction = 'remove_from_gifts('.$result->id.');';
+			} else {
+          // User is logged in
       $buttonTitle = 'Add to my Gifts';
       $buttonOnClickFunction = 'add_to_gifts();';
+      }
+
+
+    
+    
+    
+    
     } else {
       // User is not logged in
       $buttonTitle = 'PLease login to add it to your wishlist';
@@ -117,26 +167,20 @@ $product_url =get_permalink();
 
   <button
 		href="#"
-		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>"
-		data-product-id="<?php echo esc_attr( $product_id ); ?>"
-		data-product-type="<?php echo esc_attr( $product_type ); ?>"
-		data-original-product-id="<?php echo esc_attr( $parent_product_id ); ?>"
-		data-title="<?php echo "esc_attr( apply_filters( 'yith_wcwl_add_to_wishlist_title', $label ) )"; ?>"
-		rel="nofollow"
-        onclick="<?php echo $buttonOnClickFunction;?>"
-	>
+    id="wl_gift_button_action"
+		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>"  onclick="<?php echo $buttonOnClickFunction;?>"	>
 		
     <i class="yith-wcwl-icon fa fa-heart-o"></i>
-		<span><?php echo  $buttonTitle; ?></span>
+		<span id="wl_button-title"><?php echo  $buttonTitle; ?></span>
 	</button>
 </div>
 
 
 <!-- The Modal -->
 <div id="loadingModal" class="modal">
-    <!-- Loading spinner -->
+     Loading spinner
+   <!-- <div class="wl-loader"></div> -->
     <div class="loader"></div>
-   
   </div>
 
 
@@ -146,15 +190,15 @@ $product_url =get_permalink();
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        
+          <span id="x" class="close" aria-hidden="true">&times;</span>
+      
       </div>
       <div class="modal-body">
       <p id="modalMessage"></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="myBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -165,7 +209,46 @@ $product_url =get_permalink();
 
 
 <script>
+jQuery(document).ready(function() {
 
+// Get the modal element
+var modal = document.getElementById('exampleModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("x");
+
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  
+    modal.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+   
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Close the modal when Escape key is pressed
+window.onkeydown = function(event) {
+    if (event.key === "Escape") {
+        modal.style.display = "none";
+    }
+}
+
+
+});
 
  // Function to open modal with a message
  function openModal(message) {
@@ -187,6 +270,49 @@ function login_in_first(){
   window.location.replace( window.location.origin +"/my-account/?redirect_to=<?php echo get_permalink();?>");
  
 }
+
+function remove_from_gifts(record_id){
+      
+
+       showLoading();  
+    passed_data={
+        "id":record_id      
+    };
+
+
+        jQuery.ajax({
+        type: "post",       
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+        data: {
+          action: "wl_remove_from_gifts",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {        
+          hideLoading();
+          openModal(response.responseText);
+            console.log(response.responseText);
+            var button = document.getElementById('wl_gift_button_action');
+            button.setAttribute('onclick', 'add_to_gifts();');
+            var buttonSapn = document.getElementById('wl_button-title');
+            buttonSapn.textContent='Add to my Gifts';
+               
+// Change the title attribute
+            button.title =   'Add to my Gifts';
+            
+          // alert(response.responseText)           
+            //var newHTML = response.responseText;    
+            //  alert(newHTML);
+            //alert(enventid_array[0]);
+            // Append HTML content to the div
+            //  myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
+            
+        },
+    });
+
+    
+
+  }
+
 
 
 function add_to_gifts(){
@@ -213,9 +339,19 @@ function add_to_gifts(){
           data: passed_data,         // any JS object
         },
         complete: function (response) {
+         //alert(JSON.parse(response.responseText).data);
+          var button = document.getElementById('wl_gift_button_action');
+            button.setAttribute('onclick', 'remove_from_gifts('+JSON.parse(response.responseText).data+');');
+            var buttonSapn = document.getElementById('wl_button-title');
+            buttonSapn.textContent='Remove from my Gifts';
+
+// Change the title attribute
+           // button.value = 'Remove from my Gifts';
           hideLoading();
           openModal(response.responseText);
             console.log(response.responseText);
+           
+            
           // alert(response.responseText)           
             //var newHTML = response.responseText;    
             //  alert(newHTML);
@@ -239,6 +375,12 @@ function add_to_gifts(){
 	var modal = document.getElementById("loadingModal");
 	modal.style.display = "none";
   }
+
+
+
+
+
+
 
 
 </script>
