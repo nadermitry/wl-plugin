@@ -907,8 +907,8 @@ add_action( 'woocommerce_sidebar', 'nader3', 10 );
 add_action( 'woocommerce_before_single_product', 'nader4', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
 add_action( 'woocommerce_before_add_to_cart_button', 'nader3', 20 );
-//add_action( 'woocommerce_before_shop_loop_item_title', 'nader1', 10 );
-add_action( 'woocommerce_after_shop_loop_item_title', 'print_button2', 10 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'print_button2', 10 );
+add_action(   'woocommerce_after_shop_loop_item_title', 'print_button2', 10 );
 
 
 

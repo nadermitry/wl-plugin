@@ -164,11 +164,11 @@ $product_url =get_permalink();
 
 
 
-
+/a>
   <button
-    type="button"
+		href="#"
     id="wl_gift_button_action"
-		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>" 	>
+		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>"  onclick="<?php echo $buttonOnClickFunction;?>"	>
 		
     <i class="yith-wcwl-icon fa fa-heart-o"></i>
 		<span id="wl_button-title"><?php echo  $buttonTitle; ?></span>
