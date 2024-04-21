@@ -274,12 +274,8 @@ function login_in_first(){
 function remove_from_gifts(record_id){
       
 
-       showLoading();  
-    passed_data={
-        "id":record_id      
-    };
-
-
+        showLoading();  
+        passed_data={"id":record_id};
         jQuery.ajax({
         type: "post",       
         url: `${window.location.origin}/wp-admin/admin-ajax.php`,
@@ -295,17 +291,8 @@ function remove_from_gifts(record_id){
             button.setAttribute('onclick', 'add_to_gifts();');
             var buttonSapn = document.getElementById('wl_button-title');
             buttonSapn.textContent='Add to my Gifts';
-               
-// Change the title attribute
+            // Change the title attribute
             button.title =   'Add to my Gifts';
-            
-          // alert(response.responseText)           
-            //var newHTML = response.responseText;    
-            //  alert(newHTML);
-            //alert(enventid_array[0]);
-            // Append HTML content to the div
-            //  myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
-            
         },
     });
 
