@@ -1,3 +1,40 @@
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+
+/* Loading Spinner */
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>  
+
+
 <?php
 /**
  * Template variables:
@@ -45,6 +82,7 @@ $product_url =get_permalink();
 //echo '<img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( get_the_title( $product_id ) ) . '">';
 
 ?>
+
 
 <div class="yith-wcwl-add-button">
 	<?php
@@ -94,7 +132,53 @@ $product_url =get_permalink();
 </div>
 
 
+<!-- The Modal -->
+<div id="loadingModal" class="modal">
+    <!-- Loading spinner -->
+    <div class="loader"></div>
+   
+  </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p id="modalMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <script>
+
+
+ // Function to open modal with a message
+ function openModal(message) {
+    // Set the message in the modal body
+    document.getElementById('modalMessage').innerText = message;
+    // Open the modal
+    //$('#exampleModal').modal('show');
+
+    var modal1 = document.getElementById("exampleModal");
+    modal1.style.display = "block";
+  }
+
+  
 
 
 
@@ -111,7 +195,7 @@ function add_to_gifts(){
        
        //var productData = '{"title":"<?php echo $product_title ?>","price":10,"sku":"ABC123","description":"This is a sample product."}';    
 
-
+       showLoading();  
     passed_data={
         "title":"<?php echo $product_title; ?>",
         "description":"<?php echo $product_description; ?>",
@@ -129,6 +213,8 @@ function add_to_gifts(){
           data: passed_data,         // any JS object
         },
         complete: function (response) {
+          hideLoading();
+          openModal(response.responseText);
             console.log(response.responseText);
           // alert(response.responseText)           
             //var newHTML = response.responseText;    
@@ -143,4 +229,18 @@ function add_to_gifts(){
     
   }
 
+  
+  function showLoading() {	
+	var modal = document.getElementById("loadingModal");
+	modal.style.display = "block";
+  }
+
+  function hideLoading() {	
+	var modal = document.getElementById("loadingModal");
+	modal.style.display = "none";
+  }
+
+
 </script>
+
+

@@ -7,15 +7,20 @@ function scroll_to_class(element_class, removed_height) {
 }
 
 function bar_progress(progress_line_object, direction) {
+
 	var number_of_steps = progress_line_object.data('number-of-steps');
 	var now_value = progress_line_object.data('now-value');
 	var new_value = 0;
+
+   
+
 	if(direction == 'right') {
 		new_value = now_value + ( 100 / number_of_steps );
 	}
 	else if(direction == 'left') {
 		new_value = now_value - ( 100 / number_of_steps );
-	}	
+	}
+	
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
@@ -68,60 +73,7 @@ jQuery(document).ready(function() {
     });
     
     // next step
-    $('#btn-step1').on('click', function(){ 		
-		var parent_fieldset = $(this).parents('fieldset');
-    	var next_step = true;
-    	// navigation steps / progress steps
-    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-		next_step=true;		
-		
-        if (  $('#event_image').val() == ""  && 
-			$('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-			{				
-				$('#dropcontainer').css('border-color', 'red');				
-				$('drop-container').addClass('input-error');
-				next_step = false;
-				scroll_to_class( $('.f1'), 20 );
-			}
-			else{
-				$('#dropcontainer').css('border-color', 'black');				
-				$('#drop-container').removeClass('input-error');
-			}
-
-		if( $('#event_title').val() == "" )
-			{			 
-    			$('#event_title').addClass('input-error');				
-    			next_step = false;
-				scroll_to_class( $('.f1'), 20 );
-    		}
-		else
-			{
-				$('#event_title').removeClass('input-error');					
-			}
-
-		if( next_step ) {
-			
-    		parent_fieldset.fadeOut(400, function() {
-    			// change icons
-    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-    			// progress bar
-    			bar_progress(progress_line, 'right');
-    			// show next step
-	    		$(this).next().fadeIn();
-	    		// scroll window to beginning of the form
-    			scroll_to_class( $('.f1'), 20 );
-	    	});
-    	}
-    });
-	
-	
-	
-	
-	
-	
-	
-	$('.f1 .btn-next').on('click', function() {
+    $('.f1 .btn-next').on('click', function() {
     	var parent_fieldset = $(this).parents('fieldset');
     	var next_step = true;
     	// navigation steps / progress steps
@@ -129,55 +81,30 @@ jQuery(document).ready(function() {
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
     	
     	// fields validation
-    	parent_fieldset.find('#event_title,#imageDisplaytext, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
+    	parent_fieldset.find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
     		
-			if( $(this).val() == "" ) {
+        //alert(this.id);
+        
+        if( $(this).val() == "" ) {
     			$(this).addClass('input-error');
     			next_step = false;
     		}
-    		else 
-				{					
-					
-					$(this).removeClass('input-error');
-					if (this.id =='event_image')
-						{ 
-							
-							
-							if (  $('#event_image').val() == ""  && 
-								$('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-								{
-									//$('#file_title').css('color', 'red');
-									$('#dropcontainer').css('border-color', 'red');
-									//e.preventDefault();
-									$('drop-container').addClass('input-error');
-									next_step = false;
-								}
-							else
-								{
-									
-									if( $('#event_title').val() != "" ){
-										next_step = true;
-									} 
-								}
-						}else{
-                            
-							next_step = true;
-						}
-    			}
-    	
-		
-		
-		});
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
     	// fields validation
-		//alert(($('#event_image').val() == ""  && $('#imageDisplay').attr('src').slice(-20) == "imageplaceholder.png")
-		//|| $('#start_datetime') == ""
-		//|| $('#event_address_name') == ""
-		//|| $('#event_address') == "");
-		
-		
-		    	
+		if( $('#event_image').val() == "" ) {	
+			//alert('xxxxddddddrrrxx');	
+			//$('#file_title').css('color', 'red');
+			$('#dropcontainer').css('border-color', 'red');
+				
+			e.preventDefault();
+			$('drop-container').addClass('input-error');
+		}
+
+    	
     	if( next_step ) {
-			
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
@@ -257,10 +184,10 @@ jQuery(document).ready(function() {
 
   */
 	$('.f1').on('submit', function(e) { 
-		//alert('ddd111111111111');
+		
 		e.preventDefault();
 		isError=true;
-		$(this).find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() {
+		$(this).find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() {
 			if( $(this).val() == "" ) {
 				e.preventDefault();
 				$(this).addClass('input-error');
@@ -288,9 +215,8 @@ jQuery(document).ready(function() {
     		}
     	});
         if (isError==false){
-		
+        var formData = new FormData($(this)[0]);
 		showLoading();
-		var formData = new FormData($(this)[0]);
         $.ajax({
         
             url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
@@ -538,7 +464,7 @@ function displayImage(file) {
 function save_event(){
 
 
-	$('.f1').find('#event_title,#start_datetime,#event_address_name,#event_address').each(function() { 
+	$('.f1').find('#event_title, #event_image,#start_datetime,#event_address_name,#event_address').each(function() { 
 		if( $(this).val() == "" ) {
 			$(this).addClass('input-error');
 						
@@ -598,23 +524,237 @@ function save_event(){
 
 
 
+$(document).ready(function(){
+    // Initialize pagination
 
-function selectImage(imgpath ,dirUrl){
-	//const fileInput = document.getElementById("event_image")
-	const imageDisplay = document.getElementById("imageDisplay")
-	const imageDisplaytext = document.getElementById("imageDisplaytext")
-	imageDisplaytext.value=imgpath;	
-	imageDisplay.src=dirUrl+imgpath
+    wl_paging();
+    // Search functionality
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#list li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+      // Update pagination after filtering
+      listItems = $("#list").children(":visible");
+      numItems = listItems.length;
+      numPages = Math.ceil(numItems / itemsPerPage);
+      $("#pagination").empty();
+      for (var i = 1; i <= numPages; i++) {
+
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+        $("#pagination").append('<a class="'+ isative +'page-numbers" href="#">' + i + '</a>');
+      }
+      // Show the first page after filtering
+      showPage(1);
+    });
+
+    $("#search").on("search", function() {
+    if (!this.value) {
+        // Show all list items
+        $("#list li").show();
+        
+        // Update pagination after clearing the search
+        listItems = $("#list").children(":visible");
+      numItems = listItems.length;
+      numPages = Math.ceil(numItems / itemsPerPage);
+      $("#pagination").empty();
+      for (var i = 1; i <= numPages; i++) {
+        if (i==1){
+        isative=' active ';
+        }else{
+          isative='';
+        }
+          
+        $("#pagination").append('<a class="'+ isative +' page-numbers" href="#">' + i + '</a>');
+      }
+      showPage(1);
+    }
+});
+
+    // Function to show specific page
+  
+  });
+
+
+
+
+  
+  var itemsPerPage = 3; // Change this to adjust items per page
+    var listItems = $("#list").children();
+    var numItems = listItems.length;
+    var numPages = Math.ceil(numItems / itemsPerPage);
+    //alert('CurrentPage');
+    var CurrentPage = 1;
+    
+
+    function findMinimum(arr) {
+    if (arr.length === 0) {
+        return undefined; // Return undefined if the array is empty
+    }
+
+    let min = arr[0]; // Assume the first element is the minimum
+
+    // Loop through the array to find the minimum value
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < min) {
+            min = arr[i]; // Update min if the current element is smaller
+        }
+    }
+
+    return min;
+}
+
+function add_to_event(giftid,eventid){
+       // var strDivName= 'EventsofGift' + giftid;
+        var enventid_array = [];
+     
+        var myDiv = document.getElementById("giftsControl-G"+giftid);
+       // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
+       
+        enventid_array.push(eventid);
+           
+
+    passed_data={"giftid":giftid,"events":enventid_array,"delete":0};
+
+  
+        jQuery.ajax({
+        type: "post",
+        //url: '<?php echo  get_site_url();?>/wp-admin/admin-ajax.php',
+       url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+        data: {
+          action: "wl_add_to_event",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {
+           
+            console.log(response.responseText);
+            var newHTML = response.responseText;    
+          //  alert(newHTML);
+//alert(enventid_array[0]);
+             // Append HTML content to the div
+             myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
+            
+        },
+    });
+
+    
+  }
+
+  function remove_from_event(giftid,eventid,wishlistid=0){
+       // var strDivName= 'EventsofGift' + giftid;
+        var enventid_array = [];
+  
+       var myDiv = document.getElementById("giftsControl-G"+giftid);
+       // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
+       
+        enventid_array.push(eventid);
+           
+
+    passed_data={"giftid":giftid,"events":enventid_array};
+
+
+        jQuery.ajax({
+        type: "post",
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+       
+        data: {
+          action: "wl_remove_from_event",  // the action to fire in the server
+          data: passed_data,         // any JS object
+        },
+        complete: function (response) {
+         
+            console.log(response.responseText); 
+           
+           
+            var newHTML = response.responseText;    
+          //  alert(newHTML);
+//alert(enventid_array[0]);
+             // Append HTML content to the div
+             if  (wishlistid==0){
+             myDiv.innerHTML ='<button onclick="add_to_event('+ giftid +','+ eventid+')">Add</button>';
+             }else
+             {
+              // Find the <ul> element by its ID
+              //alert(wishlistid);
+                var myList = document.getElementById('list');
+
+            // Find the <li> element by its ID
+            var listItemToRemove = document.getElementById('li'+wishlistid); // ID of the <li> to remove
+
+            // Remove the <li> element from the <ul>
+            if (listItemToRemove) {
+                myList.removeChild(listItemToRemove);
+                for (var i = 1; i <= numPages; i++) {
+
+if (i ==1){activ=" active ";}else{activ="  ";}
+//var myPagination = document.getElementById('pagination');
+//myPagination.removeChild('pagingB' + i );
+
+var myLink = document.getElementById('pagingB' + i);
+
+// Remove the <a> element if it exists
+if (myLink) {
+  myLink.parentNode.removeChild(myLink);
 }
 
 
-function fileUploadOnChange(){
-	const imageDisplay = document.getElementById("imageDisplay")
-	const imageDisplaytext = document.getElementById("imageDisplaytext")
-	imageDisplaytext.value='';
-	//;
-	//fileInput.files[0] = imgpath;
-	imageDisplay.src=''
+}
+          
+wl_paging(CurrentPage);
+            }
+             }
+        },
+    });
+
+    
+  }
+
+  
+
+function showPage(page) {
+      var startIndex = (page - 1) * itemsPerPage;
+      var endIndex = startIndex + itemsPerPage;
+      listItems.hide().slice(startIndex, endIndex).show();
+    }
+
+function wl_paging(parPage=1){
+    listItems = $("#list").children();
+    numItems = listItems.length;
+    var numPages = Math.ceil(numItems / itemsPerPage);
+    
+    numbers = [];
+    numbers.push(parPage);
+    numbers.push(numPages);
+    pagetoShow= findMinimum(numbers)
+    
+    // Add pagination items
+    for (var i = 1; i <= numPages; i++) {
+
+        if (i ==pagetoShow){activ=" active ";}else{activ="  ";}
+      $("#pagination").append('<a id="pagingB'+ i +'" class="' + activ +'page-numbers" href="#">' + i + '</a>');
+    }
+
+    // Show first page by default
+    
+    //alert(CurrentPage);
+    showPage(pagetoShow);
+
+    // Pagination click event
+    $("#pagination").on("click", ".page-numbers", function(e) {
+       
+      e.preventDefault();
+      var page = $(this).text();
+   
+      showPage(page);
+      // Highlight the clicked page number and remove highlight from others
+      $(".page-numbers").removeClass("active");
+      $(this).addClass("active");
+      CurrentPage = page;
+    });
+
 
 }
-

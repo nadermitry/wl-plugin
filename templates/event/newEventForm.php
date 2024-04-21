@@ -23,6 +23,13 @@
 <style>
 /* The Modal (background) */
 
+.f1-step {
+    position: relative;
+    float: left;
+    width: 25%;
+    padding: 0 5px;
+}
+
 .file-upload-container {
         display: flex;
         justify-content: center; /* Horizontally center align */
@@ -101,6 +108,8 @@ div.img img
   /*margin: 3px*/;
 }
 
+
+
 </style>
 
 
@@ -112,7 +121,7 @@ div.img img
                     		<p>Fill in the form to get instant access</p>-->
         <div class="f1-steps">
             <div class="f1-progress">
-                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="4" style="width: 16.66%;"></div>
+                <div class="f1-progress-line" data-now-value="12.5" data-number-of-steps="4" style="width: 12.5%;"></div>
             </div>
             <div class="f1-step active">
                 <div class="f1-step-icon"><i class="fa fa-info"></i></div>
@@ -122,6 +131,12 @@ div.img img
                 <div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
                 <p>Date</p>
             </div>
+           
+            <div class="f1-step">
+                <div class="f1-step-icon"><i class="fa fa-calendar"></i></i></div>
+                <p>Select Location</p>
+            </div>
+
             <div class="f1-step">
                 <div class="f1-step-icon"><i class="fa fa-map-marker"></i></i></div>
                 <p>Location</p>
@@ -215,8 +230,12 @@ div.img img
 
 
                             <fieldset>
-                                <h4>Select Place For your Even</h4>
+                                <h4>Select Place For your Event</h4>
                                <!-- TODO add optional location selector-->
+                               <div class="f1-buttons">                                  
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="button" class="btn btn-next">      Next</button>                                   
+                                </div>
                             </fieldset>
 
                             <fieldset>

@@ -2,10 +2,10 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/font-awesome/css/font-awesome.min.css">
-		    <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
+        <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/form-elements.css">
         <link rel="stylesheet" href="<?php echo $this->plugin_url ?>xassets/css/urlForm-style.css">
-
-        <style>
+       
+       <style>
 
 @media screen and (max-width: 600px) {
   span {

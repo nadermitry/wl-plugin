@@ -587,7 +587,7 @@ function wl_add_to_gifts() {
             );
             $wpdb->insert( $table_name, $data );
 	//	}
-
+	wp_send_json_success( $wpdb->insert_id);
 		//echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 		//print_r( $data) ;
 		//echo '</pre>';

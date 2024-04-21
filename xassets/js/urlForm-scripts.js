@@ -55,6 +55,7 @@ function showProgress() {
   
 
 jQuery(document).ready(function() {	
+
    
     $('.f1 fieldset:first').fadeIn('slow');
     
