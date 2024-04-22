@@ -278,7 +278,7 @@ function login_in_first(){
 
 function remove_from_gifts(record_id){
       
-
+// TODO disable gift if it was added to an event instead of deleing it
         showLoading();  
         passed_data={"id":record_id};
         jQuery.ajax({
@@ -289,7 +289,16 @@ function remove_from_gifts(record_id){
           data: passed_data,         // any JS object
         },
         complete: function (response) {        
-            hideLoading();        
+            hideLoading(); 
+
+            if(JSON.parse(response.responseText).data =="Error"){
+              openModal('Item is used in an event cannot delete');
+              console.log(response.responseText);
+            }
+
+            else{
+
+                 
             openModal('Item Removed from gift list');
             console.log(response.responseText);
             var button = document.getElementById('wl_gift_button_action');
@@ -298,6 +307,7 @@ function remove_from_gifts(record_id){
             buttonSapn.textContent='Add to my Gifts';
             // Change the title attribute
             button.title =   'Add to my Gifts';
+            }
         },
     });
 
@@ -312,7 +322,7 @@ function add_to_gifts(){
         
        
        //var productData = '{"title":"<?php echo $product_title ?>","price":10,"sku":"ABC123","description":"This is a sample product."}';    
-
+       
        showLoading();  
     passed_data={
         "title":"<?php echo $product_title; ?>",

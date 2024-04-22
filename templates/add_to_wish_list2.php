@@ -1,67 +1,4 @@
-<style>
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
-  z-index: 999;
-}
 
-.modal.show .modal-dialog {
-    transform: none;
-}
-.modal.fade .modal-dialog {
-    transition: transform 0.3s ease-out;
-    transform: translate(0, -50px);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-/* Loading Spinner */
-.wl-loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-  background: ;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
-  
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-
-
-
-</style>  
 
 
 <?php
@@ -90,6 +27,10 @@
 
  
 
+
+
+
+ 
 global $product;
 
 //echo '<pre>';
@@ -164,9 +105,8 @@ $product_url =get_permalink();
 
 
 
-
   <button
-		href="#"
+		
     id="wl_gift_button_action"
 		class="<?php echo "add_to_wishlist single_add_to_wishlist"; ?>"  onclick="<?php echo $buttonOnClickFunction;?>"	>
 		
@@ -176,33 +116,9 @@ $product_url =get_permalink();
 </div>
 
 
-<!-- The Modal -->
-<div id="loadingModal" class="modal">
-     Loading spinner
-   <!-- <div class="wl-loader"></div> -->
-    <div class="loader"></div>
-  </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-        
-          <span id="x" class="close" aria-hidden="true">&times;</span>
-      
-      </div>
-      <div class="modal-body">
-      <p id="modalMessage"></p>
-      </div>
-      <div class="modal-footer">
-        <button id="myBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 
@@ -273,7 +189,6 @@ function login_in_first(){
 
 function remove_from_gifts(record_id){
       
-
         showLoading();  
         passed_data={"id":record_id};
         jQuery.ajax({
@@ -288,6 +203,7 @@ function remove_from_gifts(record_id){
             openModal('Item Removed from gift list');
             console.log(response.responseText);
             var button = document.getElementById('wl_gift_button_action');
+        
             button.setAttribute('onclick', 'add_to_gifts();');
             var buttonSapn = document.getElementById('wl_button-title');
             buttonSapn.textContent='Add to my Gifts';
@@ -307,7 +223,9 @@ function add_to_gifts(){
         
        
        //var productData = '{"title":"<?php echo $product_title ?>","price":10,"sku":"ABC123","description":"This is a sample product."}';    
-
+       alert('rrrrrrr');
+       alert(<?php echo $product_id; ?>);
+       alert('ddddddddd');
        showLoading();  
     passed_data={
         "title":"<?php echo $product_title; ?>",
