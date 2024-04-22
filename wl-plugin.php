@@ -578,6 +578,10 @@ function wl_add_to_gifts() {
            $table_name = $wpdb->prefix . 'gifts';
 		   // Replace 'your_column_name' with the name of the column you want to query
 		   $sql="SELECT * FROM $table_name WHERE user_id= " . get_current_user_id() ." and product_id= ". $product['product_id'];
+		   
+		 //echo  $sql; 
+		 //wp_send_json_success( $sql);
+		 //wp_die(); 
 		   $result = $wpdb->get_row($sql);
 
 			if ($result) {				// Access individual columns like this
@@ -907,9 +911,19 @@ add_action( 'woocommerce_sidebar', 'nader3', 10 );
 add_action( 'woocommerce_before_single_product', 'nader4', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
 add_action( 'woocommerce_before_add_to_cart_button', 'nader3', 20 );
-add_action( 'woocommerce_before_shop_loop_item_title', 'print_button2', 10 );
-add_action(   'woocommerce_after_shop_loop_item_title', 'print_button2', 10 );
+//add_action( 'woocommerce_before_shop_loop_item_title', 'print_button2', 10 );
+//add_action(   'woocommerce_after_shop_loop_item', 'print_button2', 10 );
+//add_filter( 'woocommerce_loop_add_to_cart_link', 'mish_before_after_btn', 10, 3 );
 
+
+
+function mish_before_after_btn($add_to_cart_html, $product, $args){
+
+	$before = '<p>Some custom text before</p>'; // Some text or HTML here
+	$after  = '<p>Some custom text after </p>'; // Add some text or HTML here as well
+
+	return $before . $add_to_cart_html . $after;
+}
 
 
 
@@ -917,14 +931,12 @@ function nader1(){
 	global $product;
 	$id = $product->get_id();
 	echo "<div>1111111111111111111111</div>";
-
 }
 
 function nader2(){
 	//global $product;
 	//$id = $product->get_id();
 	echo "<div>222222222222222222222222</div>";
-
 }
 
 function nader3(){

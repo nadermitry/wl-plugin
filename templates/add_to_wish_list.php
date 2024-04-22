@@ -43,7 +43,6 @@
   width: 50px;
   height: 50px;
   animation: spin 2s linear infinite;
-  background: ;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -51,6 +50,9 @@
   margin-top: -25px;
   
 }
+
+
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -137,6 +139,9 @@ $product_url =get_permalink();
 		  // Replace 'your_column_name' with the name of the column you want to query
 		  $sql="SELECT * FROM $table_name WHERE user_id= " . get_current_user_id() ." and product_id= ".  esc_attr( $product_id );
 		  $result = $wpdb->get_row($sql);
+
+           
+
 
 			if ($result) {				// Access individual columns like this
 				

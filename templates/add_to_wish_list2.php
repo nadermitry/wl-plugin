@@ -164,7 +164,7 @@ $product_url =get_permalink();
 
 
 
-/a>
+
   <button
 		href="#"
     id="wl_gift_button_action"
