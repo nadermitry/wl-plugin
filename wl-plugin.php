@@ -614,6 +614,111 @@ function wl_add_to_gifts() {
 add_action('wp_ajax_wl_add_to_gifts', 'wl_add_to_gifts');
 add_action('wp_ajax_nopriv_wl_add_to_gifts', 'wl_add_to_gifts'); // Allow non-logged-in users
 
+
+function wl_add_to_gifts2() {
+
+	$product   = $_POST['data'];
+	
+    
+
+
+    $current_user_id = get_current_user_id();
+        
+   // if ($current_user_id) {
+           
+		//print_r($data['productData']);
+	    //$data1 = json_decode($data['productData'], true);
+
+		 //echo $data['title'];
+		 //echo $data['description'].'</br>';
+		 //echo $data['product_id'].'</br>';
+		 //echo $data['image_url'];
+		 //echo $product['product_url'];
+		  
+		//echo 'Product Title: '. $data['productData']['title'] . '<br>';  
+//
+           global $wpdb;
+           $table_name = $wpdb->prefix . 'gifts';
+		   // Replace 'your_column_name' with the name of the column you want to query
+		   $sql="SELECT * FROM $table_name WHERE user_id= " . get_current_user_id() ." and product_id= ". $product['product_id'];
+		   
+		 //echo  $sql; 
+		 //wp_send_json_success( $sql);
+		 //wp_die(); 
+		   $result = $wpdb->get_row($sql);
+
+			if ($result) {				// Access individual columns like this
+				
+				wp_send_json_success( "Already Exists");
+			} else {
+
+				//$posts_table = $wpdb->prefix . 'posts';
+				//$sql="SELECT * FROM $posts_table WHERE  id= ". $product['product_id'];
+			
+				//$result = $wpdb->get_row($sql);
+
+				
+
+                $product_info = get_product_info_by_id($product['product_id']);   
+                $product_id = $product_info['id'];
+  				$product_title =  sanitize_text_field( $product_info['name']);
+  				$product_description = sanitize_text_field($product_info['description']);
+  				$image_url = $product_info['image_url'];
+  				$product_url =  $product_info['product_url'] ;
+				
+				 
+
+				$data = array(
+					'user_id' => get_current_user_id(),
+					'title' => sanitize_text_field($product_title),
+					'description' => $product_description,
+					'url' =>   $product_url,
+					'img_url' => $image_url ,
+					'product_id' => $product['product_id']
+				);
+
+				$wpdb->insert( $table_name, $data );
+				wp_send_json_success( $wpdb->insert_id);
+			}
+    
+            
+	//	}
+	
+		//echo 'xxxxxxxxxxxxxxxxxxx done xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+		//print_r( $data) ;
+		//echo '</pre>';
+		wp_die(); 
+   
+}
+
+add_action('wp_ajax_wl_add_to_gifts2', 'wl_add_to_gifts2');
+add_action('wp_ajax_nopriv_wl_add_to_gifts2', 'wl_add_to_gifts2'); // Allow non-logged-in users
+
+
+function get_product_info_by_id($product_id) {
+    // Check if product exists
+    $product = get_post($product_id);
+
+    if ($product && $product->post_type === 'product') {
+        // Retrieve product data
+        $product_data = array(
+            'id' => $product->ID,
+            'name' => $product->post_title,
+            'description' => $product->post_content,
+            'image_url' => get_the_post_thumbnail_url($product->ID, 'full'), // Get full-size product image URL
+            'product_url' => get_permalink($product->ID), // Get product URL
+            // Add more product data as needed
+        );
+
+        return $product_data;
+    } else {
+        // Product not found
+        return false;
+    }
+}
+
+
+
 function wl_remove_from_gifts() {
 
 	$product   = $_POST['data'];
@@ -1010,52 +1115,103 @@ function print_button2(){
 
 
 
-add_action( 'woocommerce_before_main_content', 'nader1', 20, 0 );
-add_action( 'woocommerce_sidebar', 'nader3', 10 );
-add_action( 'woocommerce_before_single_product', 'nader4', 10 );
-add_action( 'woocommerce_before_single_product_summary', 'nader2', 20, 0 );
-add_action( 'woocommerce_before_add_to_cart_button', 'nader3', 20 );
-//add_action( 'woocommerce_before_shop_loop_item_title', 'print_button2', 10 );
-add_action(   'woocommerce_after_shop_loop', 'print_button3', 10 );
-add_filter( 'woocommerce_loop_add_to_cart_link', 'mish_before_after_btn', 10, 3 );
+add_action( 'woocommerce_before_main_content', 'before_main_content', 20, 0 );
+add_action( 'woocommerce_after_main_content', 'after_main_content', 10 );
+
+
+add_action( 'woocommerce_sidebar', 'sidebar', 10 );
+add_action( 'woocommerce_before_single_product', 'before_single_product', 10 );
+add_action( 'woocommerce_before_single_product_summary', 'before_single_product_summary', 20, 0 );
+add_action( 'woocommerce_before_add_to_cart_button', 'before_add_to_cart_button', 20 );
+
+
+
+
+add_action( 'woocommerce_before_shop_loop_item', 'before_shop_loop_item', 10 );
+add_action( 'woocommerce_after_shop_loop_item',   'after_shop_loop_item', 10 );
+
+add_action( 'woocommerce_before_shop_loop_item_title', 'before_shop_loop_item_title', 10 );
+add_action( 'woocommerce_shop_loop_item_title',  'shop_loop_item_title', 10 );
+add_action( 'woocommerce_after_shop_loop_item_title',  'after_shop_loop_item_title', 10 );
+
+
+
+
+add_action( 'woocommerce_after_shop_loop', 'after_shop_loop', 10 );
+
+//add_filter( 'woocommerce_loop_add_to_cart_link', 'mish_before_after_btn', 10, 3 );
 
 
 
 function mish_before_after_btn($add_to_cart_html, $product, $args){
 
-	$before = '<p>Some custom text before</p>'; // Some text or HTML here
-	$after  = '<p>Some custom text after </p>'; // Add some text or HTML here as well
+	$before = '<p>Some custom text before loop_add_to_cart_link </p>'; // Some text or HTML here
+	$after  = '<p>Some custom text after loop_add_to_cart_link</p>'; // Add some text or HTML here as well
 
-	return $before . $add_to_cart_html . $after;
+	return $before . $add_to_cart_html . print_button2();
 }
 
 
-
-function nader1(){
-	global $product;
-	$id = $product->get_id();
-	echo "<div>1111111111111111111111</div>";
+function after_shop_loop_item(){
+	echo "<div>after_shop_loop_item</div>";
+}
+function after_shop_loop(){
+	echo "<div>after_shop_loop</div>";
 }
 
-function nader2(){
+function shop_loop_item_title(){	
+	echo "<div>shop_loop_item_title</div>";
+}
+
+function before_shop_loop_item_title(){	
+	echo "<div>before_shop_loop_item_title</div>";
+}
+
+function before_shop_loop_item(){	
+	echo "<div>before_shop_loop_item</div>";
+}
+
+function after_shop_loop_item_title(){
+	echo "<div>after_shop_loop_item_title</div>";
+
+}
+
+function before_main_content(){	
+	echo "<div>before_main_content</div>";
+}
+
+function sidebar(){
 	//global $product;
 	//$id = $product->get_id();
-	echo "<div>222222222222222222222222</div>";
+	echo "<div>sidebar</div>";
 }
 
-function nader3(){
-	//global $product;
-	//$id = $product->get_id();
-    echo "<div>33333333333333333333333333333</div>";
+function before_single_product_summary(){	
+    echo "<div>before_single_product_summary</div>";
 
 }
 
-function nader4(){
+function after_main_content(){
+	echo "<div>after_main_content</div>";
+}
+
+
+function before_single_product(){
 	global $product;
 	$id = $product->get_id();
-	echo "<div>4444444444444444444</div>".$id;
+	echo "<div>before_single_product</div>";
 
 }
+
+
+function before_add_to_cart_button(){
+	global $product;
+	$id = $product->get_id();
+	echo "<div>before_add_to_cart_button</div>";
+
+}
+
+
 
 function isValidImage($strPath){    
     $ret=true;   
@@ -1092,18 +1248,10 @@ add_shortcode('wl_add_to_wish_list', 'add_gift_shortcode1');
 
 
 
-function add_gift_shortcode2(){
-	
+function add_gift_shortcode2(){	
 	ob_start();
-
-
-// include file located.
-
-
-include plugin_dir_path(__FILE__).'templates/add_to_wish_list2.php';
-
+	include plugin_dir_path(__FILE__).'templates/add_to_wish_list2.php';
 	return ob_get_clean();
-
 }
 add_shortcode('wl_add_to_wish_list2', 'add_gift_shortcode2');
 
