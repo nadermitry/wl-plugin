@@ -51,7 +51,7 @@ if (isset($_POST['giftid'])) {
 ?>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <!-- Bootstrap JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
@@ -250,7 +250,7 @@ $pagination = paginate_links(array(
 
 
 <script>
-$(document).ready(function() {
+jQuery(document).ready(function($) {
   $('#myForm').submit(function(event) {
     // Prevent default form submission
     event.preventDefault();
