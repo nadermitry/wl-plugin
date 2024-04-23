@@ -1085,7 +1085,16 @@ function print_button2(){
 		
 		<!-- The Modal -->
 		<div id="loadingModal" class="modal">
-			 Loading spinner
+			 Loading spinner111111111111111111
+			 fffffffffffffffffff
+
+
+			 <br>
+			 <br>
+			 <br>
+			 <br>
+			 <br>
+			 vdsfsda
 		   <!-- <div class="wl-loader"></div> -->
 			<div class="loader"></div>
 		  </div>

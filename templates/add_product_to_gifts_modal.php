@@ -60,7 +60,7 @@
 		
 <!-- The Modal -->
 <div id="loadingModal" class="modal">
-        Loading spinner
+        Loading spinner2222222222222222222222222222222222222222
     <!-- <div class="wl-loader"></div> -->
     <div class="loader"></div>
     </div>

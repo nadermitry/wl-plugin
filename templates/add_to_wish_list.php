@@ -51,7 +51,9 @@
   
 }
 
-
+.fade:not(.show) {
+    opacity: 100;
+}
 
 
 @keyframes spin {
@@ -182,19 +184,18 @@ $product_url =get_permalink();
 
 
 <!-- The Modal -->
-<div id="loadingModal" class="modal">
-     Loading spinner
-   <!-- <div class="wl-loader"></div> -->
-    <div class="loader"></div>
-  </div>
+<div id="loadingModal" class="modal">     
+    <div class="wl-loader"></div> 
+    <!--<div class="loader"></div>-->
+</div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addRemovefromWishlistMessageModal" tabindex="-1" aria-labelledby="addRemovefromWishlistMessageModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+        <h5 class="modal-title" id="addRemovefromWishlistMessageModalLabel">Modal Title</h5>
         
           <span id="x" class="close" aria-hidden="true">&times;</span>
       
@@ -217,7 +218,7 @@ $product_url =get_permalink();
 jQuery(document).ready(function() {
 
 // Get the modal element
-var modal = document.getElementById('exampleModal');
+var modal = document.getElementById('addRemovefromWishlistMessageModal');
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -256,14 +257,14 @@ window.onkeydown = function(event) {
 });
 
  // Function to open modal with a message
- function openModal(message) {
+ function openModal(message) {    
     // Set the message in the modal body
     document.getElementById('modalMessage').innerText = message;
     // Open the modal
     //$('#exampleModal').modal('show');
 
-    var modal1 = document.getElementById("exampleModal");
-    modal1.style.display = "block";
+    var modal1 = document.getElementById("addRemovefromWishlistMessageModal");
+    modal1.style.display = "block";    
   }
 
   
@@ -322,7 +323,7 @@ function add_to_gifts(){
         
        
        //var productData = '{"title":"<?php echo $product_title ?>","price":10,"sku":"ABC123","description":"This is a sample product."}';    
-       
+      
        showLoading();  
     passed_data={
         "title":"<?php echo $product_title; ?>",
@@ -366,23 +367,18 @@ function add_to_gifts(){
 
     
   }
-
   
   function showLoading() {	
+   
 	var modal = document.getElementById("loadingModal");
 	modal.style.display = "block";
+  
   }
 
   function hideLoading() {	
 	var modal = document.getElementById("loadingModal");
 	modal.style.display = "none";
   }
-
-
-
-
-
-
 
 
 </script>
