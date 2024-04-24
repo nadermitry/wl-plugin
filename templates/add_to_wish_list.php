@@ -300,7 +300,7 @@ function remove_from_gifts(record_id){
             else{
 
                  
-            openModal('Item Removed from gift list');
+          //  openModal('Item Removed from gift list');
             console.log(response.responseText);
             var button = document.getElementById('wl_gift_button_action');
             button.setAttribute('onclick', 'add_to_gifts();');
@@ -351,7 +351,7 @@ function add_to_gifts(){
 // Change the title attribute
            // button.value = 'Remove from my Gifts';
           hideLoading();
-          openModal('Item added to gift list');
+          //openModal('Item added to gift list');
           console.log(response.responseText);
            
             

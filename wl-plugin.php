@@ -1015,74 +1015,7 @@ function print_button2(){
 
 		
 		echo 
-		'<style>
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
-  z-index: 999;
-}
-
-.modal.show .modal-dialog {
-    transform: none;
-}
-.modal.fade .modal-dialog {
-    transition: transform 0.3s ease-out;
-    transform: translate(0, -50px);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-/* Loading Spinner */
-.wl-loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
-  
-}
-
-
-
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-
-
-
-</style>  
-		
-		
+		'
 		<!-- The Modal -->
 		<div id="loadingModal" class="modal">
 			 Loading spinner111111111111111111
@@ -1124,25 +1057,26 @@ function print_button2(){
 
 
 
-add_action( 'woocommerce_before_main_content', 'before_main_content', 20, 0 );
-add_action( 'woocommerce_after_main_content', 'after_main_content', 10 );
+//add_action( 'woocommerce_before_main_content', 'before_main_content', 20, 0 );
+//add_action( 'woocommerce_after_main_content', 'after_main_content', 10 );
 
 
-add_action( 'woocommerce_sidebar', 'sidebar', 10 );
-add_action( 'woocommerce_before_single_product', 'before_single_product', 10 );
-add_action( 'woocommerce_before_single_product_summary', 'before_single_product_summary', 20, 0 );
-add_action( 'woocommerce_before_add_to_cart_button', 'before_add_to_cart_button', 20 );
+//add_action( 'woocommerce_sidebar', 'sidebar', 10 );
+//add_action( 'woocommerce_before_single_product', 'before_single_product', 10 );
+//add_action( 'woocommerce_before_single_product_summary', 'before_single_product_summary', 20, 0 );
+//add_action( 'woocommerce_before_add_to_cart_button', 'before_add_to_cart_button', 20 );
 
 
 
 
-add_action( 'woocommerce_before_shop_loop_item', 'before_shop_loop_item', 10 );
-add_action( 'woocommerce_after_shop_loop_item',   'after_shop_loop_item', 10 );
+//add_action( 'woocommerce_before_shop_loop_item', 'before_shop_loop_item', 10 );
+add_action( 'woocommerce_after_shop_loop_item',   'print_button2', 10 );
 
-add_action( 'woocommerce_before_shop_loop_item_title', 'before_shop_loop_item_title', 10 );
-add_action( 'woocommerce_shop_loop_item_title',  'shop_loop_item_title', 10 );
-add_action( 'woocommerce_after_shop_loop_item_title',  'after_shop_loop_item_title', 10 );
+//add_action( 'woocommerce_before_shop_loop_item_title', 'before_shop_loop_item_title', 10 );
+//add_action( 'woocommerce_shop_loop_item_title',  'shop_loop_item_title', 10 );
+//add_action( 'woocommerce_after_shop_loop_item_title',  'after_shop_loop_item_title', 10 );
 
+add_action( 'woocommerce_before_shop_loop',  'before_main_content', 10 );
 
 
 
@@ -1165,7 +1099,223 @@ function after_shop_loop_item(){
 	echo "<div>after_shop_loop_item</div>";
 }
 function after_shop_loop(){
-	echo "<div>after_shop_loop</div>";
+	echo '<!-- The Modal -->
+	<div id="loadingModal" class="modal">     
+		<div class="wl-loader"></div> 
+		<!--<div class="loader"></div>-->
+	</div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="addRemovefromWishlistMessageModal" tabindex="-1" aria-labelledby="addRemovefromWishlistMessageModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="addRemovefromWishlistMessageModal">Modal Title</h5>
+			
+			  <span id="x" class="close" aria-hidden="true">&times;</span>
+		  
+		  </div>
+		  <div class="modal-body">
+		  <p id="modalMessage"></p>
+		  </div>
+		  <div class="modal-footer">
+			<button id="myBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	
+	<script>
+jQuery(document).ready(function() {
+
+// Get the modal element
+var modal = document.getElementById("addRemovefromWishlistMessageModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("x");
+
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  
+    modal.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+   
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Close the modal when Escape key is pressed
+window.onkeydown = function(event) {
+    if (event.key === "Escape") {
+        modal.style.display = "none";
+    }
+}
+
+
+});
+
+ // Function to open modal with a message
+ function openModal(message) {
+    // Set the message in the modal body
+    document.getElementById("modalMessage").innerText = message;
+    // Open the modal
+    //$("#exampleModal").modal("show");
+
+    var modal1 = document.getElementById("addRemovefromWishlistMessageModal");
+    modal1.style.display = "block";
+  }
+
+  
+
+
+
+function login_in_first(){ 
+  // FIXME  - define global variables to login page and redirect to " 
+  window.location.replace( window.location.origin +"/my-account/?redirect_to=<?php echo get_permalink();?>");
+ 
+}
+
+function remove_from_gifts(record_id,product_id){
+      
+      // TODO disable gift if it was added to an event instead of deleing it
+             
+              
+              showLoading();  
+              passed_data={"id":record_id};
+              jQuery.ajax({
+              type: "post",       
+              url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+              data: {
+                action: "wl_remove_from_gifts",  // the action to fire in the server
+                data: passed_data,         // any JS object
+              },
+              complete: function (response) {        
+                  hideLoading(); 
+      
+                  if(JSON.parse(response.responseText).data =="Error"){
+                    openModal("Item is used in an event cannot delete");
+                    console.log(response.responseText);
+                  }
+      
+                  else{
+      
+                       
+                 // openModal("Item Removed from gift list");
+                  console.log(response.responseText);
+				 
+                  var button = document.getElementById("wl_gift_button_action"+product_id);
+                  button.setAttribute("onclick", "add_to_gifts("+ product_id+");");
+                  var buttonSapn = document.getElementById("wl_button_title"+product_id);
+                  buttonSapn.textContent="Add to my Gifts";
+                  // Change the title attribute
+                  button.title =   "Add to my Gifts";
+                  }
+              },
+          });
+      
+          
+      
+        }
+      
+      
+      
+      function add_to_gifts(product_id){
+             // var strDivName= "EventsofGift" + giftid;
+              
+                     
+            
+             
+
+
+             showLoading(); 
+             
+             /*
+          passed_data={
+              "title":"<?php echo $product_title; ?>",
+              "description":"<?php echo $product_description; ?>",
+              "product_id" : product_id,
+              "image_url" :  "<?php echo  $image_url;?>" ,
+              "product_url":  "<?php echo  $product_url;?>" 
+          };
+*/
+          passed_data={
+           
+              "product_id" : product_id
+             
+          };
+      
+             
+              jQuery.ajax({
+              type: "post",       
+              url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+              data: {
+                action: "wl_add_to_gifts2",  // the action to fire in the server
+                data: passed_data,         // any JS object
+              },
+              complete: function (response) {
+                  //alert(JSON.parse(response.responseText).data);
+				 
+                  var button = document.getElementById("wl_gift_button_action"+ product_id );                 
+                  button.setAttribute("onclick", "remove_from_gifts("+JSON.parse(response.responseText).data+","+ product_id+");");
+                  var buttonSapn = document.getElementById("wl_button_title" + product_id);
+                  buttonSapn.textContent="Remove from my Gifts";
+      
+      // Change the title attribute
+                 // button.value = "Remove from my Gifts";
+                hideLoading();
+                //openModal("Item added to gift list");
+                console.log(response.responseText);
+                 
+                  
+                // alert(response.responseText)           
+                  //var newHTML = response.responseText;    
+                  //  alert(newHTML);
+                  //alert(enventid_array[0]);
+                  // Append HTML content to the div
+                  //  myDiv.innerHTML =\'<button onclick="remove_from_event(\'+ giftid +\',\'+ eventid+\')">Remove</button>\';
+                  
+              },
+          });
+      
+          
+        }
+
+  
+  function showLoading() {	
+	var modal = document.getElementById("loadingModal");
+	modal.style.display = "block";
+  }
+
+  function hideLoading() {	
+	var modal = document.getElementById("loadingModal");
+	modal.style.display = "none";
+  }
+
+
+
+
+
+
+
+
+</script>
+	
+	';
 }
 
 function shop_loop_item_title(){	
@@ -1186,7 +1336,75 @@ function after_shop_loop_item_title(){
 }
 
 function before_main_content(){	
-	echo "<div>before_main_content</div>";
+	echo "<style>
+	/* The Modal (background) */
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+	  z-index: 999;
+	}
+	
+	.modal.show .modal-dialog {
+		transform: none;
+	}
+	.modal.fade .modal-dialog {
+		transition: transform 0.3s ease-out;
+		transform: translate(0, -50px);
+	}
+	
+	.modal-content {
+		background-color: #fefefe;
+		margin: 10% auto;
+		padding: 20px;
+		border: 1px solid #888;
+		width: 30%;
+	}
+	
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	/* Loading Spinner */
+	.wl-loader {
+	  border: 8px solid #f3f3f3; /* Light grey */
+	  border-top: 8px solid #3498db; /* Blue */
+	  border-radius: 50%;
+	  width: 50px;
+	  height: 50px;
+	  animation: spin 2s linear infinite;
+	  position: absolute;
+	  left: 50%;
+	  top: 50%;
+	  margin-left: -25px;
+	  margin-top: -25px;
+	  
+	}
+	
+	.fade:not(.show) {
+		opacity: 100;
+	}
+	
+	
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
+	
+	
+	
+	
+	
+	</style>  
+	";
 }
 
 function sidebar(){
