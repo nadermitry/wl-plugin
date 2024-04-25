@@ -1,6 +1,24 @@
 <style>
 
 
+
+/* Active button style */
+.ics-page-numbers.active {
+  background-color: var(--gbl-primary-color); 
+  color: #ffffff; /* White text color for active state */
+}
+
+
+
+.wl-pagination button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+}
+
  </style> 
 
 
@@ -484,49 +502,9 @@ function findMinimum(arr) {
     var CurrentPage = 1;
     
 
-function showPage(page) {
-      var startIndex = (page - 1) * itemsPerPage;
-      var endIndex = startIndex + itemsPerPage;
-      listItems.hide().slice(startIndex, endIndex).show();
-    }
-
-function wl_paging(parPage=1){
-    listItems = $("#list").children();
-    numItems = listItems.length;
-    var numPages = Math.ceil(numItems / itemsPerPage);
-    
-    numbers = [];
-    numbers.push(parPage);
-    numbers.push(numPages);
-    pagetoShow= findMinimum(numbers)
-    
-    // Add pagination items
-    for (var i = 1; i <= numPages; i++) {
-
-        if (i ==pagetoShow){activ=" active ";}else{activ="  ";}
-      $("#pagination").append('<a id="pagingB'+ i +'" class="' + activ +'page-numbers" href="#">' + i + '</a>');
-    }
-
-    // Show first page by default
-    
-    //alert(CurrentPage);
-    showPage(pagetoShow);
-
-    // Pagination click event
-    $("#pagination").on("click", ".page-numbers", function(e) {
-       
-      e.preventDefault();
-      var page = $(this).text();
-   
-      showPage(page);
-      // Highlight the clicked page number and remove highlight from others
-      $(".page-numbers").removeClass("active");
-      $(this).addClass("active");
-      CurrentPage = page;
-    });
 
 
-}
+
 
 $('#bigModal').on('hidden.bs.modal', function () {  
     location.reload();
@@ -539,88 +517,185 @@ $('#bigModal').on('hidden.bs.modal', function () {
 
   $(document).ready(function(){
     // Initialize pagination
-
-    wl_paging();
-    // Search functionality
-    $("#search").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#list li").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-      // Update pagination after filtering
-      listItems = $("#list").children(":visible");
-      numItems = listItems.length;
-      numPages = Math.ceil(numItems / itemsPerPage);
-      $("#pagination").empty();
-      for (var i = 1; i <= numPages; i++) {
-
-        if (i==1){
-        isative=' active ';
-        }else{
-          isative='';
-        }
-        $("#pagination").append('<a class="'+ isative +'page-numbers" href="#">' + i + '</a>');
-      }
-      // Show the first page after filtering
-      showPage(1);
-    });
-
-    $("#search").on("search", function() {
-    if (!this.value) {
-        // Show all list items
-        $("#list li").show();
-        
-        // Update pagination after clearing the search
-        listItems = $("#list").children(":visible");
-      numItems = listItems.length;
-      numPages = Math.ceil(numItems / itemsPerPage);
-      $("#pagination").empty();
-      for (var i = 1; i <= numPages; i++) {
-        if (i==1){
-        isative=' active ';
-        }else{
-          isative='';
-        }
-          
-        $("#pagination").append('<a class="'+ isative +' page-numbers" href="#">' + i + '</a>');
-      }
-      showPage(1);
-    }
-});
-
-    // Function to show specific page
+    var listItemsEvent = $("#list").children();
+    var itemsPerPageEvent =3;    
+    var containerIdEvent = "#pagination";
+    var itemsPerPageEvent = 3
+    
+    icsGeneratePaginationEvent("#pagination",1);
+    icsGotoPageEvent(1)
+  
   
   });
-</script>
 
 
+var itemsPerPageEvent = 3; // Change this to adjust items per page
+var listItemsEvent = $("#list").children();
+var numItemsEvent = listItems.length;
+var numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
+var pagesToShowEvent = 5; // Number of page numbers to show at a time
+var currentPageEvent = 1; // Set the default current page
 
-<script>
-  $(document).ready(function(){
-    // Initialize pagination
-    var newitemsPerPage = 3; // Change this to adjust items per page
-    var newlistItems = $("#newlist").children();
-    var newnumItems = newlistItems.length;
-    var newnumPages = Math.ceil(newnumItems / newitemsPerPage);
-    
-  
-    // Add pagination items
-    for (var i = 1; i <= newnumPages; i++) {
+// Function to generate pagination
+// Function to generate pagination
+function icsGeneratePaginationEvent(containrtId,currentPage) {
+    var paginationContainerEvent = $(containrtId);
+    paginationContainerEvent.empty(); // Clear existing pagination links
 
-        if (i ==1){activ=" active ";}else{activ="  ";}
-      $("#newpagination").append('<a   class="' + activ +'page-numbers" href="#">' + i + '</a>');
+    // Calculate start and end pages based on the current page
+    var startPage, endPage;
+    if (numPagesEvent <= pagesToShowEvent) {
+        startPage = 1;
+        endPage = numPagesEvent;
+    } else {
+        var halfPagesToShow = Math.floor(pagesToShowEvent / 2);
+        if (currentPage <= halfPagesToShow) {
+            startPage = 1;
+            endPage = pagesToShowEvent;
+        } else if (currentPage + halfPagesToShow >= numPagesEvent) {
+            startPage = numPagesEvent - pagesToShowEvent + 1;
+            endPage = numPagesEvent;
+        } else {
+            startPage = currentPage - halfPagesToShow;
+            endPage = currentPage + halfPagesToShow;
+        }
     }
 
-    // Show first page by default
-    newshowPage(1);
+    if (currentPage > 1) {
+      paginationContainerEvent.append('<button type="button" class="ics-page-numbers" onclick="icsGotoPageEvent(' + (currentPage - 1) + ')">&laquo;</button>');
+    }
 
+
+    // Add pagination items
+    for (var i = startPage; i <= endPage; i++) {
+        var activ = (i === currentPage) ? "active" : "";
+        paginationContainerEvent.append('<button type="button" class="' + activ + ' ics-page-numbers"  onclick="icsGotoPageEvent(' + i + ')">' + i + '</button>');
+    }
+
+    if (currentPage < numPagesEvent) {
+      paginationContainerEvent.append('<button type="button"  class="ics-page-numbers" onclick="icsGotoPageEvent(' + (currentPage + 1) + ')">&raquo;</button>');
+    }
+
+    
+
+}
+
+
+
+// Function to handle pagination navigation
+function icsGotoPageEvent(pageNumber) {
+    currentPage = pageNumber; // Update current page
+    icsGeneratePaginationEvent("#pagination",currentPage);   // Generate pagination with the updated current page
+    var newstartIndex = (pageNumber - 1) * 3;
+    var newendIndex = newstartIndex +  3;   
+    
+    listItemsEvent.hide().slice(newstartIndex, newendIndex).show();    
+   // console.log('Showing page ' + pageNumber);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+var newitemsPerPage = 3; // Change this to adjust items per page
+var newlistItems = $("#newlist").children();
+var newnumItems = newlistItems.length;
+var newnumPages = Math.ceil(newnumItems / newitemsPerPage);
+var pagesToShow = 5; // Number of page numbers to show at a time
+var currentPage = 1; // Set the default current page
+
+
+// Function to generate pagination
+function icsGeneratePagination(containrtId,currentPage) {
+    var newpaginationContainer = $(containrtId);
+    newpaginationContainer.empty(); // Clear existing pagination links
+
+    // Calculate start and end pages based on the current page
+    var startPage, endPage;
+    if (newnumPages <= pagesToShow) {
+        startPage = 1;
+        endPage = newnumPages;
+    } else {
+        var halfPagesToShow = Math.floor(pagesToShow / 2);
+        if (currentPage <= halfPagesToShow) {
+            startPage = 1;
+            endPage = pagesToShow;
+        } else if (currentPage + halfPagesToShow >= newnumPages) {
+            startPage = newnumPages - pagesToShow + 1;
+            endPage = newnumPages;
+        } else {
+            startPage = currentPage - halfPagesToShow;
+            endPage = currentPage + halfPagesToShow;
+        }
+    }
+
+    if (currentPage > 1) {
+      newpaginationContainer.append('<button type="button" class="ics-page-numbers" onclick="icsGotoPage(' + (currentPage - 1) + ')">&laquo;</button>');
+    }
+
+
+    // Add pagination items
+    for (var i = startPage; i <= endPage; i++) {
+        var activ = (i === currentPage) ? "active" : "";
+        newpaginationContainer.append('<button type="button" class="' + activ + ' ics-page-numbers"  onclick="icsGotoPage(' + i + ')">' + i + '</button>');
+    }
+
+    if (currentPage < newnumPages) {
+      newpaginationContainer.append('<button type="button"  class="ics-page-numbers" onclick="icsGotoPage(' + (currentPage + 1) + ')">&raquo;</button>');
+    }
+
+}
+
+
+
+// Function to handle pagination navigation
+function icsGotoPage(pageNumber,) {
+    currentPage = pageNumber; // Update current page
+    icsGeneratePagination("#newpagination",currentPage);   // Generate pagination with the updated current page
+    var newstartIndex = (pageNumber - 1) * newitemsPerPage;
+    var newendIndex = newstartIndex + newitemsPerPage;
+    newlistItems.hide().slice(newstartIndex, newendIndex).show();    
+   // console.log('Showing page ' + pageNumber);
+}
+
+// Function to handle pagination navigation
+function icsGotoPageEvent(pageNumber) {
+    currentPage = pageNumber; // Update current page
+    icsGeneratePaginationEvent("#pagination",currentPage);   // Generate pagination with the updated current page
+    var newstartIndex = (pageNumber - 1) * itemsPerPageEvent;
+    var newendIndex = newstartIndex +  itemsPerPageEvent;    
+    listItemsEvent.hide().slice(newstartIndex, newendIndex).show();    
+   // console.log('Showing page ' + pageNumber);
+}
+
+
+
+
+
+
+  $(document).ready(function(){ 
+
+    
+
+
+
+
+
+    icsGeneratePagination("#newpagination",currentPage);
+    // Show first page by default
+    icsGotoPage(1);
     // Pagination click event
     $("#newpagination").on("click", ".page-numbers", function(e) {
-       
       e.preventDefault();
       var newpage = $(this).text();
-   
-      newshowPage(newpage);
+      icsGotoPage(newpage);
       // Highlight the clicked page number and remove highlight from others
       $(".page-numbers").removeClass("active");
       $(this).addClass("active");
@@ -636,54 +711,60 @@ $('#bigModal').on('hidden.bs.modal', function () {
       newlistItems = $("#newlist").children(":visible");
       newnumItems = newlistItems.length;
       newnumPages = Math.ceil(newnumItems / newitemsPerPage);
-      $("#newpagination").empty();
-      for (var i = 1; i <= newnumPages; i++) {
 
-        if (i==1){
-        isative=' active ';
-        }else{
-          isative='';
-        }
+      icsGeneratePagination("#newpagination",1); 
+      // Show first page by default
+      icsGotoPage(1);
+    });
 
-        $("#newpagination").append('<a class="'+ isative +'page-numbers" href="#">' + i + '</a>');
-      }
-      // Show the first page after filtering
-      newshowPage(1);
+
+
+
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#list li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+      // Update pagination after filtering
+      listItemsEvent = $("#list").children(":visible");
+      numItemsEvent = listItemsEvent.length;
+      numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
+      icsGeneratePaginationEvent("#pagination",1); 
+      // Show first page by default
+      icsGotoPageEvent(1);
+      
     });
 
 
     
     $("#newsearch").on("search", function() {
     if (!this.value) {
-        // Show all list items
-        $("#newlist li").show();
-        
-        // Update pagination after clearing the search
-        //updatePagination();
-        newlistItems = $("#newlist").children(":visible");
+      // Show all list items
+      $("#newlist li").show();
+      newlistItems = $("#newlist").children(":visible");
       newnumItems = newlistItems.length;
       newnumPages = Math.ceil(newnumItems / newitemsPerPage);
-      $("#newpagination").empty();
+      icsGeneratePagination("#newpagination",1);     
+      icsGotoPage(1);
+  }
+  });
 
-      for (var i = 1; i <= newnumPages; i++) {
-        if (i==1){
-        isative=' active ';
-        }else{
-          isative='';
-        }
-        $("#newpagination").append('<a  class="' +  isative + 'page-numbers" href="#">' + i + '</a>');
-      }
-      // Show the first page after filtering
-      newshowPage(1);
+
+  $("#search").on("search", function() {
+    if (!this.value) {
+        // Show all list items
+        $("#list li").show();
+        // Update pagination after clearing the search
+        listItemsEvent = $("#list").children(":visible");
+        numItemsEvent = listItemsEvent.length;
+        numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
+        icsGeneratePaginationEvent("#pagination",1); 
+        // Show first page by default
+        icsGotoPageEvent(1);
     }
 });
 
-    // Function to show specific page
-    function newshowPage(page) {
-      var newstartIndex = (page - 1) * newitemsPerPage;
-      var newendIndex = newstartIndex + newitemsPerPage;
-      newlistItems.hide().slice(newstartIndex, newendIndex).show();
-    }
+   
   });
 
 
@@ -829,7 +910,10 @@ if (myLink) {
 
 }
           
-wl_paging(CurrentPage);
+
+
+icsGeneratePagination("#newpagination",CurrentPage);     
+      icsGotoPage(1);
             }
              }
         },
