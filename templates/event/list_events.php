@@ -80,6 +80,12 @@ if ("geolocation" in navigator) {
 
 
 
+
+
+
+
+
+
 <div class="products">
     <?php foreach ($results as $result) : $gifts = $this->gifts($result->id);?>
 

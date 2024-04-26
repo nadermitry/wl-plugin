@@ -443,32 +443,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
 
-jQuery(document).ready(function($) {
-    $('#file-upload-form').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData($(this)[0]);
 
-        $.ajax({
-        
-            url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
-            type: 'POST',
-            data: formData,
-            async: true,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                // Handle success response
-                console.log(response.data);
-                location.reload();
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                // Handle error response
-                console.error('Error uploading file: ' + textStatus);
-            }
-        });
-    });
-});
 
 
 
@@ -515,18 +490,7 @@ $('#bigModal').on('hidden.bs.modal', function () {
     location.reload();
   });
 
-  $(document).ready(function(){
-    // Initialize pagination
-    var listItemsEvent = $("#list").children();
-    var itemsPerPageEvent =3;    
-    var containerIdEvent = "#pagination";
-    var itemsPerPageEvent = 3
-    
-    icsGeneratePaginationEvent("#pagination",1);
-    icsGotoPageEvent(1)
-  
-  
-  });
+ 
 
 
 var itemsPerPageEvent = 3; // Change this to adjust items per page
@@ -682,9 +646,40 @@ function icsGotoPageEvent(pageNumber) {
 
   $(document).ready(function(){ 
 
+    $('#file-upload-form').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+
+        $.ajax({
+        
+            url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // Handle success response
+                console.log(response.data);
+                location.reload();
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                // Handle error response
+                console.error('Error uploading file: ' + textStatus);
+            }
+        });
+    });
+
+// Initialize pagination
+    var listItemsEvent = $("#list").children();
+    var itemsPerPageEvent =3;    
+    var containerIdEvent = "#pagination";
+    var itemsPerPageEvent = 3
     
-
-
+    icsGeneratePaginationEvent("#pagination",1);
+    icsGotoPageEvent(1)
+  
 
 
 
