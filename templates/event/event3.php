@@ -1,54 +1,6 @@
-<style>
 
 
-
-/* Active button style */
-.ics-page-numbers.active {
-  background-color: var(--gbl-primary-color); 
-  color: #ffffff; /* White text color for active state */
-}
-
-
-
-.wl-pagination button {
-    padding: 8px 12px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    text-decoration: none;
-}
-
- </style> 
-
-
-
-
-
-
-
-<div class="bs-blog-post single"> 
-    <div class="bs-header">
-        
-        
-
-        <h1 class="title"> 
-            <?php echo stripcslashes(sanitize_text_field($result->title)); ?>
-        </h1>
-        <?php if ($isCurrentUser) :?>
-             
-             <div class="bs-blog-category">
-                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>                    
-             </div>
- 
-         <?php endif ?>
-
-        <article class="small single">
-            <?php echo stripcslashes(sanitize_text_field($result->description)) ; ?> 
-        </article>
-
-
-         <?php 
+<?php 
 
 $dateString = $result->start_date; // Example DateTime string
 
@@ -74,22 +26,67 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
 
-        <div class="bs-info-author-block">
-            <div class="bs-blog-meta mt-3 mb-0">                
-                <span class="bs-blog-date">
-                 <?php echo $date;?> at  <?php echo $time;?>
-                </span>                
-            </div>
-          
-            <?php if ( $result->end_date !='0000-00-00 00:00:00') :?>
-              <div class="bs-blog-meta mt-3 mb-0">                
-                  <span class="bs-blog-date">
-                  <?php echo $end_date;?> at  <?php echo $end_time;?>
-                  </span>                
-              </div>
-            <?php endif?>
+<div>
 
-            <div class="bs-blog-meta mt-3 mb-0">                
+<main class="container">
+
+<!-- Left Column / Headphones Image -->
+<div class="left-column">
+  <img data-image="black" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+  <img data-image="blue" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+  <img data-image="red" class="active" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+  <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+</div>
+
+
+<!-- Right Column -->
+<div class="right-column">
+
+  <!-- Product Description -->
+  <div class="product-description">
+    <span>Event</span>
+    <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
+    <p><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></p>
+  </div>
+
+  <!-- Product Configuration -->
+  <div class="product-configuration">
+
+    <!-- Product Color 
+    <div class="product-color">
+      <span>Color</span>
+
+      <div class="color-choose">
+        <div>
+          <input data-image="red" type="radio" id="red" name="color" value="red" checked>
+          <label for="red"><span></span></label>
+        </div>
+        <div>
+          <input data-image="blue" type="radio" id="blue" name="color" value="blue">
+          <label for="blue"><span></span></label>
+        </div>
+        <div>
+          <input data-image="black" type="radio" id="black" name="color" value="black">
+          <label for="black"><span></span></label>
+        </div>
+      </div>
+
+    </div>
+    -->
+
+    <!-- Cable Configuration -->
+    <div class="cable-config">
+      <!--<span>Cable configuration</span>-->     
+
+      <div class="cable-choose">
+        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?> at  <?php echo $time;?></button>
+      </div>
+
+      <div class="cable-choose">
+        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> at  <?php echo $end_time;?></button>
+      </div>
+     
+      <div class="bs-blog-meta mt-3 mb-0">                
                 <span class="bs-blog-date">
                     <a target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
                 </span>                
@@ -106,38 +103,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                 <span class="bs-blog-date">
                     <a target="_blank" href="<?php echo $result->location_map?>"> Map</a>
                 </span>                
-            </div>
-        
-      
-
-        </div>
-
-    </div>
-    
-
-    <div class="image-container position-relative">
-          <img  fetchpriority="high" width="1250" height="850"  alt="Original Image" class="img-fluid" id="originalImage" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async">
-   
-      
-    
-     
-
-
-
-    
-    <!-- <img fetchpriority="high" width="1250" height="850"  id="originalImage" alt="Original Image"
-    src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async" 
-    srcset="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1250w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 300w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1024w,
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 768w, 
-    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 600w"
-    sizes="(max-width: 1250px) 100vw, 1250px">  -->
-
-    
-    <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
-  </div> 
-    <article class="small single">     
+            </div>  
+            
+            <article class="small single ">     
         <div class="post-share">
             <div class="post-share-icons cf"> 
 
@@ -174,8 +142,20 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                              
 
     </article>
+    </div>
 
+    
+  </div>
+
+  <!-- Product Pricing -->
+  <div class="product-price">
+    <!--<span>148$</span>-->
+    <a   data-toggle="modal" data-target="#editModal" href="#" class="cart-btn">Edit</a>
    
+  </div>
+</div>
+</main>
+
 </div>
 
 
