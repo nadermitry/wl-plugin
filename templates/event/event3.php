@@ -28,23 +28,35 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 <div>
 
-<main class="container">
+<div class="container">
 
-<!-- Left Column / Headphones Image -->
-<div class="left-column">
-  <img data-image="black" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
-  <img data-image="blue" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+<!-- Left Column / Headphones Image 
+<div class="left-column">-->
+<div class="row">
+<div class="col-md-7">
+  
   <img data-image="red" class="active" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
   <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
 </div>
 
 
-<!-- Right Column -->
-<div class="right-column">
-
+<!-- Right Column 
+<div class="right-column"> -->
+<div class="col-md-5">
   <!-- Product Description -->
   <div class="product-description">
-    <span>Event</span>
+   <!-- <span>Event</span>-->
+   <?php if ($isCurrentUser) :?>
+             
+           
+
+             <div class="product-price">
+    <!--<span>148$</span>-->
+    <a   data-toggle="modal" data-target="#editModal" href="#" class="cart-btn">Edit</a>
+    
+    </div>
+ 
+         <?php endif ?>
     <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
     <p><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></p>
   </div>
@@ -77,31 +89,46 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     <!-- Cable Configuration -->
     <div class="cable-config">
       <!--<span>Cable configuration</span>-->     
-
+      
+<div class="container">
+  <!-- Left Column / Headphones Image 
+  <div class="left-column">-->
+  <div class="row">
+    <div class="col-md-6">          
       <div class="cable-choose">
-        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?> at  <?php echo $time;?></button>
+        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
       </div>
+    </div> 
 
+    <div class="col-md-6">
       <div class="cable-choose">
-        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> at  <?php echo $end_time;?></button>
-      </div>
+        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> <?php echo $end_time;?></button>
+      </div> 
+    </div> 
+  </div> 
+</div> 
+           
+          
+      
+
+      
      
-      <div class="bs-blog-meta mt-3 mb-0">                
-                <span class="bs-blog-date">
-                    <a target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
-                </span>                
+      <div class=" mt-0 mb-0">                
+               
+                    <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
+                           
             </div>
 
-            <div class="bs-blog-meta mt-3 mb-0">                
-                <span class="bs-blog-date">
-                    <a target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
-                </span>                
+            <div class=" mt-0 mb-0">                
+                
+                    <a  class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
+                           
             </div>
 
 
-            <div class="bs-blog-meta mt-3 mb-0">                
+            <div class=" mt-0 mb-0">                
                 <span class="bs-blog-date">
-                    <a target="_blank" href="<?php echo $result->location_map?>"> Map</a>
+                    <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_map?>"> Map</a>
                 </span>                
             </div>  
             
@@ -145,16 +172,10 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     </div>
 
     
-  </div>
-
-  <!-- Product Pricing -->
-  <div class="product-price">
-    <!--<span>148$</span>-->
-    <a   data-toggle="modal" data-target="#editModal" href="#" class="cart-btn">Edit</a>
-   
-  </div>
+  </div>  
 </div>
-</main>
+</div>
+</div>
 
 </div>
 
@@ -183,6 +204,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
      </li>
 
   </ul>
+  
 
   <ul id="list" class="list-group">
 
@@ -191,7 +213,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
         <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
-       <div style="float:right;">                 
+       <div >                 
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
         <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
         <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
@@ -453,12 +475,7 @@ function findMinimum(arr) {
 
 
 
-   var itemsPerPage = 5; // Change this to adjust items per page
-    var listItems = $("#list").children();
-    var numItems = listItems.length;
-    var numPages = Math.ceil(numItems / itemsPerPage);
-    //alert('CurrentPage');
-    var CurrentPage = 1;
+   
     
 
 
@@ -477,9 +494,18 @@ $('#bigModal').on('hidden.bs.modal', function () {
  
 
 
+  //var itemsPerPage = 5; // Change this to adjust items per page
+   // var listItems = $("#list").children();
+  //  var numItems = listItems.length;
+   // var numPages = Math.ceil(numItems / itemsPerPage);
+    //alert('CurrentPage');
+   // var CurrentPage = 1;
+
+
+
 var itemsPerPageEvent = 3; // Change this to adjust items per page
 var listItemsEvent = $("#list").children();
-var numItemsEvent = listItems.length;
+var numItemsEvent = listItemsEvent.length;
 var numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
 var pagesToShowEvent = 5; // Number of page numbers to show at a time
 var currentPageEvent = 1; // Set the default current page
@@ -530,16 +556,7 @@ function icsGeneratePaginationEvent(containrtId,currentPage) {
 
 
 
-// Function to handle pagination navigation
-function icsGotoPageEvent(pageNumber) {
-    currentPage = pageNumber; // Update current page
-    icsGeneratePaginationEvent("#pagination",currentPage);   // Generate pagination with the updated current page
-    var newstartIndex = (pageNumber - 1) * 3;
-    var newendIndex = newstartIndex +  3;   
-    
-    listItemsEvent.hide().slice(newstartIndex, newendIndex).show();    
-   // console.log('Showing page ' + pageNumber);
-}
+
 
 
 
@@ -604,7 +621,7 @@ function icsGeneratePagination(containrtId,currentPage) {
 
 
 // Function to handle pagination navigation
-function icsGotoPage(pageNumber,) {
+function icsGotoPage(pageNumber) {
     currentPage = pageNumber; // Update current page
     icsGeneratePagination("#newpagination",currentPage);   // Generate pagination with the updated current page
     var newstartIndex = (pageNumber - 1) * newitemsPerPage;
@@ -700,13 +717,16 @@ function icsGotoPageEvent(pageNumber) {
 
 
     $("#search").on("keyup", function() {
+      
       var value = $(this).val().toLowerCase();
       $("#list li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
+    
       // Update pagination after filtering
       listItemsEvent = $("#list").children(":visible");
       numItemsEvent = listItemsEvent.length;
+     
       numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
       icsGeneratePaginationEvent("#pagination",1); 
       // Show first page by default
