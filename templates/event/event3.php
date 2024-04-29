@@ -673,10 +673,10 @@ function icsGotoPageEvent(pageNumber) {
     });
 
 // Initialize pagination
-    var listItemsEvent = $("#list").children();
-    var itemsPerPageEvent =3;    
+    listItemsEvent = $("#list").children();
+       
     var containerIdEvent = "#pagination";
-    var itemsPerPageEvent = 3
+    
     
     icsGeneratePaginationEvent("#pagination",1);
     icsGotoPageEvent(1)
@@ -716,8 +716,7 @@ function icsGotoPageEvent(pageNumber) {
 
 
 
-    $("#search").on("keyup", function() {
-      
+    $("#search").on("keyup", function() {      
       var value = $(this).val().toLowerCase();
       $("#list li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
