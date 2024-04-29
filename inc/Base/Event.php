@@ -82,7 +82,7 @@ class Event extends BaseController {
     }
 
     public function viewList(){       
-        $items_per_page = 3;      
+        $items_per_page = 10;      
         $current_page = max(1, get_query_var('paged'));
         $offset = ($current_page - 1) * $items_per_page; 
 
@@ -106,7 +106,7 @@ class Event extends BaseController {
             array(), // Dependencies (optional)
             '1.0' // Style version (optional)
         );
-        $eventListTemplate ='list_events3';
+        $eventListTemplate ='list_events4';
        
         wp_enqueue_style(
             $eventListTemplate.'-style', // Unique handle for the style
@@ -146,7 +146,7 @@ class Event extends BaseController {
         $gifts     = $this->gifts( $this->eventid);
         $newgifts  = $this->gifts($this->eventid,true);       
       
-
+        
 
         wp_enqueue_style(
             'evnt-list-pagination-style', // Unique handle for the style
@@ -154,7 +154,7 @@ class Event extends BaseController {
             array(), // Dependencies (optional)
             '1.0' // Style version (optional)
         );
-        $eventTemplate ='event';
+        $eventTemplate ='event3';
        
         wp_enqueue_style(
             $eventTemplate.'-style', // Unique handle for the style
