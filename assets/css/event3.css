@@ -390,12 +390,12 @@ background: #0F1012;
 }
 
 
-.container {
+.container11 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
   display: flex;
-  flex-wrap: wrap;
+ flex-wrap: wrap;
 }
 
 /* Columns */
