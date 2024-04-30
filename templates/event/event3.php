@@ -1,4 +1,111 @@
+<style>
+ /* Container styling */
+ .xcontainer {
+        max-width: 100%;
+        padding: 20px;
+    }
 
+    /* Image styling */
+    .ximage-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .ximage-wrapper img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Button group styling */
+    .xbutton-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .xbutton {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-right: 10px;
+    }
+
+    .xbutton:hover {
+        background-color: #0056b3;
+    }
+
+
+     /* Thumbnail styling */
+    .xthumbnail {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .xthumbnail img {
+        width: 10%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+        
+    }
+
+    /* Title styling */
+    .xtitle {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+
+
+      .xthumbnail img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+        .xbutton-group {
+            flex-direction: column;
+        }
+
+        .xbutton {
+            margin-top: 10px;
+        }
+    }
+
+
+
+    /* Image styling */
+    .image {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .image img {
+        max-width: 100px; /* Adjust as needed */
+        height: auto;
+        border-radius: 10px;
+        border:#007bff;
+        border-style:solid;
+        border-width: 1px;
+    }
+
+    /* Text styling */
+    .xtext {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px; /* Adjust spacing between image and text */
+    }
+</style>
 
 <?php 
 
@@ -35,8 +142,8 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="row">
 <div class="col-md-7">
   
-  <img data-image="red" class="active" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
-  <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+  <img data-image="red" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+  <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
 </div>
 
 
@@ -191,9 +298,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
    
        Wish List
        
-        <button type="button"  style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#bigModal"> add Gifts</button>               
+        <button type="button"   class="xbutton" data-toggle="modal" data-target="#bigModal"> Add Gifts</button>               
         
-             <input style="float:right;" class="form-control mr-sm-2 col-md-3" type="search" id="search" placeholder="Search..." aria-label="Search">
+             <input  class="form-control mr-sm-2 col-md-3" type="search" id="search" placeholder="Search..." aria-label="Search">
               <!-- You can add a search button if needed -->
              <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
            
@@ -210,17 +317,38 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
     
     <?php foreach ($gifts as $gift) : ?>
-        <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">
-        <img width="65px" src="<?php echo $gift->img_url?>" ?>
-        <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
-       <div >                 
-        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
-        <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
+
+        
+
+      <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item"> 
+        
         
        
-    </div>
+
+
+
+        <div class="image">
+            <img src="<?php echo $gift->img_url?>" alt="Your Image">
+        </div>
+        <div class="xtext">
+            <p> <?php  echo $this->trim_and_add_dots($gift->title,60) ?></p>
+            
+        </div>
+
+        
+
+          <div class="xbutton-group">            
+            <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+            <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+            <button class="xbutton"onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
+          </div>
+
+      
     </li>
+
+
+
+
     
         <?php endforeach ; ?>
   </ul>
