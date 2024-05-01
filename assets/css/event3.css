@@ -624,6 +624,9 @@ background: #0F1012;
     width: 220px;
     top: -150px;
   }
+  .product-description h1{
+    font-size:small;
+  }
 }
 
 

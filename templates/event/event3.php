@@ -151,16 +151,16 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                     <i class="fab fa-facebook"></i>
                 </a>
 
-                    <a class="x-twitter" href="http://twitter.com/share?url=<?php echo $currentURL ;?>" target="_blank">
+                  <!--  <a class="x-twitter" href="http://twitter.com/share?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fa-brands fa-x-twitter"></i>
-                    </a>
+                    </a>-->
 
                     <a class="envelope" href="mailto:?subject=<?php echo $result->title; ?>&amp;body=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fas fa-envelope-open"></i>
                     </a>
-                    <a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $currentURL ;?>" target="_blank">
+                    <!--<a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fab fa-linkedin"></i>
-                    </a>
+                    </a>-->
                                
                     <a class="telegram" href="https://t.me/share/url?url=<?php echo $currentURL ;?>&amp;title=<?php echo $result->title; ?>" target="_blank">
                         <i class="fab fa-telegram"></i>
@@ -171,7 +171,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                                     <a class="reddit" href="https://www.reddit.com/submit?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fab fa-reddit"></i>
                     </a>
-                    <a class="whatsapp" href="javascript:window.print()"> <i class="fas fa-print"></i></a>
+                    <!--<a class="whatsapp" href="javascript:window.print()"> <i class="fas fa-print"></i></a>-->
             </div>
         </div>
 
@@ -242,7 +242,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
         <div class="xbutton-group">            
           <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-          <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+      <!--    <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>-->
           <?php if ($isCurrentUser) :?>
             <button class="xbutton" onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
           <?php endif ?>
