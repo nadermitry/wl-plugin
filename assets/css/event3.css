@@ -625,7 +625,10 @@ background: #0F1012;
     top: -150px;
   }
   .product-description h1{
-    font-size:small;
+    font-weight: 300;
+    font-size: 32px;
+    color: #43484D;
+    letter-spacing: -2px;
   }
 }
 
