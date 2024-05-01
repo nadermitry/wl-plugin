@@ -400,6 +400,15 @@ background: #0F1012;
   padding: 15px;
   display: flex;
  flex-wrap: wrap;
+
+}
+.container12 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 /* Columns */
@@ -592,7 +601,7 @@ background: #0F1012;
 @media (max-width: 940px) {
   .container {
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 10px;
   }
 
   .left-column,
@@ -626,6 +635,140 @@ background: #0F1012;
     margin-right: 0.538rem;
     display: inline-block;
   }
+
+   /* Container styling */
+ .xcontainer {
+  max-width: 100%;
+  padding: 20px;
+}
+
+/* Image styling */
+.ximage-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ximage-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Button group styling */
+.xbutton-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.xbutton {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.ybutton {  
+  text-align: center;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;  
+  margin-left: 10px;
+}
+
+
+
+.xbutton:hover {
+  background-color: #0056b3;
+}
+
+
+/* Thumbnail styling */
+.xthumbnail {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.xthumbnail img {
+  width: 10%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  
+}
+
+/* Title styling */
+.xtitle {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+
+
+.xthumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+  .xbutton-group {
+      flex-direction: column;
+  }
+
+  .xbutton {
+      margin-top: 10px;
+  }
+}
+
+
+
+/* Image styling */
+.image {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.image img {
+  max-width: 100px; /* Adjust as needed */
+  height: auto;
+  border-radius: 10px;
+  border:#007bff;
+  border-style:solid;
+  border-width: 1px;
+}
+
+/* Text styling */
+.xtext {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px; /* Adjust spacing between image and text */
+}
+
+
+
+  
+  /* Custom CSS */
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top:10px;
+   
+  }
+  
+
+ 
   
 
 

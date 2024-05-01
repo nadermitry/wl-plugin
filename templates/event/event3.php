@@ -1,111 +1,4 @@
-<style>
- /* Container styling */
- .xcontainer {
-        max-width: 100%;
-        padding: 20px;
-    }
 
-    /* Image styling */
-    .ximage-wrapper {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .ximage-wrapper img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    /* Button group styling */
-    .xbutton-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-
-    .xbutton {
-        flex: 1;
-        text-align: center;
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-right: 10px;
-    }
-
-    .xbutton:hover {
-        background-color: #0056b3;
-    }
-
-
-     /* Thumbnail styling */
-    .xthumbnail {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .xthumbnail img {
-        width: 10%;
-        height: auto;
-        display: block;
-        border-radius: 10px;
-        
-    }
-
-    /* Title styling */
-    .xtitle {
-        text-align: center;
-        margin-top: 10px;
-        font-size: 18px;
-    }
-
-    /* Media query for responsiveness */
-    @media (max-width: 768px) {
-
-
-      .xthumbnail img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-        .xbutton-group {
-            flex-direction: column;
-        }
-
-        .xbutton {
-            margin-top: 10px;
-        }
-    }
-
-
-
-    /* Image styling */
-    .image {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .image img {
-        max-width: 100px; /* Adjust as needed */
-        height: auto;
-        border-radius: 10px;
-        border:#007bff;
-        border-style:solid;
-        border-width: 1px;
-    }
-
-    /* Text styling */
-    .xtext {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 10px; /* Adjust spacing between image and text */
-    }
-</style>
 
 <?php 
 
@@ -155,7 +48,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
    <!-- <span>Event</span>-->
    <?php if ($isCurrentUser) :?>
              
-           
+    
 
              <div class="product-price">
     <!--<span>148$</span>-->
@@ -239,6 +132,11 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                 </span>                
             </div>  
             
+
+
+            <?php if ($isCurrentUser) :?>
+             
+            
             <article class="small single ">     
         <div class="post-share">
             <div class="post-share-icons cf"> 
@@ -276,6 +174,8 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                              
 
     </article>
+
+    <?php endif ?>
     </div>
 
     
@@ -286,32 +186,34 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 </div>
 
+   
+     
+   
 
 
+<div  class="container12">    
+      <div style="width:40%" class="col-md-4"><h3>Wish List</h3></div>
+      <div style="width:60%">
+        <div class="button-container">
+          <input class="form-control mr-sm-2 ml-2  col-md-6" type="search" id="search" placeholder="Search..." aria-label="Search">
+            <?php if ($isCurrentUser) :?>
+              <button type="button" class="ybutton btn-primary mr-2">Add Gifts</button>             
+            <?php endif ?>   
+          
+          
+         
+        </div>      
+   </div>
+ </div>
+ 
 <div class="container">
   <!-- List -->
 
-  <ul  class="list-group">
-   
-
-   <li id="li0" class="list-group-item">
-   
-       Wish List
-       
-        <button type="button"   class="xbutton" data-toggle="modal" data-target="#bigModal"> Add Gifts</button>               
-        
-             <input  class="form-control mr-sm-2 col-md-3" type="search" id="search" placeholder="Search..." aria-label="Search">
-              <!-- You can add a search button if needed -->
-             <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-           
-         
-         
-        
-    
-     </li>
-
-  </ul>
   
+  
+  
+
+
 
   <ul id="list" class="list-group">
 
@@ -335,15 +237,15 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
             
         </div>
 
-        
+        <div class="xbutton-group">            
+          <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+          <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+          <?php if ($isCurrentUser) :?>
+            <button class="xbutton" onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
+          <?php endif ?>
+        </div>
 
-          <div class="xbutton-group">            
-            <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-            <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
-            <button class="xbutton"onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
-          </div>
-
-      
+       
     </li>
 
 
