@@ -190,18 +190,15 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
      
    
 
-
+<h3>Wish List</h3>
 <div  class="container12">    
-      <div style="width:40%" class="col-md-4"><h3>Wish List</h3></div>
+      
       <div style="width:60%">
         <div class="button-container">
           <input class="form-control mr-sm-2 ml-2  col-md-6" type="search" id="search" placeholder="Search..." aria-label="Search">
             <?php if ($isCurrentUser) :?>
-              <button type="button" class="ybutton btn-primary mr-2">Add Gifts</button>             
-            <?php endif ?>   
-          
-          
-         
+              <button type="button" class="ybutton btn-primary mr-2" data-toggle="modal" data-target="#bigModal">Add Gifts</button>             
+            <?php endif ?> 
         </div>      
    </div>
  </div>
