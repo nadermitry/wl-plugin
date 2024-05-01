@@ -36,7 +36,13 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="col-md-7">
   
   <img data-image="red" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
-  <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+  
+  <?php if ($isCurrentUser) :?>
+    <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+              <?php endif ?>
+ 
+            
+
 </div>
 
 
@@ -90,23 +96,23 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     <div class="cable-config">
       <!--<span>Cable configuration</span>-->     
       
-<div class="container">
-  <!-- Left Column / Headphones Image 
-  <div class="left-column">-->
-  <div class="row">
-    <div class="col-md-6">          
-      <div class="cable-choose">
-        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
-      </div>
-    </div> 
+      <div class="container">
+        <!-- Left Column / Headphones Image 
+        <div class="left-column">-->
+        <div class="row">
+          <div class="col-md-6">          
+            <div class="cable-choose">
+              <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
+            </div>
+          </div> 
 
-    <div class="col-md-6">
-      <div class="cable-choose">
-        <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> <?php echo $end_time;?></button>
+          <div class="col-md-6">
+            <div class="cable-choose">
+              <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> <?php echo $end_time;?></button>
+            </div> 
+          </div> 
+        </div> 
       </div> 
-    </div> 
-  </div> 
-</div> 
            
           
       
@@ -135,7 +141,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
             <?php if ($isCurrentUser) :?>
-             
+            
             
             <article class="small single ">     
         <div class="post-share">
@@ -282,7 +288,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 <?php  //endforeach ?>
 
-
+<?php if ($isCurrentUser) :?>
 
 <!-- Big Modal -->
 <div class="modal fade" id="bigModal" tabindex="-1" aria-labelledby="bigModalLabel" aria-hidden="true">
@@ -462,7 +468,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         </div>
     </div>
 
-
+  
+    
+    <?php endif ?>
 
 
 
