@@ -21,7 +21,7 @@
 }
 .modal-container {
   display: flex;
-  max-width: 720px;
+  max-width: 1000px;
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
@@ -44,7 +44,7 @@
 .modal-left {
   padding: 60px 30px 20px;
   background: #fff;
-  flex: 1.5;
+  flex: 3;
   transition-duration: 0.5s;
   transform: translateY(80px);
   opacity: 0;
@@ -712,24 +712,28 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
       
       <div class="container">
      
-        <div class="input-block">
+        
+     
+          <div class="row">
+          <div class="col-md-6">
+          <div class="input-block">
           <label for="event_title" class="input-label">Title:</label>
           <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
         </div>   
-     
-          <div class="row">
-            <div class="col-md-6">
+          </div>
+          
+          <div class="col-md-6">
               <div class="input-block">
               <label  for="start_datetime" class="input-label" >Start Date and Time:</label>
                 <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
               </div>
               </div>
-              <div class="col-md-6">
+            <!--  <div class="col-md-6">
             <div class="input-block">
               <label  for="end_datetime" class="input-label">End Date and Time:</label>
               <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
             </div>
-            </div>
+            </div>-->
           </div>
         
         <div class="input-block">
@@ -769,8 +773,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <div class="row">
             <div class="col-md-12">
 
-        <div class="modal-buttons">        
-        <button class="input-button">Login</button>
+        <div class="modal-buttons">       
+        <button  class="input-button"onclick="update_event(<?php echo  $result->id ?>)">Save</button>   
+      
       </div>
 
       </div>
@@ -786,7 +791,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
      </div>
 
      <div class="modal-right">
-      <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dfd2ec5a01006fd8c4d7592a381d3776&auto=format&fit=crop&w=1000&q=80" alt="">
+      <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
     </div>
 
 
