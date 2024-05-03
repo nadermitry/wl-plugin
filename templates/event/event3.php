@@ -221,6 +221,7 @@
     display: none;
   }
 }
+
 </style>
 
 
@@ -275,13 +276,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="col-md-5">
   <!-- Product Description -->
   <div class="product-description">
-  <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?>
-  <?php if ($isCurrentUser) :?>
-    <button data-toggle="modal" data-target="#editModal" type="button" class="nam-edit-button">
-        <i class="fas fa-edit"></i> Edit
-      </button>
-      <?php endif ?>
-    </h1>
+  <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
    <!-- <span>Event</span>-->
    
              
@@ -329,17 +324,18 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <!-- Left Column / Headphones Image 
         <div class="left-column">-->
         <div class="row">
-          <div class="col-md-6">          
+          <div class="col-md-12">          
             <div class="cable-choose">
               <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
             </div>
           </div> 
 
-          <div class="col-md-6">
+         <!-- <div class="col-md-6">
             <div class="cable-choose">
               <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> <?php echo $end_time;?></button>
             </div> 
-          </div> 
+          </div>-->
+
         </div> 
       </div> 
            
@@ -575,101 +571,17 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 </div>
 
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog "> <!-- Use modal-lg class for a large modal -->
-    <div class="modal-content">
-      <div class="modal-header ">
-      <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h5 class="modal-title" id="editModalLabel">Edit <?php echo $result->title; ?> </h5>       
-       
-      
-      </div>
-      <div class="modal-body">     
 
-        <!-- Modal Content Goes Here -->
-        
-            <div class="container">
-               <div class="row">
-                  <div class="">                    
-                      <form id="event-form" method="post" enctype="multipart/form-data">
-                      <div class="row">
-                        <div class="">
-                          <label>Title:</label>
-                          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
-                        </div>                       
-                      
-                        <div class="">
-                          <label>Start Date and Time:</label>
-                          <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
-                        </div>
-                        <div class="">
-                          <label>End Date and Time:</label>
-                          <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="">
-                        <label>Description:</label>                                               
-                        <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
-                        </div>
-                      </div>  
-                      <div class="row"> 
-                      <div class="">               
-                        <label>Location:</label>
-                        <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
-                        </div>
-                        <div class="">
-                        <label>Location URL:</label>
-                        <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
-                        </div>
-                      </div> 
-                      <div class="row"> 
-                      <div class="">  
-                        <label>Address:</label>
-                        <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
-                        </div>
-                        <div class="">
-                        <label>Location:</label>
-                        <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
-                        </div>
-                        </div>
-                       <br>
-                        <div class="modal-footer">
-                         
-                        
-                          <button data-dismiss="modal" onclick="update_event(<?php echo  $result->id ?>)">Save</button>  
-                        </div>
-
-
-                    </form>
-                </div>
-            </div>
-        </div>
-   
-        
-      </div>
-
-          
-
-
-      
-    </div>
-  </div>
-</div>
-<!-- Edit Modal End -->
 
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image
+                   
+                        <span class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
+                        </h5>
                 </div>
                 
                 <form id="file-upload-form" method="post" enctype="multipart/form-data">
@@ -698,97 +610,94 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     </div>
 
   
-    
+     
+
+
+
     <?php endif ?>
 
-
-
-  <div class="modal1">
-  
-  <div class="modal-container">
-  
-    <div class="modal-left">
-    <form id="event-form" method="post" enctype="multipart/form-data">
-      
-      <div class="container">
-     
-        
-     
-          <div class="row">
-          <div class="col-md-6">
-          <div class="input-block">
-          <label for="event_title" class="input-label">Title:</label>
-          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
-        </div>   
-          </div>
+  <?php if ($isCurrentUser) :?>
+    <div class="modal1">  
+      <div class="modal-container">  
+        <div class="modal-left">
+          <form id="event-form" method="post" enctype="multipart/form-data">      
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-block">
+                    <label for="event_title" class="input-label">Title:</label>
+                    <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
+                  </div>   
+                </div>
           
-          <div class="col-md-6">
-              <div class="input-block">
-              <label  for="start_datetime" class="input-label" >Start Date and Time:</label>
-                <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
+                <div class="col-md-6">
+                  <div class="input-block">
+                    <label  for="start_datetime" class="input-label" >Start Date and Time:</label>
+                    <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
+                  </div>
+                </div>
+                <!-- <div class="col-md-6">
+                  <div class="input-block">
+                    <label  for="end_datetime" class="input-label">End Date and Time:</label>-->
+                    <input type="hidden" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
+                  <!-- </div>
+                </div>-->
               </div>
-              </div>
-            <!--  <div class="col-md-6">
-            <div class="input-block">
-              <label  for="end_datetime" class="input-label">End Date and Time:</label>
-              <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
-            </div>
-            </div>-->
-          </div>
-        
-        <div class="input-block">
-        <label  for="event_description" class="input-label">Description:</label>                                               
-        <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-              <div class="input-block">               
-                <label  for="event_address_name" class="input-label">Location:</label>
-                <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
-              </div>
-            </div>
-            <div class="col-md-6">
-             <div class="input-block">
-                <label  for="event_address_url" class="input-label">Location URL:</label>
-               <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
-              </div>
-        </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-        
-        <div class="input-block">  
-        <label  for="event_address" class="input-label">Address:</label>
-        <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
-        </div>
-        </div>
-            <div class="col-md-6">
-        <div class="input-block">
-        <label  for="event_location" class="input-label">Location:</label>
-        <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
-        </div>
-
-        </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-
-        <div class="modal-buttons">       
-        <button  class="input-button"onclick="update_event(<?php echo  $result->id ?>)">Save</button>   
-      
-      </div>
-
-      </div>
-        </div>
-
-        </div>
           
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-block">
+                    <label  for="event_description" class="input-label">Description:</label>                                               
+                    <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
+                  </div>
+                </div>
+              </div>
 
-      
-      
-      
-      </form>
-     </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-block">               
+                    <label  for="event_address_name" class="input-label">Location:</label>
+                    <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-block">
+                    <label  for="event_address_url" class="input-label">Location URL:</label>
+                    <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-6">        
+                  <div class="input-block">  
+                    <label  for="event_address" class="input-label">Address:</label>
+                    <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-block">
+                    <label  for="event_location" class="input-label">Location:</label>
+                    <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="modal-buttons">       
+                    <button type="button" data-dismiss="modal" class="ybutton"   onclick="update_event(<?php echo  $result->id ?>)">Save</button> 
+                  </div>
+               </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
 
      <div class="modal-right">
       <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
@@ -803,10 +712,14 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
       </button>
       
    </div>
-   <button class="modal-button">Edit Event</button>
+ 
+
+      <button class="modal-button"><i class="fas fa-edit"></i> Edit</button>
+      
+ 
    
 </div>
-
+<?php endif ?>
 
 
 
@@ -1210,7 +1123,8 @@ function icsGotoPageEvent(pageNumber) {
 
 
   function update_event(eventid){
-  
+ 
+ 
     passed_data={"event":eventid,      
       "title":document.getElementById('event_title').value,
       "start_date":document.getElementById('start_datetime').value,
@@ -1223,7 +1137,7 @@ function icsGotoPageEvent(pageNumber) {
       "is_active":1
     };
     
-
+  
 
     jQuery.ajax({
       type: "post",
@@ -1236,7 +1150,7 @@ data: {
 complete: function (response) {
  
     console.log(response.responseText);
-    //alert(response.responseText);
+    window.location.reload();
   //  alert(newHTML);
   //alert(enventid_array[0]);
   // Append HTML content to the div
