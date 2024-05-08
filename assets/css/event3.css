@@ -61,7 +61,10 @@ border-radius: 10px;
     font-size: 28px;
     font-weight: bold;
   }
+  .close-button:hover{
 
+    background-color:transparent;
+  }
   .close:hover,
   .close:focus {
     color: black;

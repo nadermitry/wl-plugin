@@ -520,17 +520,20 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
   <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for a large modal -->
     <div class="modal-content">
       <div class="modal-header ">
-      <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   
+          <span aria-hidden="true" class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+      
         <h5 class="modal-title" id="bigModalLabel">Add gifts to <?php echo $result->title; ?> </h5>
        
         <form class="form-inline my-2 my-lg-0">
-         
-
-        <input  class="form-control mr-sm-2" type="search" id="newsearch" placeholder="Search..." aria-label="Search">
+          < container
+        <div class="row">
+        <div class="col-md-6">
+        <input  style="margin:15px" class="form-control large-input mr-sm-2 ml-5 mr-5" type="search" id="newsearch" placeholder="Search..." aria-label="Search">
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </div>
+        </div>
         </form>
         
       </div>
@@ -546,7 +549,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
         <?php  echo $this->trim_and_add_dots(stripcslashes($gift->title),60) ?>
         <div id="giftsControl-G<?php echo $gift->id ?>" style="float:right;"> 
-            <button onclick="add_to_event(<?php echo $gift->id ?>,<?php echo  $result->id ?>)">Add</button>
+            <button class="ybutton" onclick="add_to_event(<?php echo $gift->id ?>,<?php echo  $result->id ?>)">Add</button>
         </div>
     </li>
     
@@ -563,7 +566,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="ybutton"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
        
       </div>
     </div>
@@ -578,10 +581,10 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image
+                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image </h5>
                    
-                        <span class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
-                        </h5>
+                        <span  class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
+                        
                 </div>
                 
                 <form id="file-upload-form" method="post" enctype="multipart/form-data">
