@@ -1,3 +1,5 @@
+
+
 <style>
   @import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700");
 * {
@@ -222,6 +224,23 @@
   }
 }
 
+ .code .badge-active {
+    background-color: green; /* Bootstrap's secondary color */
+    color: white; /* Text color */
+    font-size: 75%; /* Adjust font size as needed */
+    padding: 0.25em 0.4em; /* Adjust padding as needed */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+.code .badge-inactive {
+    background-color: red; /* Bootstrap's secondary color */
+    color: white; /* Text color */
+    font-size: 75%; /* Adjust font size as needed */
+    padding: 0.25em 0.4em; /* Adjust padding as needed */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+
+
 </style>
 
 
@@ -276,10 +295,23 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="col-md-5">
   <!-- Product Description -->
   <div class="product-description">
+
+  <?php if ($isCurrentUser) :?>
+    <div class="code">
+    <?php if ($result->is_active == 1) :?>
+      <span class="badge-active">Active</span>   
+      <?php else : ?>  
+      <span class="badge-inactive">In-active</span>   
+      <?php endif ?>         
+    </div> 
+  <?php endif ?>  
+
+           
+
   <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
    <!-- <span>Event</span>-->
    
-             
+        
     
 
     <div class="product-price">
@@ -329,6 +361,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
               <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
             </div>
           </div> 
+         
 
          <!-- <div class="col-md-6">
             <div class="cable-choose">
@@ -526,7 +559,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <h5 class="modal-title" id="bigModalLabel">Add gifts to <?php echo $result->title; ?> </h5>
        
         <form class="form-inline my-2 my-lg-0">
-          < container
+        
         <div class="row">
         <div class="col-md-6">
         <input  style="margin:15px" class="form-control large-input mr-sm-2 ml-5 mr-5" type="search" id="newsearch" placeholder="Search..." aria-label="Search">
@@ -687,6 +720,16 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                     <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="input-block">
+                    <label  for="is_active" class="input-label">Active:</label>
+                    <input type="checkbox" name="is_active"   id="is_active" 
+                    <?php 
+                    $checked="";
+                    if ($result->is_active==1){$checked=" checked";} ;
+                    echo $checked?>>  
+                  </div>
+                </div>
 
               </div>
 
@@ -718,6 +761,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
  
 
       <button class="modal-button"><i class="fas fa-edit"></i> Edit</button>
+     
       
  
    
@@ -1127,7 +1171,7 @@ function icsGotoPageEvent(pageNumber) {
 
   function update_event(eventid){
  
- 
+   
     passed_data={"event":eventid,      
       "title":document.getElementById('event_title').value,
       "start_date":document.getElementById('start_datetime').value,
@@ -1137,7 +1181,7 @@ function icsGotoPageEvent(pageNumber) {
       "location_url":document.getElementById('event_address_url').value,
       "location_address":document.getElementById('event_address').value,
       "location_map":document.getElementById('event_location').value,
-      "is_active":1
+      "is_active":+document.getElementById('is_active').checked
     };
     
   
@@ -1151,7 +1195,7 @@ data: {
   data: passed_data,         // any JS object
 },
 complete: function (response) {
- 
+    
     console.log(response.responseText);
     window.location.reload();
   //  alert(newHTML);

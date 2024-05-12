@@ -418,12 +418,17 @@ function wl_ajax_update_event() {
 		'location_name' => $data['location_name'],
 		'location_url' => $data['location_url'],
 		'location_address' => $data['location_address'],
-		'location_map' => $data['location_map']
+		'location_map' => $data['location_map'],
+		'is_active' => $data['is_active']
 		
 	);
 
 
 	$wpdb->update( $table_name, $updateData, $where_condition );
+
+	//wp_send_json_success( $data['is_active']);
+	
+	wp_die();
 }
 add_action('wp_ajax_wl_update_event'       , 'wl_ajax_update_event');
 add_action('wp_ajax_nopriv_wl_update_event', 'wl_ajax_update_event'); 
@@ -1350,7 +1355,7 @@ function before_main_content(){
 	  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
 	  z-index: 999;
 	}
-	
+
 	.modal.show .modal-dialog {
 		transform: none;
 	}

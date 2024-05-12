@@ -131,9 +131,18 @@ class Event extends BaseController {
         $query = "SELECT * FROM $this->table_name $additional_condition LIMIT 1";
         $result = $this->db->get_row($query);
        
+
         $currentURL = home_url( add_query_arg( NULL, NULL ));       
         $isCurrentUser = ($result->user_id == $this->current_user->ID);
+        $isActiveEvent= $result->is_active;
        
+       
+
+        
+        
+
+
+
         $image_path = get_user_meta($this->current_user->ID, 'wp_user_avatars', true);
 
         
@@ -167,13 +176,29 @@ class Event extends BaseController {
 
 
         ob_start();	
-        if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate .'.php' )) {
-            require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate.'.php';
-        }  
+
+        if ($isActiveEvent or $isCurrentUser) 
+        {
+            if (file_exists( dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate .'.php' )) {
+                require_once dirname( __FILE__,3 ) . '/templates/event/'.$eventTemplate.'.php';
+            }
+        } 
+        else
+            {
+                if (file_exists( dirname( __FILE__,3 ) . '/templates/event/event404.php' )) {
+                    require_once dirname( __FILE__,3 ) . '/templates/event/event404.php';
+                }
+
+           } 
 
         $output_string = ob_get_contents();
         ob_end_clean();
         return $output_string;
+
+
+   
+
+    
     }
 
 
