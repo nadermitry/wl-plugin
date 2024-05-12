@@ -563,10 +563,12 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <div class="row">
         <div class="col-md-6">
         <input  style="margin:15px" class="form-control large-input mr-sm-2 ml-5 mr-5" type="search" id="newsearch" placeholder="Search..." aria-label="Search">
+        
+        
+        <input  style="margin:15px;width:300px" class="form-control input-lg " type="search" id="newsearch" placeholder="Search..." aria-label="Search">
          <!-- You can add a search button if needed -->
          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-        </div>
-        </div>
+        
         </form>
         
       </div>
