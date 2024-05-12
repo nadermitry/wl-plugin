@@ -290,15 +290,6 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="col-md-5">
   <!-- Product Description -->
   <div class="product-description">
-	<?php if ($isCurrentUser) :?>
-    <div class="code">
-    <?php if ($result->is_active == 1) :?>
-      <span class="badge-active">Active</span>   
-      <?php else : ?>  
-      <span class="badge-inactive">In-active</span>   
-      <?php endif ?>         
-    </div> 
-  <?php endif ?> 				  
   <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
    <!-- <span>Event</span>-->
    

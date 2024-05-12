@@ -1,245 +1,54 @@
 <style>
-  @import url("https://fonts.googleapis.com/css?family=Nunito:400,600,700");
-* {
-  box-sizing: border-box;
+
+
+
+/* Active button style */
+.ics-page-numbers.active {
+  background-color: var(--gbl-primary-color); 
+  color: #ffffff; /* White text color for active state */
 }
 
 
 
-.modal1 {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  background: rgba(51, 51, 51, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: 0.4s;
-}
-.modal-container {
-  display: flex;
-  max-width: 1000px;
-  width: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  transition-duration: 0.3s;
-  background: #fff;
-  transform: translateY(100px) scale(0.4);
-}
-.modal-title {
-  font-size: 26px;
-  margin: 0;
-  font-weight: 400;
-  color: #55311c;
-}
-.modal-desc {
-  margin: 6px 0 30px 0;
-}
-.modal-left {
-  padding: 60px 30px 20px;
-  background: #fff;
-  flex: 3;
-  transition-duration: 0.5s;
-  transform: translateY(80px);
-  opacity: 0;
-}
-.modal-button {
-  color: #7d695e;
-  font-family: "Nunito", sans-serif;
-  font-size: 18px;
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  padding: 10px 40px;
-  border-radius: 30px;
-  background: white;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
-  transition: 0.3s;
-}
-.modal-button:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.8);
-}
-.modal-right {
-  flex: 2;
-  font-size: 0;
-  transition: 0.3s;
-  overflow: hidden;
-}
-.modal-right img {
-  width: 100%;
-  height: 100%;
-  transform: scale(2);
-  -o-object-fit: cover;
-     object-fit: cover;
-  transition-duration: 1.2s;
-}
-.modal1.is-open {
-  height: 100%;
-  background: rgba(51, 51, 51, 0.85);
-}
-.modal1.is-open .modal-button {
-  opacity: 0;
-}
-.modal1.is-open .modal-container {
-  opacity: 1;
-  transition-duration: 0.6s;
-  pointer-events: auto;
-  transform: translateY(0) scale(1);
-}
-.modal1.is-open .modal-right img {
-  transform: scale(1);
-}
-.modal1.is-open .modal-left {
-  transform: translateY(0);
-  opacity: 1;
-  transition-delay: 0.1s;
-}
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal-buttons a {
-  color: rgba(51, 51, 51, 0.6);
-  font-size: 14px;
+.wl-pagination button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
 }
 
-.sign-up {
-  margin: 60px 0 0;
-  font-size: 14px;
-  text-align: center;
-}
-.sign-up a {
-  color: #8c7569;
-}
-
-.input-button {
-  padding: 8px 12px;
-  outline: none;
-  border: 0;
-  color: #fff;
-  border-radius: 4px;
-  background: #8c7569;
-  font-family: "Nunito", sans-serif;
-  transition: 0.3s;
-  cursor: pointer;
-}
-.input-button:hover {
-  background: #55311c;
-}
-
-.input-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.7px;
-  color: #8c7569;
-  transition: 0.3s;
-}
-
-.input-block {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 10px 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  transition: 0.3s;
-}
-.input-block input {
-  outline: 0;
-  border: 0;
-  padding: 4px 0 0;
-  font-size: 14px;
-  font-family: "Nunito", sans-serif;
-}
-.input-block input::-moz-placeholder {
-  color: #ccc;
-  opacity: 1;
-}
-.input-block input:-ms-input-placeholder {
-  color: #ccc;
-  opacity: 1;
-}
-.input-block input::placeholder {
-  color: #ccc;
-  opacity: 1;
-}
-.input-block:focus-within {
-  border-color: #8c7569;
-}
-.input-block:focus-within .input-label {
-  color: rgba(140, 117, 105, 0.8);
-}
-
-.icon-button {
-  outline: 0;
-  position: absolute;
-  right: 10px;
-  top: 12px;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  background: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.scroll-down {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #7d695e;
-  font-size: 32px;
-  font-weight: 800;
-  transform: translate(-50%, -50%);
-}
-.scroll-down svg {
-  margin-top: 16px;
-  width: 52px;
-  fill: currentColor;
-}
-
-@media (max-width: 750px) {
-  .modal-container {
-    width: 90%;
-  }
-
-  .modal-right {
-    display: none;
-  }
-}
-.code .badge-active {
-    background-color: green; /* Bootstrap's secondary color */
-    color: white; /* Text color */
-    font-size: 75%; /* Adjust font size as needed */
-    padding: 0.25em 0.4em; /* Adjust padding as needed */
-    border-radius: 0.25rem; /* Rounded corners */
-}
-.code .badge-inactive {
-    background-color: red; /* Bootstrap's secondary color */
-    color: white; /* Text color */
-    font-size: 75%; /* Adjust font size as needed */
-    padding: 0.25em 0.4em; /* Adjust padding as needed */
-    border-radius: 0.25rem; /* Rounded corners */
-}
-
-</style>
+ </style> 
 
 
-<?php 
+
+
+
+
+
+<div class="bs-blog-post single"> 
+    <div class="bs-header">
+        
+        
+
+        <h1 class="title"> 
+            <?php echo stripcslashes(sanitize_text_field($result->title)); ?>
+        </h1>
+        <?php if ($isCurrentUser) :?>
+             
+             <div class="bs-blog-category">
+                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>                    
+             </div>
+ 
+         <?php endif ?>
+
+        <article class="small single">
+            <?php echo stripcslashes(sanitize_text_field($result->description)) ; ?> 
+        </article>
+
+
+         <?php 
 
 $dateString = $result->start_date; // Example DateTime string
 
@@ -265,133 +74,70 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
 
-<div>
+        <div class="bs-info-author-block">
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                 <?php echo $date;?> at  <?php echo $time;?>
+                </span>                
+            </div>
+          
+            <?php if ( $result->end_date !='0000-00-00 00:00:00') :?>
+              <div class="bs-blog-meta mt-3 mb-0">                
+                  <span class="bs-blog-date">
+                  <?php echo $end_date;?> at  <?php echo $end_time;?>
+                  </span>                
+              </div>
+            <?php endif?>
 
-<div class="container11">
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                    <a target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
+                </span>                
+            </div>
 
-<!-- Left Column / Headphones Image 
-<div class="left-column">-->
-<div class="row">
-<div class="col-md-7">
-  
-  <img data-image="red" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
-  
-  <?php if ($isCurrentUser) :?>
-    <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
-              <?php endif ?>
- 
-            
-
-</div>
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                    <a target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
+                </span>                
+            </div>
 
 
-<!-- Right Column 
-<div class="right-column"> -->
-<div class="col-md-5">
-  <!-- Product Description -->
-  <div class="product-description">
-	<?php if ($isCurrentUser) :?>
-    <div class="code">
-    <?php if ($result->is_active == 1) :?>
-      <span class="badge-active">Active</span>   
-      <?php else : ?>  
-      <span class="badge-inactive">In-active</span>   
-      <?php endif ?>         
-    </div> 
-  <?php endif ?> 				  
-  <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>
-   <!-- <span>Event</span>-->
-   
-             
+            <div class="bs-blog-meta mt-3 mb-0">                
+                <span class="bs-blog-date">
+                    <a target="_blank" href="<?php echo $result->location_map?>"> Map</a>
+                </span>                
+            </div>
+        
+      
+
+        </div>
+
+    </div>
     
 
-    <div class="product-price">
-    <!--<span>148$</span>-->
-    </div>
- 
-       
+    <div class="image-container position-relative">
+          <img  fetchpriority="high" width="1250" height="850"  alt="Original Image" class="img-fluid" id="originalImage" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async">
    
-    <p><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></p>
-  </div>
-
-  <!-- Product Configuration -->
-  <div class="product-configuration">
-
-    <!-- Product Color 
-    <div class="product-color">
-      <span>Color</span>
-
-      <div class="color-choose">
-        <div>
-          <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-          <label for="red"><span></span></label>
-        </div>
-        <div>
-          <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-          <label for="blue"><span></span></label>
-        </div>
-        <div>
-          <input data-image="black" type="radio" id="black" name="color" value="black">
-          <label for="black"><span></span></label>
-        </div>
-      </div>
-
-    </div>
-    -->
-
-    <!-- Cable Configuration -->
-    <div class="cable-config">
-      <!--<span>Cable configuration</span>-->     
       
-      <div class="container">
-        <!-- Left Column / Headphones Image 
-        <div class="left-column">-->
-        <div class="row">
-          <div class="col-md-12">          
-            <div class="cable-choose">
-              <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $date;?>   <?php echo $time;?></button>
-            </div>
-          </div> 
-
-         <!-- <div class="col-md-6">
-            <div class="cable-choose">
-              <button><i class="fas fa-calendar-alt mr-2"></i> <?php echo $end_date;?> <?php echo $end_time;?></button>
-            </div> 
-          </div>-->
-
-        </div> 
-      </div> 
-           
-          
-      
-
-      
+    
      
-      <div class=" mt-0 mb-0">                
-               
-                    <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
-                           
-            </div>
-
-            <div class=" mt-0 mb-0">                
-                
-                    <a  class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
-                           
-            </div>
 
 
-            <div class=" mt-0 mb-0">                
-                <span class="bs-blog-date">
-                    <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_map?>"> Map</a>
-                </span>                
-            </div>  
-            
 
+    
+    <!-- <img fetchpriority="high" width="1250" height="850"  id="originalImage" alt="Original Image"
+    src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" class="img-fluid wp-post-image" alt="" decoding="async" 
+    srcset="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1250w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 300w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 1024w,
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 768w, 
+    <?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?> 600w"
+    sizes="(max-width: 1250px) 100vw, 1250px">  -->
 
-            <?php if ($isCurrentUser) :?>
-            
-            
-            <article class="small single ">     
+    
+    <button class="btn btn-primary choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
+  </div> 
+    <article class="small single">     
         <div class="post-share">
             <div class="post-share-icons cf"> 
 
@@ -399,16 +145,16 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                     <i class="fab fa-facebook"></i>
                 </a>
 
-                  <!--  <a class="x-twitter" href="http://twitter.com/share?url=<?php echo $currentURL ;?>" target="_blank">
+                    <a class="x-twitter" href="http://twitter.com/share?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fa-brands fa-x-twitter"></i>
-                    </a>-->
+                    </a>
 
                     <a class="envelope" href="mailto:?subject=<?php echo $result->title; ?>&amp;body=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fas fa-envelope-open"></i>
                     </a>
-                    <!--<a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $currentURL ;?>" target="_blank">
+                    <a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fab fa-linkedin"></i>
-                    </a>-->
+                    </a>
                                
                     <a class="telegram" href="https://t.me/share/url?url=<?php echo $currentURL ;?>&amp;title=<?php echo $result->title; ?>" target="_blank">
                         <i class="fab fa-telegram"></i>
@@ -419,7 +165,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                                     <a class="reddit" href="https://www.reddit.com/submit?url=<?php echo $currentURL ;?>" target="_blank">
                         <i class="fab fa-reddit"></i>
                     </a>
-                    <!--<a class="whatsapp" href="javascript:window.print()"> <i class="fas fa-print"></i></a>-->
+                    <a class="whatsapp" href="javascript:window.print()"> <i class="fas fa-print"></i></a>
             </div>
         </div>
 
@@ -429,79 +175,50 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
     </article>
 
-    <?php endif ?>
-    </div>
-
-    
-  </div>  
-</div>
-</div>
-</div>
-
-</div>
-
    
-     
-   
+</div>
 
-<h3>Wish List</h3>
-<div  class="container12">    
-      
-      <div style="width:60%">
-        <div class="button-container">
-          <input class="form-control mr-sm-2 ml-2  col-md-6" type="search" id="search" placeholder="Search..." aria-label="Search">
-            <?php if ($isCurrentUser) :?>
-              <button type="button" class="ybutton btn-primary mr-2" data-toggle="modal" data-target="#bigModal">Add Gifts</button>             
-            <?php endif ?> 
-        </div>      
-   </div>
- </div>
- 
+
+
 <div class="container">
   <!-- List -->
 
-  
-  
-  
+  <ul  class="list-group">
+   
 
+   <li id="li0" class="list-group-item">
+   
+       Wish List
+       
+        <button type="button"  style="float:right;" class="btn btn-primary" data-toggle="modal" data-target="#bigModal"> add Gifts</button>               
+        
+             <input style="float:right;" class="form-control mr-sm-2 col-md-3" type="search" id="search" placeholder="Search..." aria-label="Search">
+              <!-- You can add a search button if needed -->
+             <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+           
+         
+         
+        
+    
+     </li>
 
+  </ul>
 
   <ul id="list" class="list-group">
 
     
     <?php foreach ($gifts as $gift) : ?>
-
-        
-
-      <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item"> 
-        
+        <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">
+        <img width="65px" src="<?php echo $gift->img_url?>" ?>
+        <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
+       <div style="float:right;">                 
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
+        <button onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>
+        <button  onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
         
        
-
-
-
-        <div class="image">
-            <img src="<?php echo $gift->img_url?>" alt="Your Image">
-        </div>
-        <div class="xtext">
-            <p> <?php  echo $this->trim_and_add_dots($gift->title,60) ?></p>
-            
-        </div>
-
-        <div class="xbutton-group">            
-          <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
-      <!--    <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>-->
-          <?php if ($isCurrentUser) :?>
-            <button class="xbutton" onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
-          <?php endif ?>
-        </div>
-
-       
+    </div>
     </li>
-
-
-
-
     
         <?php endforeach ; ?>
   </ul>
@@ -536,7 +253,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 <?php  //endforeach ?>
 
-<?php if ($isCurrentUser) :?>
+
 
 <!-- Big Modal -->
 <div class="modal fade" id="bigModal" tabindex="-1" aria-labelledby="bigModalLabel" aria-hidden="true">
@@ -594,17 +311,101 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 </div>
 
 
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog "> <!-- Use modal-lg class for a large modal -->
+    <div class="modal-content">
+      <div class="modal-header ">
+      <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="editModalLabel">Edit <?php echo $result->title; ?> </h5>       
+       
+      
+      </div>
+      <div class="modal-body">     
 
+        <!-- Modal Content Goes Here -->
+        
+            <div class="container">
+               <div class="row">
+                  <div class="">                    
+                      <form id="event-form" method="post" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="">
+                          <label>Title:</label>
+                          <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
+                        </div>                       
+                      
+                        <div class="">
+                          <label>Start Date and Time:</label>
+                          <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
+                        </div>
+                        <div class="">
+                          <label>End Date and Time:</label>
+                          <input type="datetime-local" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="">
+                        <label>Description:</label>                                               
+                        <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
+                        </div>
+                      </div>  
+                      <div class="row"> 
+                      <div class="">               
+                        <label>Location:</label>
+                        <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
+                        </div>
+                        <div class="">
+                        <label>Location URL:</label>
+                        <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
+                        </div>
+                      </div> 
+                      <div class="row"> 
+                      <div class="">  
+                        <label>Address:</label>
+                        <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
+                        </div>
+                        <div class="">
+                        <label>Location:</label>
+                        <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
+                        </div>
+                        </div>
+                       <br>
+                        <div class="modal-footer">
+                         
+                        
+                          <button data-dismiss="modal" onclick="update_event(<?php echo  $result->id ?>)">Save</button>  
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+   
+        
+      </div>
+
+          
+
+
+      
+    </div>
+  </div>
+</div>
+<!-- Edit Modal End -->
 
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image
-                   
-                        <span class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
-                        </h5>
+                    <h5 class="modal-title" id="imageModalLabel">Choose Another Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 
                 <form id="file-upload-form" method="post" enctype="multipart/form-data">
@@ -632,128 +433,6 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         </div>
     </div>
 
-  
-     
-
-
-
-    <?php endif ?>
-
-  <?php if ($isCurrentUser) :?>
-    <div class="modal1">  
-      <div class="modal-container">  
-        <div class="modal-left">
-          <form id="event-form" method="post" enctype="multipart/form-data">      
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="input-block">
-                    <label for="event_title" class="input-label">Title:</label>
-                    <input type="text" value=" <?php echo stripcslashes(sanitize_text_field($result->title)); ?>" id="event_title" name="event_title" required>
-                  </div>   
-                </div>
-          
-                <div class="col-md-6">
-                  <div class="input-block">
-                    <label  for="start_datetime" class="input-label" >Start Date and Time:</label>
-                    <input type="datetime-local"  value="<?php echo $result->start_date; ?>" id="start_datetime" name="start_datetime" required>
-                  </div>
-                </div>
-                <!-- <div class="col-md-6">
-                  <div class="input-block">
-                    <label  for="end_datetime" class="input-label">End Date and Time:</label>-->
-                    <input type="hidden" value="<?php echo $result->end_date; ?>" id="end_datetime" name="end_datetime">
-                  <!-- </div>
-                </div>-->
-              </div>
-          
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="input-block">
-                    <label  for="event_description" class="input-label">Description:</label>                                               
-                    <textarea id="event_description"  name="event_description" rows="3" cols="50"><?php echo stripcslashes(sanitize_text_field($result->description)) ; ?></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="input-block">               
-                    <label  for="event_address_name" class="input-label">Location:</label>
-                    <input type="text"     value="<?php echo sanitize_text_field($result->location_name)?>" id="event_address_name" name="event_address_name" required>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="input-block">
-                    <label  for="event_address_url" class="input-label">Location URL:</label>
-                    <input type="text"  value="<?php echo $result->location_url?>"  id="event_address_url"  name="event_address_url" >
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-
-                <div class="col-md-6">        
-                  <div class="input-block">  
-                    <label  for="event_address" class="input-label">Address:</label>
-                    <input type="text" name="event_address"  id="event_address" value="<?php echo sanitize_text_field($result->location_address)?>" required>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="input-block">
-                    <label  for="event_location" class="input-label">Location:</label>
-                    <input type="text" name="event_location"   id="event_location" value="<?php echo $result->location_map?>">  
-                  </div>
-                </div>		       						  
-				 <div class="col-md-6">
-                  <div class="input-block">
-                    <label  for="is_active" class="input-label">Active:</label>
-                    <input type="checkbox" name="is_active"   id="is_active" 
-                    <?php 
-                    $checked="";
-                    if ($result->is_active==1){$checked=" checked";} ;
-                    echo $checked?>>  
-                  </div>
-                </div>
-					   
-
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="modal-buttons">       
-                    <button type="button" data-dismiss="modal" class="ybutton"   onclick="update_event(<?php echo  $result->id ?>)">Save</button> 
-                  </div>
-               </div>
-              </div>
-
-            </div>
-          </form>
-        </div>
-
-     <div class="modal-right">
-      <img src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
-    </div>
-
-
-     
-     <button class="icon-button close-button">
-         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-     <path d="M 25 3 C 12.86158 3 3 12.86158 3 25 C 3 37.13842 12.86158 47 25 47 C 37.13842 47 47 37.13842 47 25 C 47 12.86158 37.13842 3 25 3 z M 25 5 C 36.05754 5 45 13.94246 45 25 C 45 36.05754 36.05754 45 25 45 C 13.94246 45 5 36.05754 5 25 C 5 13.94246 13.94246 5 25 5 z M 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.980469 15.990234 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 z"></path>
-    </svg>
-      </button>
-      
-   </div>
- 
-
-      <button class="modal-button"><i class="fas fa-edit"></i> Edit</button>
-      
- 
-   
-</div>
-<?php endif ?>
 
 
 
@@ -766,38 +445,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <script>
 
 
-const body = document.querySelector("body");
-const modal = document.querySelector(".modal1");
-const modalButton = document.querySelector(".modal-button");
-const closeButton = document.querySelector(".close-button");
-const scrollDown = document.querySelector(".scroll-down");
-let isOpened = false;
 
-const openModal = () => {
-  modal.classList.add("is-open");
-  body.style.overflow = "hidden";
-};
-
-const closeModal = () => {
-  modal.classList.remove("is-open");
-  body.style.overflow = "initial";
-};
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > window.innerHeight / 3 && !isOpened) {
-    isOpened = true;
-    scrollDown.style.display = "none";
-    openModal();
-  }
-});
-
-modalButton.addEventListener("click", openModal);
-closeButton.addEventListener("click", closeModal);
-
-document.onkeydown = evt => {
-  evt = evt || window.event;
-  evt.keyCode === 27 ? closeModal() : false;
-};
 
 
 
@@ -825,7 +473,12 @@ function findMinimum(arr) {
 
 
 
-   
+   var itemsPerPage = 5; // Change this to adjust items per page
+    var listItems = $("#list").children();
+    var numItems = listItems.length;
+    var numPages = Math.ceil(numItems / itemsPerPage);
+    //alert('CurrentPage');
+    var CurrentPage = 1;
     
 
 
@@ -844,18 +497,9 @@ $('#bigModal').on('hidden.bs.modal', function () {
  
 
 
-  //var itemsPerPage = 5; // Change this to adjust items per page
-   // var listItems = $("#list").children();
-  //  var numItems = listItems.length;
-   // var numPages = Math.ceil(numItems / itemsPerPage);
-    //alert('CurrentPage');
-   // var CurrentPage = 1;
-
-
-
 var itemsPerPageEvent = 3; // Change this to adjust items per page
 var listItemsEvent = $("#list").children();
-var numItemsEvent = listItemsEvent.length;
+var numItemsEvent = listItems.length;
 var numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
 var pagesToShowEvent = 5; // Number of page numbers to show at a time
 var currentPageEvent = 1; // Set the default current page
@@ -906,7 +550,16 @@ function icsGeneratePaginationEvent(containrtId,currentPage) {
 
 
 
-
+// Function to handle pagination navigation
+function icsGotoPageEvent(pageNumber) {
+    currentPage = pageNumber; // Update current page
+    icsGeneratePaginationEvent("#pagination",currentPage);   // Generate pagination with the updated current page
+    var newstartIndex = (pageNumber - 1) * 3;
+    var newendIndex = newstartIndex +  3;   
+    
+    listItemsEvent.hide().slice(newstartIndex, newendIndex).show();    
+   // console.log('Showing page ' + pageNumber);
+}
 
 
 
@@ -971,7 +624,7 @@ function icsGeneratePagination(containrtId,currentPage) {
 
 
 // Function to handle pagination navigation
-function icsGotoPage(pageNumber) {
+function icsGotoPage(pageNumber,) {
     currentPage = pageNumber; // Update current page
     icsGeneratePagination("#newpagination",currentPage);   // Generate pagination with the updated current page
     var newstartIndex = (pageNumber - 1) * newitemsPerPage;
@@ -1023,10 +676,10 @@ function icsGotoPageEvent(pageNumber) {
     });
 
 // Initialize pagination
-    listItemsEvent = $("#list").children();
-       
+    var listItemsEvent = $("#list").children();
+    var itemsPerPageEvent =3;    
     var containerIdEvent = "#pagination";
-    
+    var itemsPerPageEvent = 3
     
     icsGeneratePaginationEvent("#pagination",1);
     icsGotoPageEvent(1)
@@ -1066,16 +719,14 @@ function icsGotoPageEvent(pageNumber) {
 
 
 
-    $("#search").on("keyup", function() {      
+    $("#search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#list li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
-    
       // Update pagination after filtering
       listItemsEvent = $("#list").children(":visible");
       numItemsEvent = listItemsEvent.length;
-     
       numPagesEvent = Math.ceil(numItemsEvent / itemsPerPageEvent);
       icsGeneratePaginationEvent("#pagination",1); 
       // Show first page by default
@@ -1157,8 +808,7 @@ function icsGotoPageEvent(pageNumber) {
 
 
   function update_event(eventid){
- 
- 
+  
     passed_data={"event":eventid,      
       "title":document.getElementById('event_title').value,
       "start_date":document.getElementById('start_datetime').value,
@@ -1168,10 +818,10 @@ function icsGotoPageEvent(pageNumber) {
       "location_url":document.getElementById('event_address_url').value,
       "location_address":document.getElementById('event_address').value,
       "location_map":document.getElementById('event_location').value,
-      "is_active":+document.getElementById('is_active').checked
+      "is_active":1
     };
     
-  
+
 
     jQuery.ajax({
       type: "post",
@@ -1184,7 +834,7 @@ data: {
 complete: function (response) {
  
     console.log(response.responseText);
-    window.location.reload();
+    //alert(response.responseText);
   //  alert(newHTML);
   //alert(enventid_array[0]);
   // Append HTML content to the div

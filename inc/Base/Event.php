@@ -163,7 +163,7 @@ class Event extends BaseController {
             array(), // Dependencies (optional)
             '1.0' // Style version (optional)
         );
-        $eventTemplate ='event3';
+        $eventTemplate ='event';
        
         wp_enqueue_style(
             $eventTemplate.'-style', // Unique handle for the style
