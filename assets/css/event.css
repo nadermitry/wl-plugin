@@ -17,14 +17,11 @@
     /* Style for the button */
     .choose-image-button {
                 position: absolute;
-                top: 20%;
-                left: 70%;
-                transform: translate(-20%, -70%);
+                top:  7%;
+                left: 93%;
+                transform: translate(-50%, -50%);
             }
-    
-    
-    
-    
+
     .modal.show .modal-dialog {
         transform: none;
     }
@@ -472,7 +469,7 @@
       font-size: 14px;
       font-weight: 400;
       color: #86939E;
-      margin-bottom: 20px;
+      /*margin-bottom: 20px;*/
       display: inline-block;
     }
     
@@ -554,7 +551,7 @@
       text-decoration: none;
       font-size: 12px;
       position: relative;
-      margin: 10px 0;
+      /*margin: 10px 0;*/
       display: inline-block;
     }
     .cable-config a:before {
@@ -678,6 +675,25 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+
+    .redbutton {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background-color: #d10a0a;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .redbutton:hover {
+      background-color:  #990808;
     }
     
     .ybutton {  

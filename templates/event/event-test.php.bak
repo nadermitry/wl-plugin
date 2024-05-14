@@ -269,9 +269,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 <div class="container11">
 
-    <!-- Left Column / Headphones Image 
-  <div class="left-column">-->
- <div class="row">
+<!-- Left Column / Headphones Image 
+<div class="left-column">-->
+<div class="row">
   <div class="product-description col-md-12">
   <?php if ($isCurrentUser) :?>
     <div class="code">
@@ -286,13 +286,12 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
   </div>
 </div>
 <div class="row">
-<div class="col-md-7 mb-4">
+<div class="col-md-7">
   
   <img data-image="red" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
   
   <?php if ($isCurrentUser) :?>
-    <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal"><i class="fas fa-edit"></i></button>
-                                                                             
+    <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal">Choose Image</button>
               <?php endif ?>
  
             
@@ -304,8 +303,8 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="right-column"> -->
 <div class="col-md-5">
   
-   <div class="product-description">
-	 <!--   <?php if ($isCurrentUser) :?>
+ <!--  <div class="product-description">
+	    <?php if ($isCurrentUser) :?>
       <div class="code">
         <?php if ($result->is_active == 1) :?>
           <span class="badge-active">Active</span>   
@@ -384,25 +383,23 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
       
      
       <div class=" mt-0 mb-0">                
-      <span class="bs-blog-date"> 
-                   
-      <i class="fa-solid fa-house-chimney"></i> <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_url?>"> <?php echo sanitize_text_field($result->location_name); ?></a>
-      </span>                 
+               
+                    <a class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_url?>"><?php echo sanitize_text_field($result->location_name); ?></a>
+                           
             </div>
 
             <div class=" mt-0 mb-0">                
-              <span class="bs-blog-date">
-                <i class="fa-solid fa-location-dot"></i> <a  class=" mt-0 mb-0" target="_blank" href="https://www.google.com/maps?q=<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
-               <!-- <i class="fa-solid fa-location-dot"></i> <a class=" mt-0 mb-0" target="_blank" href="https://www.google.com/maps?q=<?php echo $result->location_map?>">Location on Google Maps</a>-->
-              </span>              
+                
+                    <a  class=" mt-0 mb-0" target="_blank" href="<?php echo $result->location_map?>"><?php echo sanitize_text_field($result->location_address);?></a>
+                           
             </div>
 
 
-          <!--  <div class=" mt-0 mb-0">                
+            <div class=" mt-0 mb-0">                
                 <span class="bs-blog-date">
-                <i class="fa-solid fa-location-dot"></i> <a class=" mt-0 mb-0" target="_blank" href="https://www.google.com/maps?q=<?php echo $result->location_map?>">Location on Google Maps</a>
+                    <a class=" mt-0 mb-0" target="_blank" href="https://www.google.com/maps?q=<?php echo $result->location_map?>">Location on Google Maps</a>
                 </span>                
-            </div> -->
+            </div>  
             
 
 
@@ -510,7 +507,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
           <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'views_count','<?php echo $gift->url?>')">View</button>
       <!--    <button class="xbutton" onclick="count_actions(<?php echo $gift->id?>,<?php echo $result->id?>,'purchase_count','<?php echo $gift->url?>')">Buy</button>-->
           <?php if ($isCurrentUser) :?>
-            <button class="redbutton" onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
+            <button class="xbutton" onclick="remove_from_event(<?php echo $gift->id?>,<?php echo $result->id?>,<?php echo $gift->event_gift_id?>)">Remove</button>
           <?php endif ?>
         </div>
 
