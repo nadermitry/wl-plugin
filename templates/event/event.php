@@ -238,7 +238,7 @@
 
 </style>
 
-
+<!-- TODO remove gift from event didnt refresh paging correctly -->
 <?php 
 
 $dateString = $result->start_date; // Example DateTime string
@@ -634,7 +634,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                 </div>
                 <div class="modal-footer">
                     <input type="submit"  class="btn btn-primary" name="submit" value="Upload File and save">                   
-                    <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>
+                   <!-- <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>-->
                 </div> 
                 </form>
 
@@ -1299,16 +1299,21 @@ icsGeneratePagination("#newpagination",CurrentPage);
         // Apply image button click event
         document.getElementById('applyImageButton').addEventListener('click', function() {
             // Fetch the new image from the file input
+          
+           
             var newImageFile = document.getElementById('newImageInput').files[0];
+            
             if (newImageFile) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
+                  alert(newImageFile);
                     document.getElementById('originalImage').src = e.target.result;
                 };
+               
                 reader.readAsDataURL(newImageFile);
             }
             // Close the modal
-            $('#imageModal').modal('hide');
+            //$('#imageModal').modal('hide');
         });
 
 
