@@ -266,12 +266,10 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
 
 <div>
-
-<div class="container11">
-
+<div class="container">
     <!-- Left Column / Headphones Image 
   <div class="left-column">-->
- <div class="row">
+  <div class="row">
   <div class="product-description col-md-12">
   <?php if ($isCurrentUser) :?>
     <div class="code">
@@ -285,6 +283,10 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     <h1> <?php echo stripcslashes(sanitize_text_field($result->title)); ?></h1>   
   </div>
 </div>
+</div>
+<div class="container11">
+
+
 <div class="row">
 <div class="col-md-7 mb-4">
   
@@ -501,9 +503,13 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
         <div class="image">
             <img src="<?php echo $gift->img_url?>" alt="Your Image">
         </div>
+        
+
         <div class="xtext">
             <p> <?php  echo $this->trim_and_add_dots($gift->title,60) ?></p>
-            
+            <div  ID="imgLoading<?php echo $gift->id;?>" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
         </div>
 
         <div class="xbutton-group">            
@@ -585,6 +591,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
     <?php foreach ($newgifts as $gift) : ?>
         <li class="list-group-item">
         <img width="65px" src="<?php echo $gift->img_url?>" ?>
+        <div  ID="imgAddGiftLoading<?php echo $gift->id;?>" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
         <?php  echo $this->trim_and_add_dots(stripcslashes($gift->title),60) ?>
         <div id="giftsControl-G<?php echo $gift->id ?>" style="float:right;"> 
             <button onclick="add_to_event(<?php echo $gift->id ?>,<?php echo  $result->id ?>)">Add</button>
@@ -788,7 +797,8 @@ const body = document.querySelector("body");
 const modal = document.querySelector(".modal1");
 const modalButton = document.querySelector(".modal-button");
 const closeButton = document.querySelector(".close-button");
-const scrollDown = document.querySelector(".scroll-down");
+//const scrollDown = document.querySelector(".scroll-down");
+const scrollDown = document.querySelector(".backtotop");
 let isOpened = false;
 
 const openModal = () => {
@@ -802,6 +812,7 @@ const closeModal = () => {
 };
 
 window.addEventListener("scroll", () => {
+  
   if (window.scrollY > window.innerHeight / 3 && !isOpened) {
     isOpened = true;
     scrollDown.style.display = "none";
@@ -1141,7 +1152,10 @@ function icsGotoPageEvent(pageNumber) {
      
         var myDiv = document.getElementById("giftsControl-G"+giftid);
        // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
-       
+        imgAddGiftLoading = document.getElementById("imgAddGiftLoading"+giftid);
+        imgAddGiftLoading.style.display = 'block';
+
+        
         enventid_array.push(eventid);
            
 
@@ -1166,7 +1180,8 @@ function icsGotoPageEvent(pageNumber) {
 //alert(enventid_array[0]);
              // Append HTML content to the div
              myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
-            
+             imgAddGiftLoading.style.display = 'none';
+
         },
     });
 
@@ -1220,14 +1235,17 @@ complete: function (response) {
   function remove_from_event(giftid,eventid,wishlistid=0){
        // var strDivName= 'EventsofGift' + giftid;
         var enventid_array = [];
-  
-       var myDiv = document.getElementById("giftsControl-G"+giftid);
+        var loadingImage = document.getElementById("imgLoading"+giftid);
+        loadingImage.style.display = 'block';
+           
+       
+        var myDiv = document.getElementById("giftsControl-G"+giftid);
        // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
        
         enventid_array.push(eventid);
            
 
-    passed_data={"giftid":giftid,"events":enventid_array};
+        passed_data={"giftid":giftid,"events":enventid_array};
 
 
         jQuery.ajax({
@@ -1241,7 +1259,7 @@ complete: function (response) {
         complete: function (response) {
          
             console.log(response.responseText); 
-           
+            loadingImage.style.display = 'none';
            
             var newHTML = response.responseText;    
           //  alert(newHTML);
@@ -1261,7 +1279,7 @@ complete: function (response) {
             // Remove the <li> element from the <ul>
             if (listItemToRemove) {
                 myList.removeChild(listItemToRemove);
-                for (var i = 1; i <= numPages; i++) {
+                for (var i = 1; i <= newnumPages; i++) {
 
 if (i ==1){activ=" active ";}else{activ="  ";}
 //var myPagination = document.getElementById('pagination');
@@ -1279,7 +1297,8 @@ if (myLink) {
           
 
 
-icsGeneratePagination("#newpagination",CurrentPage);     
+//icsGeneratePagination("#newpagination",CurrentPage);   
+icsGeneratePagination("#newpagination",1);     
       icsGotoPage(1);
             }
              }
