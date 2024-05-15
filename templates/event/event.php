@@ -743,6 +743,9 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                     if ($result->is_active==1){$checked=" checked";} ;
                     echo $checked?>>  
                   </div>
+                  <div  ID="updateEventLoading" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
                 </div>
 					   
 
@@ -1154,7 +1157,7 @@ function icsGotoPageEvent(pageNumber) {
        // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
         imgAddGiftLoading = document.getElementById("imgAddGiftLoading"+giftid);
         imgAddGiftLoading.style.display = 'block';
-
+        updateEventLoading
         
         enventid_array.push(eventid);
            
@@ -1191,7 +1194,9 @@ function icsGotoPageEvent(pageNumber) {
 
   function update_event(eventid){
  
- 
+    updateEventLoading = document.getElementById("updateEventLoading");
+    updateEventLoading.style.display = 'block';
+      
     passed_data={"event":eventid,      
       "title":document.getElementById('event_title').value,
       "start_date":document.getElementById('start_datetime').value,
@@ -1217,6 +1222,7 @@ data: {
 complete: function (response) {
  
     console.log(response.responseText);
+    updateEventLoading.style.display = 'none';
     window.location.reload();
   //  alert(newHTML);
   //alert(enventid_array[0]);
