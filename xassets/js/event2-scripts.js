@@ -609,7 +609,10 @@ $(document).ready(function(){
 }
 
 function add_to_event(giftid,eventid){
+  
        // var strDivName= 'EventsofGift' + giftid;
+       var loadingImage = document.getElementById("imgLoading"+giftid);
+        loadingImage.style.display = 'block';
         var enventid_array = [];
      
         var myDiv = document.getElementById("giftsControl-G"+giftid);
@@ -632,12 +635,13 @@ function add_to_event(giftid,eventid){
         complete: function (response) {
            
             console.log(response.responseText);
-            var newHTML = response.responseText;    
-          //  alert(newHTML);
+            var newHTML = response.responseText;
+            loadingImage.style.display = 'none';    
+           
 //alert(enventid_array[0]);
              // Append HTML content to the div
              myDiv.innerHTML ='<button onclick="remove_from_event('+ giftid +','+ eventid+')">Remove</button>';
-            
+             
         },
     });
 
@@ -647,7 +651,8 @@ function add_to_event(giftid,eventid){
   function remove_from_event(giftid,eventid,wishlistid=0){
        // var strDivName= 'EventsofGift' + giftid;
         var enventid_array = [];
-  
+        var loadingImage = document.getElementById("imgLoading"+giftid);
+        loadingImage.style.display = 'block';
        var myDiv = document.getElementById("giftsControl-G"+giftid);
        // myDiv.innerHTML = myDiv.innerHTML + "<img width=\'200px\' src='.$this->plugin_url.'assets/images/loading_icon.gif\'>";
        
@@ -707,6 +712,7 @@ if (myLink) {
 wl_paging(CurrentPage);
             }
              }
+             loadingImage.style.display = 'none';
         },
     });
 

@@ -98,7 +98,11 @@
             <li id="li<?php echo $gift->event_gift_id?>" class="list-group-item">
               <img width="65px" src="<?php echo $gift->img_url?>" ?>
               <?php  echo $this->trim_and_add_dots($gift->title,60) ?>
+              <div  ID="imgLoading<?php echo $gift->id;?>" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
               <div id="giftsControl-G<?php echo $gift->id?>" style="float:right;">  
+            
                 <button  onclick="add_to_event(<?php echo $gift->id ?>,<?php echo   $this->eventid ?>)">Add</button>
               </div>
             </li>
