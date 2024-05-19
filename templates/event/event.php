@@ -236,6 +236,48 @@
     border-radius: 0.25rem; /* Rounded corners */
 }
 
+
+
+div.img img {max-width:100%;}
+div.img{
+  margin: 5px 5px 5px 5px;
+  padding:5px;
+  box-sizing:border-box;
+  /*background:#f1f1f1;*/
+  line-height:0px;
+  height: auto;
+  /* width: 20%;
+  float: left;*/
+  text-align: center;
+  -webkit-transition:all 0.5s ease;
+  -moz-transition:all 0.5s ease; 
+  -o-transition:all 0.5s ease; 
+  transition:all 0.5s ease;
+  border-radius:4px;
+ /* border-style:solid;*/
+  border:2px solid;
+}	
+
+div.img img
+{
+  display: inline-block;
+  /*margin: 3px*/;
+}
+
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.grid-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 </style>
 
 <!-- TODO remove gift from event didnt refresh paging correctly -->
@@ -290,7 +332,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 <div class="row">
 <div class="col-md-7 mb-4">
   
-  <img data-image="red" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
+  <img data-image="red" id="eventImage" class="active single-event-img" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>" alt="">
   
   <?php if ($isCurrentUser) :?>
     <button class="xbutton choose-image-button" data-toggle="modal" data-target="#imageModal"><i class="fas fa-edit"></i></button>
@@ -633,17 +675,58 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                         <span class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
                         </h5>
                 </div>
-                
+                <img class="imageDisplay-padding imageDisplay-border" id="imageDisplay" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>"  width="100px"> 
+
+            
+
+
+
                 <form id="file-upload-form" method="post" enctype="multipart/form-data">
+                <input type ="hidden" id="imageDisplaytext" name="imageDisplaytext" >    
                 <div class="modal-body">
+
+                
+                 
+                    <div class="grid-container">
+                      <?php 
+                        $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                        $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
+                    
+                        // Get all files in the directory
+                        $files = glob($directory . "*.{jpgics}", GLOB_BRACE);
+                    
+                        // Loop through each file and display them
+                        $divCount=1;
+                        foreach ($files as $file) {
+                          $fileName = basename($file);
+                            //echo  $fileName ;
+                            echo 
+                            '<div class="img"   id="mgDiv'.$divCount .'" >
+                            <img onclick="selectImage(\''. $fileName .'\',\'' . $directory_url.'\');" src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />
+                            </div>';
+                            $divCount++;
+                            //echo '<img src="' .  $directory_url . $fileName . '" alt="' . $fileName . '" />';
+                        }
+
+
+                      ?>
+                    </div>
                    
-                    <input type="file" id="newImageInput" name="newImageInput" class="form-control-file">
-                    <input type="hidden" name="action" value="handle_file_upload">
-                    <input type="hidden" name="event_id" value="<?php echo  $result->id ?>">
+                  <div class="col-md-12"> 
+                  <div  ID="uploadImgLoading" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
+                      <input type="file" onchange="imageModalFileUploadChange();" id="newImageInput" name="newImageInput" class="form-control-file">
+                      <input type="hidden" name="action" value="handle_file_upload">
+                      <input type="hidden" name="event_id" value="<?php echo  $result->id ?>">
+
+                  
                 </div>
+
+              
                 <div class="modal-footer">
                     <input type="submit"  class="btn btn-primary" name="submit" value="Upload File and save">                   
-                   <!-- <button type="button" class="btn btn-primary" id="applyImageButton">Apply Image</button>-->
+                    <!--<button type="button"  class="btn btn-primary" id="applyImageButton">Apply Image</button>-->
                 </div> 
                 </form>
 
@@ -1032,7 +1115,10 @@ function icsGotoPageEvent(pageNumber) {
     $('#file-upload-form').submit(function(e) {
         e.preventDefault();
         var formData = new FormData($(this)[0]);
-
+        var uploadImgLoading = document.getElementById("uploadImgLoading");
+        uploadImgLoading.style.display = 'block';
+		
+		
         $.ajax({
         
             url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
@@ -1045,6 +1131,7 @@ function icsGotoPageEvent(pageNumber) {
             success: function(response) {
                 // Handle success response
                 console.log(response.data);
+                uploadImgLoading.style.display = 'none';
                 location.reload();
             },
             error: function(xhr, textStatus, errorThrown) {
@@ -1315,7 +1402,7 @@ icsGeneratePagination("#newpagination",1);
   }
 
 </script>
-
+<script src="<?php echo $this->plugin_url ?>/xassets/js/newEventForm-scripts.js"></script>
 
 <!-- Link Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

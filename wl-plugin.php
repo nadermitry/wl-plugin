@@ -441,8 +441,30 @@ add_action('wp_ajax_nopriv_handle_file_upload', 'handle_file_upload'); // Allow 
 
 function handle_file_upload() {
     // Check if file was uploaded
-    if(isset($_FILES['newImageInput'])) {
-        $file = $_FILES['newImageInput'];
+    if(isset($_FILES['newImageInput'])) {  
+
+   $imageDisplaytext= sanitize_text_field($_POST['imageDisplaytext']); 
+
+  
+	if ($imageDisplaytext !=""){
+		$filename =$imageDisplaytext;
+	
+	    
+			global $wpdb; 
+			$table_name = $wpdb->prefix . 'events'; 
+			$where_condition = array('id' =>$_POST['event_id']);
+			$updateData = array('event_image' => $filename);
+			$wpdb->update($table_name, $updateData, $where_condition);             
+		
+		wp_send_json_success('File uploaded successfully');		
+	} 
+	else{
+
+
+
+		
+		
+		$file = $_FILES['newImageInput'];
         
         // Check for errors
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -469,6 +491,7 @@ function handle_file_upload() {
        } else {
             wp_send_json_error('Error moving file to destination');
        }
+	}
 
     } else {
         wp_send_json_error('No file uploaded');
@@ -493,7 +516,8 @@ function wl_ajax_save_event() {
 
 	if(isset($_FILES['event_image'])) {
 
-		if ($imageDisplaytext !=""){$filename =$imageDisplaytext;} else{
+		if ($imageDisplaytext !=""){$filename =$imageDisplaytext;} 
+		else{
 
         $file = $_FILES['event_image'];
         

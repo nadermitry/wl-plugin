@@ -614,7 +614,12 @@ function fileUploadOnChange(){
 	imageDisplaytext.value='';
 	//;
 	//fileInput.files[0] = imgpath;
-	imageDisplay.src=''
+	imageDisplay.src='';
 
 }
 
+function imageModalFileUploadChange(){
+	fileUploadOnChange();
+	alert('ffff');
+
+}
