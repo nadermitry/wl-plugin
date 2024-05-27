@@ -1,4 +1,4 @@
-
+alert('gggggggggggggggggggggg');
 function scroll_to_class(element_class, removed_height) {
 	var scroll_to = $(element_class).offset().top - removed_height;
 	if($(window).scrollTop() != scroll_to) {
@@ -376,73 +376,7 @@ jQuery(document).ready(function() {
 
 
 
-const dropContainer = document.getElementById("dropcontainer")
-const fileInput = document.getElementById("event_image")
 
-dropContainer.addEventListener("dragover", (e) => {
-  // prevent default to allow drop
-  e.preventDefault()
-}, false)
-
-dropContainer.addEventListener("dragenter", () => {
-  dropContainer.classList.add("drag-active")
-})
-
-dropContainer.addEventListener("dragleave", () => {
-  dropContainer.classList.remove("drag-active")
-})
-
-dropContainer.addEventListener("drop", (e) => {
-  e.preventDefault()
-  handleDrop(e)
-
-  dropContainer.classList.remove("drag-active")
-  fileInput.files = e.dataTransfer.files
-  
-})
-
-
-
-function handleDrop(event) {
-    event.preventDefault(); // Prevent default behavior (opening as link for some elements)
-
-    if (event.dataTransfer.items) {
-        // Use DataTransferItemList interface to access the file(s)
-        for (var i = 0; i < event.dataTransfer.items.length; i++) {
-			
-            // If dropped items aren't files, reject them
-            if (event.dataTransfer.items[i].kind === 'file') {
-                var file = event.dataTransfer.items[i].getAsFile();
-               
-                // Check if the dropped file is an image
-                if (!file.type.match('image.*')) {
-                    console.log('Dropped file is not an image.');
-                    return;
-                }
-
-                // Display the dropped image
-                displayImage(file);
-            }
-        }
-    } else {
-        // Use DataTransfer interface to access the file(s)
-        for (var i = 0; i < event.dataTransfer.files.length; i++) {
-            // If dropped items aren't files, reject them
-            if (event.dataTransfer.files[i].kind === 'file') {
-                var file = event.dataTransfer.files[i];
-
-                // Check if the dropped file is an image
-                if (!file.type.match('image.*')) {
-                    console.log('Dropped file is not an image.');
-                    return;
-                }
-
-                // Display the dropped image
-                displayImage(file);
-            }
-        }
-    }
-}
 
 
 // Function to display the dropped image in the img tag
@@ -728,6 +662,7 @@ function showPage(page) {
     }
 
 function wl_paging(parPage=1){
+    alert('dddd');
     listItems = $("#list").children();
     numItems = listItems.length;
     var numPages = Math.ceil(numItems / itemsPerPage);
