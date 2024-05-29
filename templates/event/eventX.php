@@ -637,17 +637,7 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
                 </div>
                 <img class="imageDisplay-padding imageDisplay-border" id="imageDisplay" src="<?php echo plugin_dir_url( dirname( __FILE__, 2 ) ) .'/assets/images/events/'. $result->event_image;  ?>"  width="100px"> 
 
-            
-
-
-
-                <form id="file-upload-form" method="post" enctype="multipart/form-data">
-                <input type ="hidden" id="imageDisplaytext" name="imageDisplaytext" >    
-                <div class="modal-body">
-
-                
-                 
-                    <div class="grid-container">
+                <div class="grid-container" style="float:left;">
                       <?php 
                         $directory = plugin_dir_path( dirname( __FILE__, 2 ) ) . "assets/images/events/";
                         $directory_url = plugin_dir_url( dirname( __FILE__, 2 ) ) . "assets/images/events/";
@@ -671,22 +661,35 @@ $end_time = $endDateTime->format('h:i A'); // Time in 'HH:MM:SS' format
 
                       ?>
                     </div>
+
+
+
+                <form id="file-upload-form" method="post" enctype="multipart/form-data">
+                <input type ="hidden" id="imageDisplaytext" name="imageDisplaytext" >    
+                <div class="modal-body">
+
+                
+                 
+                 
                    
                   <div class="col-md-12"> 
-                  <div  ID="uploadImgLoading" style="display:none;">
-              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
-            </div>
+                    <div  ID="uploadImgLoading" style="display:none;">
+                      <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+                   </div>
                       <input type="file" onchange="imageModalFileUploadChange();" id="newImageInput" name="newImageInput" class="form-control-file">
                       <input type="hidden" name="action" value="handle_file_upload">
                       <input type="hidden" name="event_id" value="<?php echo  $result->id ?>">
 
                   
-                </div>
+                  </div>
 
               
                 <div class="modal-footer">
+                <div  ID="imgUploadLoading<?php echo $gift->id;?>" style="display:none;">
+              <img   src='<?php echo $this->plugin_url.'/assets/images/loading_icon.gif'; ?>'>
+            </div>
                     <input type="submit"  class="btn btn-primary" name="submit" value="Upload File and save">                   
-                    <button type="button"  class="btn btn-primary" id="applyImageButton">Apply Image</button>
+                   <!-- <button type="button"  class="btn btn-primary" id="applyImageButton">Apply Image</button>-->
                 </div> 
                 </form>
 
@@ -1072,7 +1075,8 @@ function icsGotoPageEvent(pageNumber) {
     $('#file-upload-form').submit(function(e) {
         e.preventDefault();
         var formData = new FormData($(this)[0]);
-
+        uploadImgLoading = document.getElementById("uploadImgLoading");
+        uploadImgLoading.style.display = 'block';
         $.ajax({
         
             url: `${window.location.origin}/wp-admin/admin-ajax.php`, // WordPress AJAX URL
@@ -1085,6 +1089,7 @@ function icsGotoPageEvent(pageNumber) {
             success: function(response) {
                 // Handle success response
                 console.log(response.data);
+                
                 location.reload();
             },
             error: function(xhr, textStatus, errorThrown) {
